@@ -1,0 +1,311 @@
+.configurationAndGame {
+  @apply relative mt-16 mx-auto gap-x-6;
+  @apply flex justify-center;
+  @apply w-[1080px];
+}
+
+.configurationAndGame {
+  @apply md:pl-[42px]; /* this is to account for the space taken up by the controls */
+}
+
+.game {
+  @apply grid;
+  /* @apply mx-auto; */
+  /* @apply w-2/3; */
+  grid-template-rows: repeat(auto-fill, minmax(26px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
+  @apply mt-4;
+}
+
+.button {
+  @apply text-[18px];
+}
+
+.timerAndRefresh {
+  @apply relative;
+}
+
+.timer {
+  @apply w-full;
+  @apply flex items-center;
+  @apply gap-x-2;
+}
+
+.timerText {
+  @apply text-base;
+}
+
+.reload {
+  @apply h-[24px] w-[24px];
+  @apply flex items-center;
+  @apply text-xl;
+  @apply mt-4;
+}
+
+.reloadIcon {
+  @apply mx-auto;
+  @apply ml-[-2px];
+}
+
+.timer {
+  @apply text-[28px];
+  @apply text-center;
+}
+
+.controls {
+  @apply fixed;
+  @apply w-[300px];
+  @apply top-[50px] left-4;
+}
+
+.configuration {
+  @apply mt-2;
+}
+
+.configurationButton {
+  @apply border border-black;
+  @apply mb-3 px-2 py-[1px];
+  @apply text-left text-sm;
+}
+
+.configurationLabel {
+  @apply text-sm;
+}
+
+.configurationLabel::before {
+  content: '##';
+  @apply text-sm;
+  @apply mr-1;
+}
+
+.presetButtons, .difficultyButtons, .themeButtons {
+  @apply mt-2;
+  @apply w-full;
+  @apply flex flex-wrap;
+  @apply gap-x-2;
+}
+
+.configurationButton.selected {
+  @apply bg-[#fee3ff];
+}
+
+.legend {
+  @apply fixed right-8;
+}
+
+.legendButton {
+  @apply border border-black;
+  @apply text-sm;
+  @apply px-2 py-[1px];
+}
+
+.legendBox {
+  @apply text-right;
+  @apply mt-2;
+}
+
+.gameOverContainer {
+  @apply absolute;
+  @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)] lg:left-[50%];
+}
+
+.easy {
+  .gameOverContainer {
+    @apply lg:ml-[200px];
+  }
+}
+
+.intermediate {
+  .gameOverContainer {
+    @apply lg:ml-[300px];
+  }
+}
+
+.advanced {
+  .gameOverContainer {
+    @apply lg:ml-[400px];
+  }
+}
+
+.gameOverLabel {
+  @apply font-bold;
+}
+
+.gameOverCursor {
+  @apply opacity-100;
+  @apply inline-block;
+}
+
+.cursorOff {
+  @apply opacity-0;
+}
+
+.gameOver {
+  @apply text-[14px];
+  @apply border border-black;
+  @apply px-3 py-[6px];
+}
+
+.gameOver.short {
+  @apply max-w-[100px];
+}
+
+.gameOver.medium {
+  @apply min-w-[100px];
+  @apply max-w-[150px];
+}
+
+.gameOver.long {
+  @apply min-w-[150px];
+  @apply max-w-[200px];
+}
+
+.gameOver.extraLong {
+  @apply w-[360px];
+}
+
+.gameOverText {
+}
+
+.unclicked {
+  @apply border-[3px] border-white;
+  @apply bg-[#ededed];
+  border-style: outset;
+  line-height: 27px;
+}
+
+.clicked {
+  @apply outline-[1px] outline-[#c1c1c1];
+  @apply bg-[#f0f0f0];
+  outline-style: solid;
+  line-height: 27px;
+}
+
+.fruits {
+  .unclicked {
+    @apply bg-[#f0f0f0];
+  }
+
+  .clicked {
+    @apply bg-[#f7f7f7];
+    @apply outline-[#d2d2d2];
+  }
+}
+
+.simple {
+  @apply outline outline-[#a1a1a1];
+  outline-offset: 0;
+
+  .unclicked {
+    @apply border-0 outline outline-[#e6e6e6];
+    @apply bg-white;
+  }
+
+  .clicked {
+    @apply bg-white;
+    @apply outline-[#e6e6e6];
+  }  
+}
+
+.dark {
+  .unclicked {
+    @apply bg-[#222222];
+    @apply border-[#1e1e1e];
+  }
+
+  .clicked {
+    @apply text-white;
+    @apply bg-[#525252];
+    @apply outline-[#303030];
+  }
+}
+
+.dreamlike {
+  .unclicked {
+    @apply bg-[#e6f9ff];
+    @apply border-0 outline outline-[#cff3ff];
+  }
+
+  .clicked {
+    @apply text-[#291322];
+    @apply bg-[#cff3ff];
+    @apply outline-[#e6f9ff];
+  }
+}
+
+.compiler.dark {
+  .clicked {
+    @apply text-black;
+  }
+}
+
+.fruits.dreamlike,
+.compiler.dreamlike {
+  .clicked {
+    @apply text-[#291322];
+  }
+}
+
+.fruits.pink,
+.compiler.pink {
+  .clicked {
+    @apply text-[#181924];
+  }
+}
+
+.fruits.green,
+.compiler.green {
+  .clicked {
+    @apply text-[#525c4a];
+  }
+}
+
+.pink {
+  .unclicked {
+    @apply bg-[#ffe6fb];
+    @apply border-0 outline outline-[#fcf2fb];
+  }
+
+  .clicked {
+    @apply text-[#181924];
+    @apply bg-[#ffc9f6];
+    @apply outline-[#fab4ee];
+  }
+}
+
+.green {
+  .unclicked {
+    @apply bg-[#dfffcc];
+    @apply border-0 outline outline-[#d4f5bf];
+  }
+
+  .clicked {
+    @apply text-[#525c4a];
+    @apply bg-[#beff99];
+    @apply outline-[#c9f2ae];
+  }
+}
+
+.standard {
+  .1 {
+    @apply text-[#4759fc];
+  }
+  .2 {
+    @apply text-[#259c51];
+  }
+  .3 {
+    @apply text-[#ff2b2b];
+  }
+  .4 {
+    @apply text-[#080854];
+  }
+  .mine {
+    @apply text-black;
+  }
+}
+
+.standard.simple {
+  .clicked {
+    @apply bg-[#ebebeb];
+  }
+}

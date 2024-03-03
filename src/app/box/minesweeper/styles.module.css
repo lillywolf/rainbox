@@ -1,0 +1,32 @@
+.gameContainer {
+  @apply mx-auto w-full;
+}
+
+.header {
+  @apply fixed top-0;
+  @apply z-10;
+  @apply flex w-full items-center justify-between;
+  @apply h-[30px];
+  @apply bg-white;
+  @apply border border-b-black border-t-0; 
+}
+
+.title {
+  @apply mr-4;
+  @apply text-lg content-end;
+}
+
+.site {
+  @apply ml-4;
+  @apply text-left text-lg;
+}
+
+.tagline {
+  @apply text-xs;
+}
+
+.footer {
+  @apply fixed bottom-4 right-4;
+  @apply text-right text-sm;
+  @apply bg-white;
+}

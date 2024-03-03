@@ -1,0 +1,8 @@
+.form {
+  font-family: var(--font-roboto);
+  font-weight: 200;
+}
+
+.symbol {
+  @apply inline-block;
+}

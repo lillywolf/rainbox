@@ -1,0 +1,21 @@
+.header {
+    @apply text-center;
+    @apply my-8;
+}
+
+.formResult {
+    @apply max-w-[500px];
+    @apply mx-auto;
+    @apply my-16;
+}
+
+.rules {
+    @apply w-fit;
+    @apply max-w-[500px];
+    @apply mx-auto;
+}
+
+.rule,
+.ruleHeader {
+    @apply block;
+}

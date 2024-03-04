@@ -291,7 +291,6 @@ const MobileControls = ({
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
         <MobileMenu difficulty={difficulty} selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
       </ErrorBoundary>
-      <MobileFooter />
     </div>
   );
 }

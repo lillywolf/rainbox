@@ -49,7 +49,7 @@ export const DIFFICULTY_CONFIGS: Record<string, {id: string, difficulty: Difficu
   [DIFFICULTY_CONFIG.easy.toString()]: {
     id: 'easy',
     difficulty: DIFFICULTY_CONFIG.easy,
-    dimension: 5,
+    dimension: 8,
     name: 'easy'
   },
   [DIFFICULTY_CONFIG.intermediate.toString()]: {

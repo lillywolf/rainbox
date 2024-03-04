@@ -631,7 +631,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',
       'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
       'entropy is a bitch',
-      'he might be a degenerate and he might not',
+      // 'he might be a degenerate and he might not',
     ],
     wingame: [
     ],

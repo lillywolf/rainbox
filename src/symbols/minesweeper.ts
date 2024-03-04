@@ -483,7 +483,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'fruits': {
     id: 'fruits',
     text: 'random fruits 🍋',
-    endgameLabel: '✹ game over',
+    // endgameLabel: '✹ game over',
     endgame: [
       'hi',
       'i miss you',

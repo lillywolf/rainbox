@@ -574,7 +574,7 @@ const MobileTimerAndRefresh = ({
         <Image className={styles.reloadIcon} src='/reload.svg' alt='reload game' width={24} height={24} />
       </button>
       <div className={classnames([styles.timer])}>
-        <span className={styles.timeIcon}>⏱</span>
+        <span className={styles.timeIcon}>⏳</span>
         <span className={styles.timerText}>
           <Timer ref={timerRef} />
         </span>

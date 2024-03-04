@@ -1,5 +1,3 @@
-import FruitsForm from '@/components/fruits-form';
-
 import styles from './fruits.module.css';
 
 export default function Fruits() {

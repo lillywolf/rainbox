@@ -419,6 +419,7 @@
   .clicked {
     @apply text-white;
     @apply bg-[#525252];
+    @apply border-0;
     @apply outline outline-[#303030];
     outline-style: solid;
     outline-offset: 0;

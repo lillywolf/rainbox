@@ -775,7 +775,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'keep your eyes open for betrayal. it could come from anywhere',
       'you are practical and persistent. this has not really helped you in any way, as you never remember your mistakes. fortunately, you won\'t be making any more of them',
       'horus, the lord of hell, is the number one most powerful being in the universe. he says hey',
-      'the rising moon on the tipped axis of uranus says you were once born, and at some point in the next few days or weeks you will meet someone else who was once born. also, you\'re dead',
+      'the rising moon on the tipped axis of uranus says you were once born, and at some point in the next few days or weeks you will meet someone else who was once born.',
       'as the leaves begin to change, think carefully about the changes you want to make in your own life. maybe a new hat',
       'according to your star chart, you were conceived during the daytime or possibly the nighttime',
       'the luminous header chiron is in the tenth house of the rising moon, which would have been great for you if you were still alive',

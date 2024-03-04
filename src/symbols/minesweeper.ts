@@ -571,7 +571,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'loss': {
     id: 'loss',
     // text: 'alexei, do you know what despair is?',
-    text: 'being sad',
+    text: 'don\'t cry',
     // endgameLabel: '𓇢𓆸',
     endgame: [
       'sometimes human beings have to just sit in one place and, like, hurt',

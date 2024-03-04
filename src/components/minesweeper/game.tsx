@@ -346,14 +346,14 @@ const GameOverMobile = ({ configuration, playCount, timerRef }: { configuration:
 
   return (
     <div className={styles.gameOverContainer}>
-      <div className={styles.stats}>
-        {configuration.endgameLabel ? (
+      {configuration.endgameLabel ? (
+        <div className={styles.stats}>(
           <div className={styles.gameOverLabel}>
             {configuration.endgameLabel}
-            {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : ''}
+            {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : null}
           </div>
-        ) : ''}
-      </div>
+        </div>
+      ) : ''}
       <div className={styles.gameOver}>
         <div className={styles.gameOverText}>
           {configuration.endgamePrefix ? <span className={styles.gameOverPrefix}>{configuration.endgamePrefix}</span> : ''}

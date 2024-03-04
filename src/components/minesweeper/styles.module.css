@@ -266,8 +266,11 @@
     @apply text-sm text-center mx-8 mb-32;
   }
 
+  .stats {
+    @apply mb-4;
+  }
+
   .gameOver {
-    @apply mt-4;
     @apply text-xs;
   }
 }

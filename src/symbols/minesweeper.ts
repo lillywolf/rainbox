@@ -685,7 +685,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'the user interface cannot be displayed because the system is in a dark wake state',
       'transaction is rejected',
       'an invalid context was detected',
-      'the trust settings record is corrupted',
+      'the trust settings are corrupted',
       'the quota was exceeded',
       'self-check failed',
       'the request is lost',

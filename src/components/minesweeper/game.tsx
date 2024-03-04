@@ -18,7 +18,7 @@ type GridProps = {
   configuration: MinesweeperConfig;
   difficulty: DifficultyConfig;
   theme: ThemeConfig;
-  timerRef: RefObject<{ reset: () => void, stop: () => void }>
+  timerRef: TimerRef;
   onGameOver: () => void
 };
 
@@ -28,6 +28,9 @@ type MinesweeperButtonProps = {
   configuration: MinesweeperConfig;
   isGameOver: boolean;
 };
+
+type TimerHandle = { reset: () => void, stop: () => void, getTime: () => number };
+type TimerRef = RefObject<TimerHandle>;
 
 function getSymbol(s: Symbol, tile: Tile) {
   if (typeof s.text === 'string') return s.text;
@@ -54,7 +57,7 @@ function MinesweeperButton({
   configuration,
   isGameOver
 }: MinesweeperButtonProps) {
-  const cx = classnames([styles.button, styles[tile.metadata.count.toString()], {
+  const cx = classnames([styles.tile, styles[tile.metadata.count.toString()], {
     [styles.unclicked]: Boolean(!tile.metadata.clicked),
     [styles.clicked]: Boolean(tile.metadata.clicked),
     [styles.empty]: tile.metadata.count === 0,
@@ -147,7 +150,7 @@ const initializeGrid = ({ difficulty }: { difficulty: DIFFICULTY_CONFIG }) => {
 
 export default function Game({
   difficultyDefault = DIFFICULTY_CONFIG.intermediate,
-  themeDefault = THEME_CONFIG.simple
+  themeDefault = THEME_CONFIG.simple,
 }: {
   difficultyDefault: DifficultyConfig,
   themeDefault: ThemeConfig
@@ -158,19 +161,17 @@ export default function Game({
   const [playCount, setPlayCount] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const timerRef = useRef<{ reset: () => void, stop: () => void }>(null);
+  const timerRef = useRef<TimerHandle>(null);
   const gridRef = useRef<SquareGrid | null>(null);
   const gridComponentRef = useRef<{ isGameOver: () => boolean }>(null);
 
   const onGameOver = () => {
     timerRef.current?.stop();
-    console.log(">>> game is over");
     setIsGameOver(true);
   };
 
   useEffect(() => {
     setIsGameOver(false);
-    console.log(">>> game is started");
     gridRef.current = initializeGrid({ difficulty });
     timerRef.current?.reset();
     setPlayCount((p) => p + 1);
@@ -197,80 +198,94 @@ export default function Game({
   }]);
 
   return (
-    <div className={cx}>
-      <div className={styles.controls}>
-        <ErrorBoundary fallback={<p>an error has occurred!</p>}>
-          <div className={classnames([styles.configuration, styles.presets])}>
-            <div className={styles.configurationLabel}>
-              presets
-            </div>
-            <div className={styles.presetButtons}>
-              {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ]) => (
-                <button className={classnames([styles.configurationButton, {[styles.selected]: configuration.id === key}])} key={key} onClick={() => selectConfiguration(key)}>
-                  {Array.isArray(value.text) ? value.text[Math.floor(Math.random() * value.text.length)] : value.text}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className={classnames([styles.configuration, styles.difficulty])}>
-            <div className={styles.configurationLabel}>
-              difficulty
-            </div>
-            <div className={styles.difficultyButtons}>
-              {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
-                <button className={styles.configurationButton} key={key} onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}>
-                  {DIFFICULTY_CONFIGS[key].name}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className={classnames([styles.configuration, styles.theme])}>
-            <div className={styles.configurationLabel}>
-              theme
-            </div>
-            <div className={styles.themeButtons}>
-              {Object.keys(THEME_CONFIGS).map((key) => (
-                <button className={styles.configurationButton} key={key} onClick={() => selectTheme(THEME_CONFIGS[key])}>
-                  {THEME_CONFIGS[key]}
-                </button>
-              ))}
-            </div>
-          </div>
-        </ErrorBoundary>
-      </div>
-      {gridRef.current && (
-        <Grid
-          grid={gridRef.current}
+    <div className={classnames([styles.container, {[styles.isGameOver]: isGameOver}])}>
+      <div className={cx}>
+        <MobilePresets configuration={configuration} selectConfiguration={selectConfiguration} />
+        <DesktopControls
           configuration={configuration}
-          difficulty={difficulty}
-          theme={theme}
-          timerRef={timerRef}
-          ref={gridComponentRef}
-          onGameOver={onGameOver}
+          selectConfiguration={selectConfiguration}
+          selectDifficulty={selectDifficulty}
+          selectTheme={selectTheme}
         />
-      )}
-      <div className={styles.timerAndRefresh}>
-        <button className={classnames([styles.button, styles.reload])} onClick={() => selectConfiguration(configuration.id)}>
-          <Image className={styles.reloadIcon} src='/reload.svg' alt='reload game' width={24} height={24} />
-        </button>
-        <div className={classnames([styles.button, styles.timer])}>
-          <span className={styles.timeIcon}>⏱</span>
-          <span className={styles.timerText}>
-            <Timer ref={timerRef} />
-          </span>
-        </div>
-        {isGameOver ? <GameOver configuration={configuration} playCount={playCount} /> : '' }
-     </div>
-      <Legend configuration={configuration} />
+        {difficulty !== DIFFICULTY_CONFIG.advanced_mobile && <MobileLegend configuration={configuration} />}
+        <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={timerRef} />
+        {gridRef.current && (
+          <Grid
+            grid={gridRef.current}
+            configuration={configuration}
+            difficulty={difficulty}
+            theme={theme}
+            timerRef={timerRef}
+            ref={gridComponentRef}
+            onGameOver={onGameOver}
+          />
+        )}
+        <MobileGameOver
+          configuration={configuration}
+          isGameOver={isGameOver}
+          timerRef={timerRef}
+          playCount={playCount}
+        />
+        <DesktopResults
+          configuration={configuration}
+          selectConfiguration={selectConfiguration}
+          isGameOver={isGameOver}
+          timerRef={timerRef}
+          playCount={playCount}
+        />
+        <DesktopLegend configuration={configuration} />
+        <MobileControls
+          selectDifficulty={selectDifficulty}
+          selectTheme={selectTheme}
+        />
+      </div>
     </div>
   );
 }
 
-const GameOver = ({ configuration, playCount }: { configuration: MinesweeperConfig, playCount: number }) => {
+const MobileControls = ({
+  selectDifficulty,
+  selectTheme
+}: {
+  selectDifficulty: (difficuly: DifficultyConfig) => void,
+  selectTheme: (theme: ThemeConfig) => void,
+}) => {
+  return (
+    <div className={classnames([styles.mobile, styles.controls])}>
+      <ErrorBoundary fallback={<p>an error has occurred!</p>}>
+        <MobileMenu selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
+      </ErrorBoundary>
+    </div>
+  );
+}
+
+const DesktopControls = ({
+  configuration,
+  selectConfiguration,
+  selectDifficulty,
+  selectTheme
+}: {
+  configuration: MinesweeperConfig,
+  selectConfiguration: (configuration: string) => void,
+  selectDifficulty: (difficuly: DifficultyConfig) => void,
+  selectTheme: (theme: ThemeConfig) => void,
+}) => {
+  return (
+    <div className={classnames([styles.desktop, styles.controls])}>
+      <ErrorBoundary fallback={<p>an error has occurred!</p>}>
+        <DesktopPresets configuration={configuration} selectConfiguration={selectConfiguration} />
+        <DesktopMenu selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
+      </ErrorBoundary>
+    </div>
+  );
+}
+
+
+const GameOver = ({ configuration, playCount, timerRef }: { configuration: MinesweeperConfig, playCount: number, timerRef: TimerRef }) => {
   const [cursor, setCursor] = useState(false);
   const [message, setMessage] = useState('');
   
-  const timerRef = useRef<NodeJS.Timeout>();
+  const cursorRef = useRef<NodeJS.Timeout>();
   
   const cx = classnames([ styles.gameOver, {
     [styles.short]: message?.length < 20,
@@ -290,20 +305,31 @@ const GameOver = ({ configuration, playCount }: { configuration: MinesweeperConf
   useEffect(() => {
     if (configuration.id !== 'signal_loss') return;
 
-    timerRef.current = setInterval(() => {
+    cursorRef.current = setInterval(() => {
       setCursor(!cursor);
     }, 1000);
 
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(cursorRef.current);
   }, [cursor, configuration]);
+
+  const time = timerRef.current?.getTime();
 
   return (
     <div className={styles.gameOverContainer}>
+      <div className={styles.stats}>
+        {configuration.endgameLabel ? (
+          <div className={styles.gameOverLabel}>
+            {configuration.endgameLabel}
+            {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : ''}
+          </div>
+        ) : ''}
+        {time && <div className={styles.time}>
+          <span>time: </span>{new Date(time * 10).toISOString().slice(11, 22)}
+        </div>}
+      </div>
       <div className={cx}>
-        {configuration.endgameLabel ? (<div className={styles.gameOverLabel}>{configuration.endgameLabel}</div>) : ''}
         <div className={styles.gameOverText}>
           {configuration.endgamePrefix ? <span className={styles.gameOverPrefix}>{configuration.endgamePrefix}</span> : ''}
-          {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : ''}
           {message}
         </div>
       </div>
@@ -311,11 +337,57 @@ const GameOver = ({ configuration, playCount }: { configuration: MinesweeperConf
   );
 };
 
-const Legend = ({ configuration }: { configuration: MinesweeperConfig }) => {
-  const [showLegend, setShowLegend] = useState(false);
+const MobileLegend = ({ configuration }: { configuration: MinesweeperConfig }) => {
+  const [showLegend, setShowLegend] = useState(true);
 
   return (
-    <div className={styles.legend}>
+    <div className={classnames([styles.mobile, styles.legend])}>
+      {showLegend
+        ? (
+          <button
+            className={classnames([styles.button, styles.legendButton])}
+            onClick={() => setShowLegend(!showLegend)}
+          >
+            hide
+          </button>
+        ) : (
+          <button
+            className={classnames([styles.button, styles.legendButton])}
+            onClick={() => setShowLegend(!showLegend)}
+          >
+            show
+          </button>
+        )
+      }
+      {showLegend
+        ? (
+          <div className={styles.legendBox}>
+            {Object.entries(configuration.symbols).map(([key, symbol]) => ( 
+              key === 'empty' || key === '0'
+                ? null
+                : (
+                  <div key={key} className={styles.legendKey}>
+                    <span>
+                      {key === 'mine' ? 'x' : key}:
+                    </span>
+                    <span className={styles.legendSymbol}>
+                      {typeof symbol.text === 'string' ? symbol.text : symbol.text()}
+                    </span>
+                  </div>
+                )
+            ))}
+          </div>
+        ) : null
+      }
+    </div>
+  );
+};
+
+const DesktopLegend = ({ configuration }: { configuration: MinesweeperConfig }) => {
+  const [showLegend, setShowLegend] = useState(true);
+
+  return (
+    <div className={classnames([styles.desktop, styles.legend])}>
       {showLegend
         ? (
           <button
@@ -351,3 +423,178 @@ const Legend = ({ configuration }: { configuration: MinesweeperConfig }) => {
     </div>
   );
 };
+
+const MobileMenu = ({ selectDifficulty, selectTheme }: { selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
+  return (
+    <div className={styles.configurationsMobile}>
+      <div className={classnames([styles.configuration, styles.difficulty])}>
+        <div className={styles.difficultyButtons}>
+          {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
+            <button
+              className={classnames([styles.button, styles.configurationButton, styles[DIFFICULTY_CONFIGS[key].id]])}
+              key={key}
+              onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
+            >
+              {DIFFICULTY_CONFIGS[key].name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className={classnames([styles.configuration, styles.theme])}>
+        <div className={styles.themeButtons}>
+          {Object.keys(THEME_CONFIGS).map((key) => (
+            <button className={styles.themeButton} key={key} onClick={() => selectTheme(THEME_CONFIGS[key].id)}>
+              {THEME_CONFIGS[key].icon 
+                ? <span className={styles.themeIcon}>{THEME_CONFIGS[key].icon}</span>
+                : <span className={styles.themeText}>{THEME_CONFIGS[key].text}</span>
+              }
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const MobilePresets = ({ configuration, selectConfiguration }: { configuration: MinesweeperConfig, selectConfiguration: (configuration: string) => void }) => {
+  return (
+    <div className={classnames([styles.configuration, styles.presets, styles.mobile])}>
+      <div className={styles.presetButtons}>
+        {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ]) => (
+          <button
+            className={classnames([styles.button, styles.configurationButton, styles.presetButton, {[styles.selected]: configuration.id === key}, styles[configuration.id]])}
+            key={key}
+            onClick={() => selectConfiguration(key)}
+          >
+            {Array.isArray(value.text) ? value.text[Math.floor(Math.random() * value.text.length)] : value.text}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const DesktopMenu = ({ selectDifficulty, selectTheme }: { selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
+  return (
+    <div className={styles.configurationsDesktop}>
+      <div className={classnames([styles.configuration, styles.difficulty])}>
+        <div className={styles.configurationLabel}>
+          difficulty
+        </div>
+        <div className={styles.difficultyButtons}>
+          {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
+            <button className={classnames([styles.button, styles.configurationButton, styles.difficultyButton, styles[DIFFICULTY_CONFIGS[key].name]])} key={key} onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}>
+              {DIFFICULTY_CONFIGS[key].name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className={classnames([styles.configuration, styles.theme])}>
+        <div className={styles.configurationLabel}>
+          theme
+        </div>
+        <div className={styles.themeButtons}>
+          {Object.keys(THEME_CONFIGS).map((key) => (
+            <button className={classnames([styles.button, styles.themeButton, styles.configurationButton])} key={key} onClick={() => selectTheme(THEME_CONFIGS[key].id)}>
+              {THEME_CONFIGS[key].id}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const DesktopPresets = ({ configuration, selectConfiguration }: { configuration: MinesweeperConfig, selectConfiguration: (configuration: string) => void }) => {
+  return (
+    <div className={classnames([styles.configuration, styles.presets, styles.desktop])}>
+      <div className={styles.configurationLabel}>
+        presets
+      </div>
+      <div className={styles.presetButtons}>
+        {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ]) => (
+          <button
+            className={classnames([styles.button, styles.configurationButton, styles.presetButton, {[styles.selected]: configuration.id === key}, styles[configuration.id]])}
+            key={key}
+            onClick={() => selectConfiguration(key)}
+          >
+            {Array.isArray(value.text) ? value.text[Math.floor(Math.random() * value.text.length)] : value.text}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const MobileTimerAndRefresh = ({
+  configuration,
+  selectConfiguration,
+  timerRef,
+}: {
+  configuration: MinesweeperConfig,
+  selectConfiguration: (configuration: string) => void,
+  timerRef: TimerRef,
+}) => {
+  return (
+    <div className={classnames([styles.mobile, styles.timerAndRefresh])}>
+      <button className={classnames([styles.reload])} onClick={() => selectConfiguration(configuration.id)}>
+        <Image className={styles.reloadIcon} src='/reload.svg' alt='reload game' width={24} height={24} />
+      </button>
+      <div className={classnames([styles.timer])}>
+        <span className={styles.timeIcon}>⏱</span>
+        <span className={styles.timerText}>
+          <Timer ref={timerRef} />
+        </span>
+      </div>
+  </div>
+  );
+}
+
+const MobileGameOver = ({
+  configuration,
+  isGameOver,
+  playCount,
+  timerRef,
+}: {
+  configuration: MinesweeperConfig,
+  isGameOver: boolean,
+  playCount: number,
+  timerRef: TimerRef
+}) => {
+  return isGameOver 
+    ? (
+      <div className={classnames([styles.mobile, styles.results])}>
+        <GameOver configuration={configuration} playCount={playCount} timerRef={timerRef} /> 
+      </div>
+    )
+    : '';
+};
+
+const DesktopResults = ({
+  configuration,
+  selectConfiguration,
+  isGameOver,
+  timerRef,
+  playCount,
+}: {
+  configuration: MinesweeperConfig,
+  selectConfiguration: (configuration: string) => void,
+  isGameOver: boolean,
+  timerRef: TimerRef,
+  playCount: number,
+}) => {
+  return (
+    <div className={classnames([styles.desktop, styles.timerAndRefresh])}>
+      <button className={classnames([styles.reload])} onClick={() => selectConfiguration(configuration.id)}>
+        <Image className={styles.reloadIcon} src='/reload.svg' alt='reload game' width={24} height={24} />
+      </button>
+      <div className={classnames([styles.timer])}>
+        <span className={styles.timeIcon}>⏱</span>
+        <span className={styles.timerText}>
+          <Timer ref={timerRef} />
+        </span>
+      </div>
+      {isGameOver ? <GameOver configuration={configuration} playCount={playCount} timerRef={timerRef} /> : '' }
+  </div>
+  );
+}

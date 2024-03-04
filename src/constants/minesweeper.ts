@@ -11,36 +11,64 @@ export enum DIFFICULTY_CONFIG {
   'easy' = 1,
   'intermediate' = 2,
   'advanced' = 3,
-  'expert' = 4
+  'expert' = 4,
+  'advanced_mobile' = 5,
 };
 
 export type ThemeConfig = THEME_CONFIG.classic | THEME_CONFIG.simple | THEME_CONFIG.dark | THEME_CONFIG.dreamlike | THEME_CONFIG.green | THEME_CONFIG.pink;
 
-export type DifficultyConfig = DIFFICULTY_CONFIG.easy | DIFFICULTY_CONFIG.intermediate | DIFFICULTY_CONFIG.advanced | DIFFICULTY_CONFIG.expert;
+export type DifficultyConfig = DIFFICULTY_CONFIG.easy | DIFFICULTY_CONFIG.intermediate | DIFFICULTY_CONFIG.advanced | DIFFICULTY_CONFIG.expert | DIFFICULTY_CONFIG.advanced_mobile;
 
-export const THEME_CONFIGS: Record<string, ThemeConfig> = {
-  [THEME_CONFIG.classic]: THEME_CONFIG.classic,
-  [THEME_CONFIG.simple]: THEME_CONFIG.simple,
-  [THEME_CONFIG.dark]: THEME_CONFIG.dark,
-  [THEME_CONFIG.dreamlike]: THEME_CONFIG.dreamlike,
-  [THEME_CONFIG.green]: THEME_CONFIG.green,
-  [THEME_CONFIG.pink]: THEME_CONFIG.pink,
+export const THEME_CONFIGS: Record<string, {id: ThemeConfig, icon?: string, text?: string}> = {
+  [THEME_CONFIG.classic]: {
+    id: THEME_CONFIG.classic,
+    text: 'classic',
+  },
+  [THEME_CONFIG.simple]: {
+    id: THEME_CONFIG.simple,
+    icon: '⊞',
+  },
+  [THEME_CONFIG.dark]: {
+    id: THEME_CONFIG.dark,
+    icon: '🌚',
+  },
+  [THEME_CONFIG.dreamlike]: {
+    id: THEME_CONFIG.dreamlike,
+    icon: '☁️',
+  },
+  [THEME_CONFIG.green]: {
+    id: THEME_CONFIG.green,
+    icon: '🟢',
+  },
+  [THEME_CONFIG.pink]: {
+    id: THEME_CONFIG.pink,
+    icon: '🩷',
+  }
 };
 
-export const DIFFICULTY_CONFIGS: Record<string, {difficulty: DifficultyConfig, dimension: number, name: string}> = {
+export const DIFFICULTY_CONFIGS: Record<string, {id: string, difficulty: DifficultyConfig, dimension: number, name: string}> = {
   [DIFFICULTY_CONFIG.easy.toString()]: {
+    id: 'easy',
     difficulty: DIFFICULTY_CONFIG.easy,
     dimension: 5,
     name: 'easy'
   },
   [DIFFICULTY_CONFIG.intermediate.toString()]: {
+    id: 'intermediate',
     difficulty: DIFFICULTY_CONFIG.intermediate,
     dimension: 15,
     name: 'intermediate'
   },
   [DIFFICULTY_CONFIG.advanced.toString()]: {
+    id: 'advanced',
     difficulty: DIFFICULTY_CONFIG.advanced,
     dimension: 25,
+    name: 'advanced'
+  },
+  [DIFFICULTY_CONFIG.advanced_mobile.toString()]: {
+    id: 'advanced_mobile',
+    difficulty: DIFFICULTY_CONFIG.advanced_mobile,
+    dimension: 19,
     name: 'advanced'
   }
 };

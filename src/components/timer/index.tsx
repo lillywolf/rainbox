@@ -4,15 +4,13 @@ const Timer = forwardRef(function TimerComponent(props, _ref) {
   const [timer, setTimer] = useState(0);
   const tick = useRef<NodeJS.Timeout>();
 
-  // console.log(">>> timer", timer);
-
   const start = () => {
     setTimer(0);
     clearInterval(tick.current);
 
     tick.current = setInterval(() => {
       setTimer((timer) => timer + 1);
-    }, 1000);
+    }, 10);
   };
 
   useImperativeHandle(_ref, () => ({
@@ -21,8 +19,11 @@ const Timer = forwardRef(function TimerComponent(props, _ref) {
     },
     stop: () => {
       clearInterval(tick.current);
+    },
+    getTime: () => {
+      return timer;
     }
-  }), []);
+  }), [timer]);
 
   useEffect(() => {
     start();
@@ -32,7 +33,7 @@ const Timer = forwardRef(function TimerComponent(props, _ref) {
 
   return (
     <span>
-      {new Date(timer * 1000).toISOString().slice(11, 19)}
+      {new Date(timer * 10).toISOString().slice(11, 22)}
     </span>
   )
 });

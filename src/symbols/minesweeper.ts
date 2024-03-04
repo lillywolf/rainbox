@@ -450,16 +450,16 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'standard': {
     id: 'standard',
     text: 'standard',
-    endgameLabel: 'GAME OVER',
+    endgameLabel: 'game over!',
     endgame: [
       'you have died. please take a number',
       'there is no why',
-      'everything was beautiful and nothing hurt',
+      // 'everything was beautiful and nothing hurt',
       'thank you for playing',
       'you and your friends are dead',
-      'death is not a hunter unbeknownst to its prey, one is always aware that it lies in wait.',
+      // 'death is not a hunter unbeknownst to its prey, one is always aware that it lies in wait.',
       'a coward dies many times before his death',
-      'out, out, brief candle! life\'s but a walking shadow.',
+      // 'out, out, brief candle! life\'s but a walking shadow.',
       'you ded',
       'you have perished from your own hubris.',
       'surprise! you have died!',
@@ -470,7 +470,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'yep, you\'re dead. pretty typical',
       'surprise! you\'re dead.',
       'aaaaaand you died',
-      'KABOOM!',
       'good effort',
     ],
     wingame: [
@@ -490,7 +489,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'fruits': {
     id: 'fruits',
     text: 'random fruits 🍋',
-    endgameLabel: '✹',
+    endgameLabel: '✹ game over',
     endgame: [
       'hi',
       'i miss you',
@@ -577,7 +576,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   },
   'loss': {
     id: 'loss',
-    text: 'alexei, do you know what despair is?',
+    // text: 'alexei, do you know what despair is?',
+    text: 'being sad',
     endgameLabel: '𓇢𓆸',
     endgame: [
       'sometimes human beings have to just sit in one place and, like, hurt',
@@ -632,7 +632,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'signal_loss',
     text: 'signal loss',
     cursor: '◼',
-    endgamePrefix: 'c:\\ >_ ',
+    endgameLabel: 'c:\\ >_ ',
     endgame: [
       'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',
       'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
@@ -759,7 +759,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   },
   'what': {
     id: 'what',
-    text: 'what',
+    text: '🦀',
     endgameLabel: '⚖️',
     endgame: [
       'your spiritual guide has left the building',

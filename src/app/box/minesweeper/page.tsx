@@ -10,7 +10,9 @@ export default function Minesweeper() {
     <div className={styles.page}>
       <div className={styles.header}>
         <h2 className={styles.site}>
-             ˚　　　　✦　　　.　　. 　 ˚ ✰✰　.　　　　 rainbox.world</h2>
+          <span className={styles.sparkles}>   ˚　　　　✦　　　.　　. 　 ˚ ✰✰　.　　　　 </span>
+          rainbox.world
+        </h2>
         <h1 className={styles.title}>💣 minesweeper</h1>
       </div>
       <div className={styles.gameContainer}>

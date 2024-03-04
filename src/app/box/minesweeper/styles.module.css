@@ -1,5 +1,9 @@
+.page {
+  @apply w-full;
+}
+
 .gameContainer {
-  @apply mx-auto w-full;
+  @apply mx-auto w-full h-full;
 }
 
 .header {
@@ -13,12 +17,16 @@
 
 .title {
   @apply mr-4;
-  @apply text-lg content-end;
+  @apply content-end;
+  @apply text-base;
+  @apply md:text-lg;
 }
 
 .site {
   @apply ml-4;
-  @apply text-left text-lg;
+  @apply text-left;
+  @apply text-base;
+  @apply md:text-lg;
 }
 
 .tagline {
@@ -26,7 +34,18 @@
 }
 
 .footer {
-  @apply fixed bottom-4 right-4;
-  @apply text-right text-sm;
-  @apply bg-white;
+  @apply relative;
+  @apply text-center;
+  @apply text-xs;
+  @apply mt-12 mb-20;
+  @apply sm:fixed sm:bottom-4 sm:right-4;
+  @apply sm:text-right;
+  @apply sm:text-sm;
+  @apply sm:my-0;
+  /* @apply bg-white; */
+}
+
+.sparkles {
+  @apply hidden;
+  @apply md:inline;
 }

@@ -1,28 +1,53 @@
-.configurationAndGame {
-  @apply relative mt-16 mx-auto gap-x-6;
-  @apply flex justify-center;
-  @apply w-[1080px];
+.container {
+  @apply w-full;
 }
 
+/* .container.isGameOver {
+  @apply bg-[#f0f0f0];
+} */
+
 .configurationAndGame {
-  @apply md:pl-[42px]; /* this is to account for the space taken up by the controls */
+  @apply w-full;
+  @apply relative mx-auto gap-x-6;
+  @apply mt-12;
+  @apply flex flex-col justify-center;
+  @apply sm:mt-16;
+  @apply sm:flex-row;
+  @apply sm:pl-[90px];
+  @apply md:pl-[50px]; /* this is to account for the space taken up by the controls */
+  @apply lg:w-[1080px];
 }
 
 .game {
   @apply grid;
-  /* @apply mx-auto; */
-  /* @apply w-2/3; */
   grid-template-rows: repeat(auto-fill, minmax(26px, 1fr));
   grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
-  @apply mt-4;
+  @apply mx-auto;
+  @apply sm:mx-0;
+  @apply mt-2;
+  @apply sm:mt-4;
 }
 
-.button {
+.tile {
   @apply text-[18px];
 }
 
-.timerAndRefresh {
+.results.mobile {
+  @apply sm:hidden;
+  @apply mt-8;
+  @apply mx-auto;
+}
+
+.timerAndRefresh.desktop {
+  @apply hidden;
+  @apply sm:block;
+}
+
+.timerAndRefresh.mobile {
+  @apply flex items-center gap-x-1;
+  @apply sm:hidden;
   @apply relative;
+  @apply mx-auto mt-4;
 }
 
 .timer {
@@ -32,118 +57,198 @@
 }
 
 .timerText {
-  @apply text-base;
+  @apply text-sm;
+  @apply sm:text-base;
 }
 
 .reload {
   @apply h-[24px] w-[24px];
   @apply flex items-center;
   @apply text-xl;
-  @apply mt-4;
+  @apply sm:mt-4;
 }
 
 .reloadIcon {
   @apply mx-auto;
+  @apply mt-[-2px];
+  @apply sm:mt-0;
   @apply ml-[-2px];
 }
 
 .timer {
-  @apply text-[28px];
+  @apply text-[24px];
+  @apply sm:text-[28px];
   @apply text-center;
 }
 
-.controls {
+.controls.mobile {
+  @apply sm:hidden;
   @apply fixed;
-  @apply w-[300px];
-  @apply top-[50px] left-4;
+  @apply bottom-0;
+  @apply border-t border-black;
+  @apply bg-white;
+  @apply w-full;
+  @apply px-4 pb-[5px] pt-2;
+  @apply z-10;
 }
 
-.configuration {
+.controls.desktop {
+  @apply hidden;
+  @apply sm:block;
+  @apply fixed;
+  @apply w-full;
+  @apply top-[50px] left-4;
+  @apply sm:w-[240px];
+  @apply md:w-[300px];
+}
+
+.mobile {
+  .themeText {
+    @apply text-xs;
+  }
+}
+
+.controls.desktop {
+  .presetButton, .difficultyButton, .themeButton {
+    @apply mb-3;
+  }
+  
+  .difficultyButtons, .themeButtons {
+    @apply mt-2;
+  }
+}
+
+.configurationsMobile {
+  @apply flex justify-between;
+}
+
+.configurationsDesktop {
+  @apply hidden;
+  @apply sm:block;
+}
+
+.button {
+  @apply bg-white;
+}
+
+.presets.mobile {
+  @apply sm:hidden;
+  @apply mt-0;
+  @apply px-4;
+  @apply max-h-[90px];
+  @apply overflow-scroll;
+
+  .presetButtons {
+    @apply flex flex-wrap;
+    @apply gap-x-2;
+  }
+
+  .presetButton {
+    @apply mb-3;
+  }
+}
+
+.presets.desktop {
+  @apply hidden;
   @apply mt-2;
+  @apply sm:block;
+
+  .presetButtons {
+    @apply w-full;
+    @apply flex flex-wrap;
+    @apply gap-x-2;
+  }
+
+  .presetButton {
+    @apply mb-3;
+  }
+}
+
+.difficultyButtons, .themeButtons {
+  @apply w-full;
+  @apply flex flex-wrap;
+  @apply gap-x-2;
 }
 
 .configurationButton {
   @apply border border-black;
-  @apply mb-3 px-2 py-[1px];
-  @apply text-left text-sm;
+  @apply px-2 py-[1px];
+  @apply text-left;
+  @apply text-xs;
+  @apply md:text-sm;
+}
+
+.configurationButton.advanced {
+  @apply hidden;
+  @apply md:block;
 }
 
 .configurationLabel {
-  @apply text-sm;
+  @apply text-xs;
+  @apply md:text-sm;
 }
 
-.configurationLabel::before {
-  content: '##';
-  @apply text-sm;
-  @apply mr-1;
-}
-
-.presetButtons, .difficultyButtons, .themeButtons {
-  @apply mt-2;
-  @apply w-full;
-  @apply flex flex-wrap;
-  @apply gap-x-2;
+.desktop {
+  .configurationLabel::before {
+    content: '##';
+    @apply text-sm;
+    @apply mr-1;
+  }
 }
 
 .configurationButton.selected {
   @apply bg-[#fee3ff];
 }
 
-.legend {
-  @apply fixed right-8;
+.legend.mobile {
+  @apply fixed;
+  @apply right-4 top-[154px];
+  @apply sm:hidden;
+
+  .legendBox {
+    @apply text-right;
+    @apply mt-2;
+  }
+}
+
+.legend.desktop {
+  @apply hidden;
+  @apply fixed;
+  @apply sm:block;
+  @apply top-16 right-8;
+
+  .legendBox {
+    @apply text-right;
+    @apply mt-2;
+  }
 }
 
 .legendButton {
   @apply border border-black;
-  @apply text-sm;
+  @apply text-xs;
+  @apply md:text-sm;
   @apply px-2 py-[1px];
 }
 
-.legendBox {
-  @apply text-right;
-  @apply mt-2;
-}
-
 .gameOverContainer {
-  @apply absolute;
-  @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)] lg:left-[50%];
+  @apply relative;
+  @apply sm:absolute;
+  @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)];
 }
 
-.easy {
-  .gameOverContainer {
-    @apply lg:ml-[200px];
-  }
-}
-
-.intermediate {
-  .gameOverContainer {
-    @apply lg:ml-[300px];
-  }
-}
-
-.advanced {
-  .gameOverContainer {
-    @apply lg:ml-[400px];
-  }
-}
-
-.gameOverLabel {
-  @apply font-bold;
-}
-
-.gameOverCursor {
-  @apply opacity-100;
-  @apply inline-block;
-}
-
-.cursorOff {
-  @apply opacity-0;
-}
-
-.gameOver {
+.stats {
+  @apply w-[150px];
+  @apply bg-white;
   @apply text-[14px];
   @apply border border-black;
   @apply px-3 py-[6px];
+}
+
+.gameOver {
+  @apply bg-white;
+  @apply text-[14px];
+  @apply border border-black;
+  @apply px-3 py-[6px] mt-[1.2rem];
 }
 
 .gameOver.short {
@@ -162,6 +267,38 @@
 
 .gameOver.extraLong {
   @apply w-[360px];
+}
+
+/* .easy {
+  .gameOver {
+    @apply lg:ml-[200px];
+  }
+}
+
+.intermediate {
+  .gameOver {
+    @apply lg:ml-[300px];
+  }
+}
+
+.advanced {
+  .gameOver {
+    @apply lg:ml-[400px];
+  }
+} */
+
+.gameOverLabel {
+  @apply font-bold;
+  @apply w-full;
+}
+
+.gameOverCursor {
+  @apply opacity-100;
+  @apply inline-block;
+}
+
+.cursorOff {
+  @apply opacity-0;
 }
 
 .gameOverText {

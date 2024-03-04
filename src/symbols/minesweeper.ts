@@ -631,6 +631,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',
       'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
       'entropy is a bitch',
+      'it\'s helpful to establish a crucial fact about information itself: the informative value of a communicated message depends on the degree to which its content is surprising.',
+      'the iron  machines still exist, but they obey the orders of weightless bits.',
+      'machines are your friend. machines don\'t lie. a mysterious machine is just a machine that hasn\'t been decoded yet.',
       // 'he might be a degenerate and he might not',
     ],
     wingame: [
@@ -642,9 +645,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     text: '/irregular expressions/',
     subtext: [
       'i dream of a compiler',
-      'machines are your friend. machines don\'t lie. a mysterious machine is just a machine that hasn\'t been decoded yet.',
-      'the iron  machines still exist, but they obey the orders of weightless bits.',
-      'it\'s helpful to establish a crucial fact about information itself: the informative value of a communicated message depends on the degree to which its content is surprising.',
     ],
     endgame: [
       'filesystem error: "feelings.exe" not found',
@@ -722,7 +722,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'if you\'re too open-minded, your brain will fall out.',
       'those who do not remember the past are condemned to repeat it',
       'call my therapist, tell him he\'s a rich man',
-      'i have never listened to anyone who criticized my taste in space travel, sideshows or gorillas. when this occurs, i pack up my dinosaurs and leave the room.',
       'what is real? because unceasingly we are bombarded with pseudo-realities manufactured by very sophisticated people using very sophisticated electronic mechanisms.',
     ],
     wingame: [

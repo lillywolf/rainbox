@@ -236,7 +236,7 @@
 
 .legend.mobile {
   @apply fixed;
-  @apply right-4 bottom-28;
+  @apply right-4 bottom-20;
   @apply bg-white;
   @apply pl-2 pt-2 pb-2;
   @apply sm:hidden;

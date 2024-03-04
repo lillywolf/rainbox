@@ -8,7 +8,6 @@ const DIFFICULTY_TO_MINES = {
   [DIFFICULTY_CONFIG.intermediate]: 40,
   [DIFFICULTY_CONFIG.advanced]: 99,
   [DIFFICULTY_CONFIG.expert]: 300,
-  [DIFFICULTY_CONFIG.advanced_mobile]: 120,
 };
 
 export type MinesweeperTile = Tile & {

@@ -125,7 +125,7 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
   const cx = classnames([ styles.game, styles[configuration.id], styles[theme]]);
 
   return (
-    <div className={cx} style={{width: grid.dimensionQ * 26, height: grid.dimensionR * 26}}>
+    <div className={cx} style={{width: grid.dimensionQ * 24, height: grid.dimensionR * 24}}>
       {grid.oneDimensionalArray().map((tile, index) => (
         <MinesweeperButton
           key={index}
@@ -207,7 +207,7 @@ export default function Game({
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
         />
-        {difficulty !== DIFFICULTY_CONFIG.advanced_mobile && <MobileLegend configuration={configuration} />}
+        <MobileLegend configuration={configuration} />
         <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={timerRef} />
         {gridRef.current && (
           <Grid

@@ -12,12 +12,11 @@ export enum DIFFICULTY_CONFIG {
   'intermediate' = 2,
   'advanced' = 3,
   'expert' = 4,
-  'advanced_mobile' = 5,
 };
 
 export type ThemeConfig = THEME_CONFIG.classic | THEME_CONFIG.simple | THEME_CONFIG.dark | THEME_CONFIG.dreamlike | THEME_CONFIG.green | THEME_CONFIG.pink;
 
-export type DifficultyConfig = DIFFICULTY_CONFIG.easy | DIFFICULTY_CONFIG.intermediate | DIFFICULTY_CONFIG.advanced | DIFFICULTY_CONFIG.expert | DIFFICULTY_CONFIG.advanced_mobile;
+export type DifficultyConfig = DIFFICULTY_CONFIG.easy | DIFFICULTY_CONFIG.intermediate | DIFFICULTY_CONFIG.advanced | DIFFICULTY_CONFIG.expert;
 
 export const THEME_CONFIGS: Record<string, {id: ThemeConfig, icon?: string, text?: string}> = {
   [THEME_CONFIG.classic]: {
@@ -65,10 +64,4 @@ export const DIFFICULTY_CONFIGS: Record<string, {id: string, difficulty: Difficu
     dimension: 25,
     name: 'advanced'
   },
-  [DIFFICULTY_CONFIG.advanced_mobile.toString()]: {
-    id: 'advanced_mobile',
-    difficulty: DIFFICULTY_CONFIG.advanced_mobile,
-    dimension: 19,
-    name: 'advanced'
-  }
 };

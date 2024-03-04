@@ -20,8 +20,10 @@
 
 .game {
   @apply grid;
-  grid-template-rows: repeat(auto-fill, minmax(26px, 1fr));
-  grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
+  @apply grid-rows-[repeat(auto-fill,minmax(24px,1fr))];
+  @apply grid-cols-[repeat(auto-fill,minmax(24px,1fr))];
+  /* @apply sm:grid-rows-[repeat(auto-fill,minmax(26px,1fr))];
+  @apply sm:grid-cols-[repeat(auto-fill,minmax(26px,1fr))]; */
   @apply mx-auto;
   @apply sm:mx-0;
   @apply mt-2;

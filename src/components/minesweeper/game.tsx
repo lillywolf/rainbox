@@ -27,6 +27,7 @@ type MinesweeperButtonProps = {
   onCellClick: (tile: Tile) => void;
   configuration: MinesweeperConfig;
   isGameOver: boolean;
+  style?: object;
 };
 
 type TimerHandle = { reset: () => void, stop: () => void, getTime: () => number };
@@ -55,7 +56,8 @@ function MinesweeperButton({
   tile,
   onCellClick,
   configuration,
-  isGameOver
+  isGameOver,
+  style
 }: MinesweeperButtonProps) {
   const cx = classnames([styles.tile, styles[tile.metadata.count.toString()], {
     [styles.unclicked]: Boolean(!tile.metadata.clicked),
@@ -68,6 +70,7 @@ function MinesweeperButton({
     <button
       className={cx}
       onClick={() => onCellClick(tile)}
+      style={style}
     >
       {buttonText({ tile, configuration, isGameOver })}
     </button>
@@ -113,7 +116,9 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
 
     tile.metadata.clicked = true;
 
-    setCellsClicked(c => c.with(oneDimensionalIndex, true));
+    setCellsClicked((c) => {
+      return c.with(oneDimensionalIndex, true);
+    });
 
     if (tile.metadata.mine || tile.metadata.count > 0) return;
 
@@ -125,7 +130,7 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
   const cx = classnames([ styles.game, styles[configuration.id], styles[theme]]);
 
   return (
-    <div className={cx} style={{width: grid.dimensionQ * 24, height: grid.dimensionR * 24}}>
+    <div className={cx} style={{width: grid.dimensionQ * 24 + 2, height: grid.dimensionR * 24 + 2}}>
       {grid.oneDimensionalArray().map((tile, index) => (
         <MinesweeperButton
           key={index}
@@ -133,11 +138,19 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
           onCellClick={onCellClick}
           configuration={configuration}
           isGameOver={isGameOver}
+          style={getStyleRuleForTile({ index, grid })}
         />
       ))}
     </div>
   );
 });
+
+const getStyleRuleForTile = ({ index, grid }: { index: number, grid: SquareGrid }) => {
+  if (index % grid.dimensionQ === (grid.dimensionQ - 1)) return { borderRight: 0 };
+  if (index % grid.dimensionQ === 0) return { borderLeft: 0 };
+  if (index % grid.dimensionR === 0) return { borderTop: 0 };
+  if (index % grid.dimensionR === (grid.dimensionR - 1)) return { borderBottom: 0 };
+};
 
 const initializeGrid = ({ difficulty }: { difficulty: DIFFICULTY_CONFIG }) => {
   const grid = buildSquareGrid({ dimension: DIFFICULTY_CONFIGS[difficulty].dimension });

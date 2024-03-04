@@ -331,12 +331,15 @@
   }
 }
 
+.classic {
+  @apply border border-[#a1a1a1];
+}
+
 .simple {
-  @apply outline outline-[#a1a1a1];
-  outline-offset: 0;
+  @apply border border-[#a1a1a1];
 
   .unclicked {
-    @apply border-0 outline outline-[#e6e6e6];
+    @apply border-[#e6e6e6] border-solid border-[1px];
     @apply bg-white;
   }
 
@@ -347,6 +350,8 @@
 }
 
 .dark {
+  @apply border border-[#303030];
+
   .unclicked {
     @apply bg-[#222222];
     @apply border-[#1e1e1e];
@@ -360,6 +365,8 @@
 }
 
 .dreamlike {
+  @apply border border-[#e6f9ff];
+
   .unclicked {
     @apply bg-[#e6f9ff];
     @apply border-0 outline outline-[#cff3ff];
@@ -400,6 +407,8 @@
 }
 
 .pink {
+  @apply border border-[#fab4ee];
+
   .unclicked {
     @apply bg-[#ffe6fb];
     @apply border-0 outline outline-[#fcf2fb];
@@ -413,6 +422,8 @@
 }
 
 .green {
+  @apply border border-[#c9f2ae];
+
   .unclicked {
     @apply bg-[#dfffcc];
     @apply border-0 outline outline-[#d4f5bf];

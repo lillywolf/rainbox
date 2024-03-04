@@ -547,7 +547,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     text: 'dreaming',
     endgameLabel: '☁️',
     endgame: [
-      'dreaming is not merely an act of communication (or coded communication, if you like); it is also an aesthetic activity, a game of the imagination, a game that is a value in itself. our dreams prove that to imagine -- to dream about things that have not happened -- is among mankind\'s deepest needs. herein lies the danger. if dreams were not beautiful, they would quickly be forgotten.',
+      'our dreams prove that to imagine -- to dream about things that have not happened -- is among mankind\'s deepest needs. herein lies the danger. if dreams were not beautiful, they would quickly be forgotten.',
       'for in that sleep of death what dreams may come, when we have shuffled off this mortal coil, must give us pause',
       'nothing happened today. and if anything did, i\'d rather not talk about it, because i didn\'t understand it.',
       'gn gn gn gn',

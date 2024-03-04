@@ -221,7 +221,6 @@ export default function Game({
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
         />
-        <MobileLegend configuration={configuration} />
         <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={timerRef} />
         {gridRef.current && (
           <Grid
@@ -234,6 +233,7 @@ export default function Game({
             onGameOver={onGameOver}
           />
         )}
+        <MobileLegend configuration={configuration} />
         <MobileGameOver
           configuration={configuration}
           isGameOver={isGameOver}
@@ -262,7 +262,7 @@ export default function Game({
 const MobileFooter = () => {
   return (
     <div className={classnames([styles.footer, styles.mobile])}>
-      <p className={styles.tagline}>realtime processing of a chaotic existence</p>
+      {/* <p className={styles.tagline}>realtime processing of a chaotic existence</p> */}
       <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
     </div>
   );
@@ -291,6 +291,7 @@ const MobileControls = ({
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
         <MobileMenu difficulty={difficulty} selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
       </ErrorBoundary>
+      <MobileFooter />
     </div>
   );
 }
@@ -421,47 +422,25 @@ const GameOverDesktop = ({ configuration, playCount, timerRef }: { configuration
 };
 
 const MobileLegend = ({ configuration }: { configuration: MinesweeperConfig }) => {
-  const [showLegend, setShowLegend] = useState(true);
+  // const [showLegend, setShowLegend] = useState(true);
 
   return (
-    <div className={classnames([styles.mobile, styles.legend])}>
-      {showLegend
-        ? (
-          <button
-            className={classnames([styles.button, styles.legendButton])}
-            onClick={() => setShowLegend(!showLegend)}
-          >
-            x
-          </button>
-        ) : (
-          <button
-            className={classnames([styles.button, styles.legendButton])}
-            onClick={() => setShowLegend(!showLegend)}
-          >
-            legend
-          </button>
-        )
-      }
-      {showLegend
-        ? (
-          <div className={styles.legendBox}>
-            {Object.entries(configuration.symbols).map(([key, symbol]) => ( 
-              key === 'empty' || key === '0'
-                ? null
-                : (
-                  <div key={key} className={styles.legendKey}>
-                    <span>
-                      {key === 'mine' ? 'x' : key}:
-                    </span>
-                    <span className={styles.legendSymbol}>
-                      {typeof symbol.text === 'string' ? symbol.text : symbol.text()}
-                    </span>
-                  </div>
-                )
-            ))}
-          </div>
-        ) : null
-      }
+    <div className={classnames([styles.legend, styles.mobile])}>
+      {Object.entries(configuration.symbols).map(([key, symbol]) => ( 
+        key === 'empty' || key === '0' || key === 'mine'
+          ? null
+          : (
+            <div key={key} className={styles.legendKey}>
+              <span>
+                {key}: 
+                {/* {key === 'mine' ? 'x' : key}: */}
+              </span>
+              <span className={styles.legendSymbol}>
+                {typeof symbol.text === 'string' ? symbol.text : symbol.text()}
+              </span>
+            </div>
+          )
+      ))}
     </div>
   );
 };

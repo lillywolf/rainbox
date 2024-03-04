@@ -33,14 +33,13 @@
 .footer.mobile {
   @apply w-full;
   @apply relative;
-  @apply text-left text-[12px];
+  @apply text-right text-[12px];
   @apply mt-4;
   @apply sm:hidden;
 }
 
 .footer.desktop {
   @apply hidden;
-  @apply mt-12 mb-20;
   @apply fixed bottom-4 right-4;
   @apply text-right;
   @apply text-sm;
@@ -95,7 +94,7 @@
 }
 
 .timer {
-  @apply text-[18px];
+  @apply text-[16px];
   @apply sm:text-[28px];
   @apply text-center;
 }
@@ -121,19 +120,9 @@
   @apply md:w-[300px];
 }
 
-.mobile {
-  .themeText {
-    @apply text-xs;
-  }
-}
-
 .controls.desktop {
   .presetButton, .difficultyButton, .themeButton {
     @apply mb-3;
-  }
-  
-  .difficultyButtons, .themeButtons {
-    @apply mt-2;
   }
 }
 
@@ -197,6 +186,16 @@
   @apply gap-x-2;
 }
 
+.mobile {
+  .themeButtons {
+    @apply flex items-center;
+  }
+
+  .themeButton {
+    @apply text-lg;
+  }
+}
+
 .configurationButton {
   @apply border border-black;
   @apply px-2 py-[1px];
@@ -216,6 +215,10 @@
 }
 
 .desktop {
+  .configurationLabel {
+    @apply mb-2;
+  }
+
   .configurationLabel::before {
     content: '##';
     @apply text-sm;
@@ -233,13 +236,10 @@
 
 .legend.mobile {
   @apply fixed;
-  @apply right-4 top-[130px];
+  @apply right-4 bottom-28;
+  @apply bg-white;
+  @apply pl-2 pt-2 pb-2;
   @apply sm:hidden;
-  @apply text-right;
-
-  .legendBox {
-    @apply mt-2;
-  }
 }
 
 .legend.desktop {
@@ -263,7 +263,7 @@
 
 .mobile {
   .gameOverContainer {
-    @apply text-sm text-center mx-4 mb-12;
+    @apply text-sm text-center mx-8 mb-32;
   }
 
   .gameOver {

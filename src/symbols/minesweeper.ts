@@ -522,7 +522,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'cosmos': {
     id: 'cosmos',
     text: 'cosmos',
-    endgameLabel: 'game over 👾',
+    // endgameLabel: 'game over 👾',
     endgame: [
       'in the beginning there was nothing, which exploded.',
       'space is big. you just won\'t believe how vastly, hugely, mind-bogglingly big it is. i mean, you may think it\'s a long way down the road to the chemist\'s, but that\'s just peanuts to space.',
@@ -572,7 +572,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'loss',
     // text: 'alexei, do you know what despair is?',
     text: 'being sad',
-    endgameLabel: '𓇢𓆸',
+    // endgameLabel: '𓇢𓆸',
     endgame: [
       'sometimes human beings have to just sit in one place and, like, hurt',
       'i think you guys are going to have to come up with a lot of wonderful new lies, or people just aren\'t going to want to go on living.',

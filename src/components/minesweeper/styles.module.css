@@ -389,15 +389,17 @@
   @apply border border-[#a1a1a1];
 
   .unclicked {
-    @apply outline outline-[#e6e6e6];
-    outline-offset: 0;
+    box-shadow: 0 0 0 1px #e6e6e6;
+    /* @apply outline outline-[#e6e6e6]; */
+    /* outline-offset: 0; */
     @apply bg-white;
   }
 
   .clicked {
     @apply bg-[#f0f0f0];
-    @apply outline outline-[#d1d1d1];
-    outline-offset: 0;
+    outline: solid 1px #d1d1d1;
+    /* @apply outline outline-[#d1d1d1];
+    outline-offset: 0; */
   }  
 }
 
@@ -425,15 +427,17 @@
 
   .unclicked {
     @apply bg-[#e6f9ff];
-    @apply outline outline-[#cff3ff];
-    outline-offset: 0;
+    box-shadow: 0 0 0 1px #cff3ff;
+    /* @apply outline outline-[#cff3ff];
+    outline-offset: 0; */
   }
 
   .clicked {
     @apply text-[#291322];
     @apply bg-[#cff3ff];
-    @apply outline outline-[#e6f9ff];
-    outline-offset: 0;
+    outline: solid 1px #e6f9ff;
+    /* @apply outline outline-[#e6f9ff];
+    outline-offset: 0; */
   }
 }
 
@@ -469,15 +473,17 @@
 
   .unclicked {
     @apply bg-[#ffe6fb];
-    @apply outline outline-[#fcf2fb];
-    outline-offset: 0;
+    box-shadow: 0 0 0 1px #fcf2fb;
+    /* @apply outline outline-[#fcf2fb];
+    outline-offset: 0; */
   }
 
   .clicked {
     @apply text-[#181924];
     @apply bg-[#ffc9f6];
-    @apply outline outline-[#fab4ee];
-    outline-offset: 0;
+    outline: solid 1px #fab4ee;
+    /* @apply outline outline-[#fab4ee];
+    outline-offset: 0; */
   }
 }
 
@@ -486,15 +492,17 @@
 
   .unclicked {
     @apply bg-[#dfffcc];
-    @apply outline outline-[#d4f5bf];
-    outline-offset: 0;
+    box-shadow: 0 0 0 1px #d4f5bf;
+    /* @apply outline outline-[#d4f5bf];
+    outline-offset: 0; */
   }
 
   .clicked {
     @apply text-[#525c4a];
     @apply bg-[#beff99];
-    @apply outline outline-[#c9f2ae];
-    outline-offset: 0;
+    outline: solid 1px #c9f2ae;
+    /* @apply outline outline-[#c9f2ae];
+    outline-offset: 0; */
   }
 }
 

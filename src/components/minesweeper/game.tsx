@@ -216,6 +216,7 @@ export default function Game({
         <MobilePresets configuration={configuration} selectConfiguration={selectConfiguration} />
         <DesktopControls
           configuration={configuration}
+          difficulty={difficulty}
           selectConfiguration={selectConfiguration}
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
@@ -248,6 +249,7 @@ export default function Game({
         />
         <DesktopLegend configuration={configuration} />
         <MobileControls
+          difficulty={difficulty}
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
         />
@@ -260,9 +262,9 @@ export default function Game({
 const MobileFooter = () => {
   return (
     <div className={classnames([styles.footer, styles.mobile])}>
-    <p className={styles.tagline}>realtime processing of a chaotic existence</p>
-    <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
-  </div>
+      <p className={styles.tagline}>realtime processing of a chaotic existence</p>
+      <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
+    </div>
   );
 };
 
@@ -276,18 +278,19 @@ const DesktopFooter = () => {
 };
 
 const MobileControls = ({
+  difficulty,
   selectDifficulty,
   selectTheme
 }: {
+  difficulty: DifficultyConfig,
   selectDifficulty: (difficuly: DifficultyConfig) => void,
   selectTheme: (theme: ThemeConfig) => void,
 }) => {
   return (
     <div className={classnames([styles.mobile, styles.controls])}>
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
-        <MobileMenu selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
+        <MobileMenu difficulty={difficulty} selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
       </ErrorBoundary>
-      <MobileFooter />
     </div>
   );
 }
@@ -295,11 +298,13 @@ const MobileControls = ({
 const DesktopControls = ({
   configuration,
   selectConfiguration,
+  difficulty,
   selectDifficulty,
   selectTheme
 }: {
   configuration: MinesweeperConfig,
   selectConfiguration: (configuration: string) => void,
+  difficulty: DifficultyConfig,
   selectDifficulty: (difficuly: DifficultyConfig) => void,
   selectTheme: (theme: ThemeConfig) => void,
 }) => {
@@ -307,14 +312,59 @@ const DesktopControls = ({
     <div className={classnames([styles.desktop, styles.controls])}>
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
         <DesktopPresets configuration={configuration} selectConfiguration={selectConfiguration} />
-        <DesktopMenu selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
+        <DesktopMenu difficulty={difficulty} selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
       </ErrorBoundary>
     </div>
   );
 }
 
+const GameOverMobile = ({ configuration, playCount, timerRef }: { configuration: MinesweeperConfig, playCount: number, timerRef: TimerRef }) => {
+  const [cursor, setCursor] = useState(false);
+  const [message, setMessage] = useState('');
+  
+  const cursorRef = useRef<NodeJS.Timeout>();
+  
+  useEffect(() => {
+    const endgameMessage = typeof configuration.endgame === 'string'
+      ? configuration.endgame
+      : configuration.endgame[Math.floor(Math.random() * configuration.endgame.length)];
 
-const GameOver = ({ configuration, playCount, timerRef }: { configuration: MinesweeperConfig, playCount: number, timerRef: TimerRef }) => {
+    setMessage(endgameMessage);
+  }, [configuration, playCount]);
+
+  useEffect(() => {
+    if (configuration.id !== 'signal_loss') return;
+
+    cursorRef.current = setInterval(() => {
+      setCursor(!cursor);
+    }, 1000);
+
+    return () => clearInterval(cursorRef.current);
+  }, [cursor, configuration]);
+
+  const time = timerRef.current?.getTime();
+
+  return (
+    <div className={styles.gameOverContainer}>
+      <div className={styles.stats}>
+        {configuration.endgameLabel ? (
+          <div className={styles.gameOverLabel}>
+            {configuration.endgameLabel}
+            {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : ''}
+          </div>
+        ) : ''}
+      </div>
+      <div className={styles.gameOver}>
+        <div className={styles.gameOverText}>
+          {configuration.endgamePrefix ? <span className={styles.gameOverPrefix}>{configuration.endgamePrefix}</span> : ''}
+          {message}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GameOverDesktop = ({ configuration, playCount, timerRef }: { configuration: MinesweeperConfig, playCount: number, timerRef: TimerRef }) => {
   const [cursor, setCursor] = useState(false);
   const [message, setMessage] = useState('');
   
@@ -381,14 +431,14 @@ const MobileLegend = ({ configuration }: { configuration: MinesweeperConfig }) =
             className={classnames([styles.button, styles.legendButton])}
             onClick={() => setShowLegend(!showLegend)}
           >
-            hide
+            x
           </button>
         ) : (
           <button
             className={classnames([styles.button, styles.legendButton])}
             onClick={() => setShowLegend(!showLegend)}
           >
-            show
+            legend
           </button>
         )
       }
@@ -457,14 +507,20 @@ const DesktopLegend = ({ configuration }: { configuration: MinesweeperConfig }) 
   );
 };
 
-const MobileMenu = ({ selectDifficulty, selectTheme }: { selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
+const MobileMenu = ({ difficulty, selectDifficulty, selectTheme }: { difficulty: DifficultyConfig, selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
+  console.log(">>> d", DIFFICULTY_CONFIGS[difficulty].id)
   return (
     <div className={styles.configurationsMobile}>
       <div className={classnames([styles.configuration, styles.difficulty])}>
         <div className={styles.difficultyButtons}>
           {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
             <button
-              className={classnames([styles.button, styles.difficultyButton, styles.configurationButton, styles[DIFFICULTY_CONFIGS[key].id]])}
+              className={classnames([
+                styles.button,
+                styles.difficultyButton,
+                styles.configurationButton,
+                styles[DIFFICULTY_CONFIGS[key].id],
+                {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[key].id}])}
               key={key}
               onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
             >
@@ -507,7 +563,7 @@ const MobilePresets = ({ configuration, selectConfiguration }: { configuration: 
   );
 };
 
-const DesktopMenu = ({ selectDifficulty, selectTheme }: { selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
+const DesktopMenu = ({ difficulty, selectDifficulty, selectTheme }: { difficulty: DifficultyConfig, selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
   return (
     <div className={styles.configurationsDesktop}>
       <div className={classnames([styles.configuration, styles.difficulty])}>
@@ -516,7 +572,17 @@ const DesktopMenu = ({ selectDifficulty, selectTheme }: { selectDifficulty: (dif
         </div>
         <div className={styles.difficultyButtons}>
           {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
-            <button className={classnames([styles.button, styles.configurationButton, styles.difficultyButton, styles[DIFFICULTY_CONFIGS[key].name]])} key={key} onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}>
+            <button
+              className={classnames([
+                styles.button,
+                styles.configurationButton,
+                styles.difficultyButton,
+                styles[DIFFICULTY_CONFIGS[key].name],
+                {[styles.selected]: DIFFICULTY_CONFIGS[key].id === DIFFICULTY_CONFIGS[difficulty].id}])
+              }
+              key={key}
+              onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
+            >
               {DIFFICULTY_CONFIGS[key].name}
             </button>
           ))}
@@ -597,7 +663,7 @@ const MobileGameOver = ({
   return isGameOver 
     ? (
       <div className={classnames([styles.mobile, styles.results])}>
-        <GameOver configuration={configuration} playCount={playCount} timerRef={timerRef} /> 
+        <GameOverMobile configuration={configuration} playCount={playCount} timerRef={timerRef} /> 
       </div>
     )
     : '';
@@ -627,7 +693,7 @@ const DesktopResults = ({
           <Timer ref={timerRef} />
         </span>
       </div>
-      {isGameOver ? <GameOver configuration={configuration} playCount={playCount} timerRef={timerRef} /> : '' }
+      {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={timerRef} /> : '' }
   </div>
   );
 }

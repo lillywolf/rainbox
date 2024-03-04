@@ -26,16 +26,15 @@
   @apply sm:grid-cols-[repeat(auto-fill,minmax(26px,1fr))]; */
   @apply mx-auto;
   @apply sm:mx-0;
-  @apply mt-2;
+  @apply mt-4;
   @apply sm:mt-4;
 }
 
 .footer.mobile {
   @apply w-full;
   @apply relative;
-  /* @apply flex justify-between; */
   @apply text-left text-[12px];
-  @apply mt-8;
+  @apply mt-4;
   @apply sm:hidden;
 }
 
@@ -54,7 +53,7 @@
 
 .results.mobile {
   @apply sm:hidden;
-  @apply mt-8;
+  @apply mt-6;
   @apply mx-auto;
 }
 
@@ -96,7 +95,7 @@
 }
 
 .timer {
-  @apply text-[20px];
+  @apply text-[18px];
   @apply sm:text-[28px];
   @apply text-center;
 }
@@ -108,7 +107,7 @@
   @apply border-t border-black;
   @apply bg-white;
   @apply w-full;
-  @apply px-4 pb-[5px] pt-2;
+  @apply px-4 py-4;
   @apply z-10;
 }
 
@@ -161,11 +160,12 @@
   @apply sm:hidden;
   @apply mt-0;
   @apply px-4;
-  @apply max-h-[100px];
+  @apply max-h-[65px];
   @apply overflow-scroll;
 
   .presetButtons {
     @apply flex flex-wrap;
+    @apply justify-center;
     @apply gap-x-2;
   }
 
@@ -227,13 +227,17 @@
   @apply bg-[#fee3ff];
 }
 
+.difficultyButton.selected {
+  @apply bg-[#fee3ff];
+}
+
 .legend.mobile {
   @apply fixed;
-  @apply right-4 top-[154px];
+  @apply right-4 top-[130px];
   @apply sm:hidden;
+  @apply text-right;
 
   .legendBox {
-    @apply text-right;
     @apply mt-2;
   }
 }
@@ -257,43 +261,56 @@
   @apply px-2 py-[1px];
 }
 
-.gameOverContainer {
-  @apply relative;
-  @apply sm:absolute;
-  @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)];
+.mobile {
+  .gameOverContainer {
+    @apply text-sm text-center mx-4 mb-12;
+  }
+
+  .gameOver {
+    @apply mt-4;
+    @apply text-xs;
+  }
 }
 
-.stats {
-  @apply w-[150px];
-  @apply bg-white;
-  @apply text-[14px];
-  @apply border border-black;
-  @apply px-3 py-[6px];
-}
+.desktop {
+  .gameOverContainer {
+    @apply relative;
+    @apply absolute;
+    @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)];
+  }
 
-.gameOver {
-  @apply bg-white;
-  @apply text-[14px];
-  @apply border border-black;
-  @apply px-3 py-[6px] mt-[1.2rem];
-}
+  .stats {
+    @apply w-[150px];
+    @apply bg-white;
+    @apply text-[14px];
+    @apply border border-black;
+    @apply px-3 py-[6px];
+  }
 
-.gameOver.short {
-  @apply max-w-[100px];
-}
+  .gameOver {
+    @apply bg-white;
+    @apply text-[14px];
+    @apply border border-black;
+    @apply px-3 py-[6px] mt-[1.2rem];
+  }
 
-.gameOver.medium {
-  @apply min-w-[100px];
-  @apply max-w-[150px];
-}
-
-.gameOver.long {
-  @apply min-w-[150px];
-  @apply max-w-[200px];
-}
-
-.gameOver.extraLong {
-  @apply w-[360px];
+  .gameOver.short {
+    @apply max-w-[100px];
+  }
+  
+  .gameOver.medium {
+    @apply min-w-[100px];
+    @apply max-w-[150px];
+  }
+  
+  .gameOver.long {
+    @apply min-w-[150px];
+    @apply max-w-[200px];
+  }
+  
+  .gameOver.extraLong {
+    @apply w-[360px];
+  }
 }
 
 /* .easy {

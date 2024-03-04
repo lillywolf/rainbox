@@ -389,13 +389,15 @@
   @apply border border-[#a1a1a1];
 
   .unclicked {
-    @apply border border-[#e6e6e6];
+    @apply outline outline-[#e6e6e6];
+    outline-offset: 0;
     @apply bg-white;
   }
 
   .clicked {
-    @apply bg-white;
-    @apply border-[#e6e6e6];
+    @apply bg-[#f0f0f0];
+    @apply outline outline-[#d1d1d1];
+    outline-offset: 0;
   }  
 }
 
@@ -412,8 +414,9 @@
   .clicked {
     @apply text-white;
     @apply bg-[#525252];
-    @apply border-[#303030];
+    @apply outline outline-[#303030];
     outline-style: solid;
+    outline-offset: 0;
   }
 }
 
@@ -422,13 +425,15 @@
 
   .unclicked {
     @apply bg-[#e6f9ff];
-    @apply border border-[#cff3ff];
+    @apply outline outline-[#cff3ff];
+    outline-offset: 0;
   }
 
   .clicked {
     @apply text-[#291322];
     @apply bg-[#cff3ff];
-    @apply border-[#e6f9ff];
+    @apply outline outline-[#e6f9ff];
+    outline-offset: 0;
   }
 }
 
@@ -464,13 +469,15 @@
 
   .unclicked {
     @apply bg-[#ffe6fb];
-    @apply border border-[#fcf2fb];
+    @apply outline outline-[#fcf2fb];
+    outline-offset: 0;
   }
 
   .clicked {
     @apply text-[#181924];
     @apply bg-[#ffc9f6];
-    @apply border-0 outline outline-[#fab4ee];
+    @apply outline outline-[#fab4ee];
+    outline-offset: 0;
   }
 }
 
@@ -479,13 +486,15 @@
 
   .unclicked {
     @apply bg-[#dfffcc];
-    @apply border border-[#d4f5bf];
+    @apply outline outline-[#d4f5bf];
+    outline-offset: 0;
   }
 
   .clicked {
     @apply text-[#525c4a];
     @apply bg-[#beff99];
-    @apply border-0 outline outline-[#c9f2ae];
+    @apply outline outline-[#c9f2ae];
+    outline-offset: 0;
   }
 }
 

@@ -30,8 +30,26 @@
   @apply sm:mt-4;
 }
 
+.footer.mobile {
+  @apply w-full;
+  @apply relative;
+  /* @apply flex justify-between; */
+  @apply text-left text-[12px];
+  @apply mt-8;
+  @apply sm:hidden;
+}
+
+.footer.desktop {
+  @apply hidden;
+  @apply mt-12 mb-20;
+  @apply fixed bottom-4 right-4;
+  @apply text-right;
+  @apply text-sm;
+  @apply sm:block;
+}
+
 .tile {
-  @apply text-[18px];
+  @apply text-[16px];
 }
 
 .results.mobile {
@@ -120,6 +138,12 @@
   }
 }
 
+.controls.mobile {
+  .difficultyButton {
+    @apply py-1;
+  }
+}
+
 .configurationsMobile {
   @apply flex justify-between;
 }
@@ -137,7 +161,7 @@
   @apply sm:hidden;
   @apply mt-0;
   @apply px-4;
-  @apply max-h-[90px];
+  @apply max-h-[100px];
   @apply overflow-scroll;
 
   .presetButtons {
@@ -146,7 +170,8 @@
   }
 
   .presetButton {
-    @apply mb-3;
+    @apply py-1;
+    @apply mb-2;
   }
 }
 
@@ -306,18 +331,26 @@
 .gameOverText {
 }
 
+.classic {
+  .unclicked {
+    @apply bg-[#ededed];
+    @apply border-[3px] border-white;
+    border-style: outset;
+  }
+
+  .clicked {
+    @apply outline-[1px] outline-[#c1c1c1];
+    @apply bg-[#f0f0f0];
+    border-style: solid;
+  }
+}
+
 .unclicked {
-  @apply border-[3px] border-white;
-  @apply bg-[#ededed];
-  border-style: outset;
-  line-height: 27px;
+  line-height: 24px;
 }
 
 .clicked {
-  @apply outline-[1px] outline-[#c1c1c1];
-  @apply bg-[#f0f0f0];
-  outline-style: solid;
-  line-height: 27px;
+  line-height: 24px;
 }
 
 .fruits {
@@ -332,14 +365,14 @@
 }
 
 .classic {
-  @apply border border-[#a1a1a1];
+  @apply outline outline-[#a1a1a1];
 }
 
 .simple {
-  @apply border border-[#a1a1a1];
+  @apply outline outline-[#a1a1a1];
 
   .unclicked {
-    @apply border-[#e6e6e6] border-solid border-[1px];
+    @apply outline-[#e6e6e6] outline;
     @apply bg-white;
   }
 
@@ -350,11 +383,11 @@
 }
 
 .dark {
-  @apply border border-[#303030];
+  @apply outline outline-[#303030];
 
   .unclicked {
     @apply bg-[#222222];
-    @apply border-[#1e1e1e];
+    @apply outline-[#1e1e1e];
   }
 
   .clicked {
@@ -365,11 +398,11 @@
 }
 
 .dreamlike {
-  @apply border border-[#e6f9ff];
+  @apply outline outline-[#e6f9ff];
 
   .unclicked {
     @apply bg-[#e6f9ff];
-    @apply border-0 outline outline-[#cff3ff];
+    @apply outline outline-[#cff3ff];
   }
 
   .clicked {
@@ -407,11 +440,11 @@
 }
 
 .pink {
-  @apply border border-[#fab4ee];
+  @apply outline outline-[#fab4ee];
 
   .unclicked {
     @apply bg-[#ffe6fb];
-    @apply border-0 outline outline-[#fcf2fb];
+    @apply outline outline-[#fcf2fb];
   }
 
   .clicked {
@@ -422,11 +455,11 @@
 }
 
 .green {
-  @apply border border-[#c9f2ae];
+  @apply outline outline-[#c9f2ae];
 
   .unclicked {
     @apply bg-[#dfffcc];
-    @apply border-0 outline outline-[#d4f5bf];
+    @apply outline outline-[#d4f5bf];
   }
 
   .clicked {

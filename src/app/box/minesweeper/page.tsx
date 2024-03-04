@@ -18,11 +18,6 @@ export default function Minesweeper() {
       <div className={styles.gameContainer}>
         <Game difficultyDefault={DIFFICULTY_CONFIG.intermediate} themeDefault={THEME_CONFIG.simple} />
       </div>
-      <div className={styles.footer}>
-        <p></p>
-        <p>realtime processing of a chaotic existence</p>
-        <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
-      </div>
     </div>
   );
 };

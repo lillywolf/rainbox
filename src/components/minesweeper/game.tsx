@@ -252,9 +252,28 @@ export default function Game({
           selectTheme={selectTheme}
         />
       </div>
+      <DesktopFooter />
     </div>
   );
 }
+
+const MobileFooter = () => {
+  return (
+    <div className={classnames([styles.footer, styles.mobile])}>
+    <p className={styles.tagline}>realtime processing of a chaotic existence</p>
+    <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
+  </div>
+  );
+};
+
+const DesktopFooter = () => {
+  return (
+    <div className={classnames([styles.footer, styles.desktop])}>
+    <p>realtime processing of a chaotic existence</p>
+    <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
+  </div>
+  );
+};
 
 const MobileControls = ({
   selectDifficulty,
@@ -268,6 +287,7 @@ const MobileControls = ({
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
         <MobileMenu selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
       </ErrorBoundary>
+      <MobileFooter />
     </div>
   );
 }
@@ -444,7 +464,7 @@ const MobileMenu = ({ selectDifficulty, selectTheme }: { selectDifficulty: (diff
         <div className={styles.difficultyButtons}>
           {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
             <button
-              className={classnames([styles.button, styles.configurationButton, styles[DIFFICULTY_CONFIGS[key].id]])}
+              className={classnames([styles.button, styles.difficultyButton, styles.configurationButton, styles[DIFFICULTY_CONFIGS[key].id]])}
               key={key}
               onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
             >

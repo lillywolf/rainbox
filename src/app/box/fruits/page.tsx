@@ -7,7 +7,7 @@ export default function Fruits() {
     <div>
       <h1 className={styles.header}>random fruits generator</h1>
       <div className={styles.formResult}>
-        <FruitsForm />
+        {/* <FruitsForm /> */}
       </div>
       <div className={styles.rules}>
         <p className={styles.ruleHeader}>rules</p>

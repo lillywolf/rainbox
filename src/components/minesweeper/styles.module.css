@@ -377,7 +377,7 @@
 
   .clicked {
     @apply bg-[#f7f7f7];
-    @apply outline-[#d2d2d2];
+    @apply border-[#d2d2d2];
   }
 }
 
@@ -395,7 +395,7 @@
 
   .clicked {
     @apply bg-white;
-    @apply border-0 outline outline-[#e6e6e6];
+    @apply border-[#e6e6e6];
   }  
 }
 
@@ -412,7 +412,7 @@
   .clicked {
     @apply text-white;
     @apply bg-[#525252];
-    @apply outline outline-[#303030];
+    @apply border-[#303030];
     outline-style: solid;
   }
 }
@@ -428,7 +428,7 @@
   .clicked {
     @apply text-[#291322];
     @apply bg-[#cff3ff];
-    @apply border-0 outline outline-[#e6f9ff];
+    @apply border-[#e6f9ff];
   }
 }
 

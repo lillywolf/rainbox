@@ -604,7 +604,7 @@ const MobilePresets = ({
           styles.arrowUp,
           {[styles.isDisabled]: currentScrollYPosition === 0}
         ])}
-        src='/arrow-fat-up.svg'
+        src='/arrow-circle-up.svg'
         width={20}
         height={20}
         alt='scroll up'
@@ -632,7 +632,7 @@ const MobilePresets = ({
           styles.arrowDown,
           {[styles.isDisabled]: currentScrollYPosition === Number(presetButtonsRef.current?.scrollHeight)}
         ])}
-        src='/arrow-fat-down.svg'
+        src='/arrow-circle-down.svg'
         width={20}
         height={20}
         alt='scroll down'

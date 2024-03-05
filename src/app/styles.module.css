@@ -3,7 +3,10 @@
 }
 
 .sparkles {
-
+  @apply fixed;
+  @apply top-12;
+  @apply w-full;
+  @apply text-center;
 }
 
 .header {

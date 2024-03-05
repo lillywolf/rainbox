@@ -11,7 +11,7 @@ export default function Minesweeper() {
       <div className={styles.header}>
         <h2 className={styles.site}>
           <span className={styles.sparkles}>   ˚　　　　✦　　　.　　. 　 ˚ ✰✰　.　　　　 </span>
-          rainbox.world
+          <a href='/'>rainbox.world</a>
         </h2>
         <h1 className={styles.title}>💣 minesweeper</h1>
       </div>

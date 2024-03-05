@@ -163,6 +163,7 @@
     @apply w-[24px] h-[24px];
     @apply flex-auto;
     @apply cursor-pointer;
+    @apply sm:hidden;
   }
 
   .arrowUp.isDisabled,

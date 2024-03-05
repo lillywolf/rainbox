@@ -2,6 +2,7 @@
   @apply relative;
   @apply w-full min-h-[100vh];
   @apply bg-[#f5faff];
+  @apply lg:bg-white;
 }
 
 .configurationAndGame {
@@ -144,19 +145,21 @@
 
 .presets.mobile {
   @apply mt-0 px-2;
-  @apply lg:hidden;
   @apply flex items-center gap-x-2;
+  @apply lg:hidden;
 
   .presetButtons {
     @apply flex flex-row gap-x-2;
     @apply h-[34px];
     @apply overflow-x-scroll;
+    @apply sm:h-auto sm:flex-wrap sm:justify-center;
   }
 
   .button {
     @apply whitespace-nowrap;
     @apply py-[4px];
     @apply sm:py-[6px];
+    @apply sm:mb-2;
   }
 
   .arrowLeft, .arrowRight {

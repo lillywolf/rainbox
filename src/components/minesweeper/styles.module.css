@@ -48,7 +48,7 @@
 .results.mobile {
   @apply md:hidden;
   @apply w-full;
-  @apply pt-6 px-8 pb-32;
+  @apply pt-4 px-8 pb-32;
 }
 
 .timerAndRefresh.desktop {
@@ -210,34 +210,6 @@
   }
 }
 
-.theme.mobile {
-  @apply fixed bottom-4 right-[4.5rem];
-  @apply border rounded-sm border-black;
-  @apply bg-white;
-  @apply pt-[3px] pb-[2px];
-  @apply w-[30px];
-  @apply text-center;
-  @apply text-base;
-  @apply sm:text-lg;
-  @apply lg:hidden;
-
-  .themes {
-    @apply flex flex-col-reverse gap-y-1 items-center;
-  }
-
-  .button {
-    @apply rounded-sm;
-    @apply text-base;
-    @apply sm:text-lg;
-
-    span {
-      @apply flex items-center;
-      @apply mt-[2px];
-      line-height: 22px;
-    }
-  }
-}
-
 .theme.desktop {
   @apply hidden;
   @apply lg:block;
@@ -279,15 +251,44 @@
   }
 }
 
-.legend.mobile {
-  @apply fixed;
+.themeAndLegend.mobile {
+  @apply fixed bottom-4 right-4;
+  @apply flex gap-x-2 items-end;
+  @apply lg:hidden;
+}
+
+.theme.mobile {
   @apply border rounded-sm border-black;
-  @apply right-4 bottom-4;
+  @apply bg-white;
+  @apply pt-[3px] pb-[2px];
+  @apply w-[30px];
+  @apply text-center;
+  @apply text-base;
+  @apply sm:text-lg;
+
+  .themes {
+    @apply flex flex-col-reverse gap-y-1 items-center;
+  }
+
+  .button {
+    @apply rounded-sm;
+    @apply text-base;
+    @apply sm:text-lg;
+
+    span {
+      @apply flex items-center;
+      @apply mt-[2px];
+      line-height: 22px;
+    }
+  }
+}
+
+.legend.mobile {
+  @apply border rounded-sm border-black;
   @apply bg-white;
   @apply px-2 py-1;
   @apply text-base;
   line-height: 1.2rem;
-  @apply lg:hidden;
 }
 
 .legend.desktop {

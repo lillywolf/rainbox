@@ -234,7 +234,10 @@ export default function Game({
             onGameOver={onGameOver}
           />
         )}
-        <MobileLegend configuration={configuration} />
+        <div className={classnames([styles.themeAndLegend, styles.mobile])}>
+          <MobileTheme theme={theme} selectTheme={selectTheme} />
+          <MobileLegend configuration={configuration} />
+        </div>
         <MobileGameOver
           configuration={configuration}
           isGameOver={isGameOver}
@@ -249,12 +252,7 @@ export default function Game({
           playCount={playCount}
         />
         <DesktopLegend configuration={configuration} />
-        <MobileControls
-          difficulty={difficulty}
-          selectDifficulty={selectDifficulty}
-          theme={theme}
-          selectTheme={selectTheme}
-        />
+        <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} />
       </div>
       <DesktopFooter />
     </div>
@@ -278,26 +276,6 @@ const DesktopFooter = () => {
   </div>
   );
 };
-
-const MobileControls = ({
-  difficulty,
-  selectDifficulty,
-  theme,
-  selectTheme
-}: {
-  difficulty: DifficultyConfig,
-  selectDifficulty: (difficuly: DifficultyConfig) => void,
-  theme: string,
-  selectTheme: (theme: ThemeConfig) => void,
-}) => {
-  return (
-    <div className={classnames([styles.mobile, styles.controls])}>
-      <ErrorBoundary fallback={<p>an error has occurred!</p>}>
-        <MobileMenu difficulty={difficulty} selectDifficulty={selectDifficulty} theme={theme} selectTheme={selectTheme} />
-      </ErrorBoundary>
-    </div>
-  );
-}
 
 const DesktopControls = ({
   configuration,
@@ -499,24 +477,13 @@ const DesktopLegend = ({ configuration }: { configuration: MinesweeperConfig }) 
   );
 };
 
-const MobileMenu = ({
+const MobileDifficulty = ({
   difficulty,
   selectDifficulty,
-  theme,
-  selectTheme
 }: {
   difficulty: DifficultyConfig,
   selectDifficulty: (difficulty: DifficultyConfig) => void,
-  theme: string,
-  selectTheme: (theme: ThemeConfig) => void
 }) => {
-  const [showThemes, setShowThemes] = useState(false);
-
-  const _selectTheme = (newTheme: ThemeConfig) => {
-    setShowThemes(false);
-    selectTheme(newTheme);
-  };
-
   return (
     <div className={styles.configurationsMobile}>
       <div className={classnames([styles.configuration, styles.difficulty, styles.mobile])}>
@@ -535,30 +502,48 @@ const MobileMenu = ({
           </button>
         ))}
       </div>
-      <div className={classnames([styles.configuration, styles.theme, styles.mobile, {[styles.open]: showThemes}])}>
-        {!showThemes
-          ? null
-          : (
-            <div className={styles.themes}>
-              {Object.keys(THEME_CONFIGS).map((key) => {
-                if (key === theme) return null;
-
-                return (
-                  <button className={styles.themeButton} key={key} onClick={() => _selectTheme(THEME_CONFIGS[key].id)}>
-                    <span className={styles.themeIcon}>{THEME_CONFIGS[key].icon}</span>
-                  </button>
-                );
-              })}
-            </div>
-          )
-        }
-        <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
-          <span className={styles.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
-        </button>
-      </div>
     </div>
   );
 }
+
+const MobileTheme = ({
+  theme,
+  selectTheme
+}: {
+  theme: string,
+  selectTheme: (theme: ThemeConfig) => void
+}) => {
+  const [showThemes, setShowThemes] = useState(false);
+
+  const _selectTheme = (newTheme: ThemeConfig) => {
+    setShowThemes(false);
+    selectTheme(newTheme);
+  };
+
+  return (
+    <div className={classnames([styles.configuration, styles.theme, styles.mobile, {[styles.open]: showThemes}])}>
+    {!showThemes
+      ? null
+      : (
+        <div className={styles.themes}>
+          {Object.keys(THEME_CONFIGS).map((key) => {
+            if (key === theme) return null;
+
+            return (
+              <button className={styles.themeButton} key={key} onClick={() => _selectTheme(THEME_CONFIGS[key].id)}>
+                <span className={styles.themeIcon}>{THEME_CONFIGS[key].icon}</span>
+              </button>
+            );
+          })}
+        </div>
+      )
+    }
+    <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
+      <span className={styles.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
+    </button>
+  </div>
+  );
+};
 
 const MobilePresets = ({
   configuration,

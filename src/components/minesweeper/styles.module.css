@@ -266,8 +266,8 @@
   @apply pt-[3px] pb-[2px];
   @apply w-[30px];
   @apply text-center;
-  @apply text-base;
-  @apply sm:text-lg;
+  @apply text-sm;
+  @apply sm:text-base;
 
   .themes {
     @apply flex flex-col-reverse gap-y-1 items-center;

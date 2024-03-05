@@ -1,7 +1,7 @@
 .container {
   @apply relative;
   @apply w-full min-h-[100vh];
-  /* @apply bg-[#ddf0ff]; */
+  @apply bg-[#f5faff];
 }
 
 .configurationAndGame {
@@ -122,24 +122,24 @@
 } */
 
 .button {
-  /* @apply bg-[#f5faff];
-  @apply border-[#c2e1ff]; */
-  @apply border-black;
+  @apply bg-[#e5f2ff];
+  @apply border-[#add6ff];
+  /* @apply border-black; */
   @apply border rounded-sm;
 }
 
 .button.standard, .button.dark, .button.classic {
-  @apply bg-white;
-  @apply border-black;
+  /* @apply bg-white; */
+  /* @apply border-black; */
 }
 
 .button.selected {
   @apply bg-[#fee3ff];
-  /* @apply border-[#ffb8fb]; */
+  @apply border-[#ffb8fb];
 }
 
 .button.standard.selected, .button.dark.selected, .button.classic.selected {
-  @apply border-black;
+  /* @apply border-black; */
 }
 
 .presets.mobile {
@@ -211,19 +211,18 @@
 }
 
 .theme.mobile {
-  @apply fixed right-[-4px] top-72;
+  @apply fixed bottom-4 right-[4.5rem];
   @apply border rounded-sm border-black;
   @apply bg-white;
-  /* @apply pt-[3px] pb-[2px]; */
-  @apply py-1;
-  @apply w-[40px];
+  @apply pt-[3px] pb-[2px];
+  @apply w-[30px];
   @apply text-center;
   @apply text-base;
   @apply sm:text-lg;
   @apply lg:hidden;
 
   .themes {
-    @apply flex flex-col gap-y-1 items-center;
+    @apply flex flex-col-reverse gap-y-1 items-center;
   }
 
   .button {
@@ -287,7 +286,7 @@
   @apply bg-white;
   @apply px-2 py-1;
   @apply text-base;
-  /* @apply sm:text-base; */
+  line-height: 1.2rem;
   @apply lg:hidden;
 }
 

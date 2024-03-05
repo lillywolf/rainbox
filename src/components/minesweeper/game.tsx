@@ -1,17 +1,17 @@
 'use client';
 
-import { RefObject, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { RefObject, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import Image from 'next/image';
 import classnames from 'classnames';
 
 import { DIFFICULTY_CONFIG, DIFFICULTY_CONFIGS, DifficultyConfig, THEME_CONFIG, THEME_CONFIGS, ThemeConfig } from '@/constants/minesweeper';
 import { buildSquareGrid, placeMines, setMineCounts } from '@/utils/minesweeper';
 import { CONFIGURATION_OPTIONS, MinesweeperConfig, Symbol, initializeConfiguration } from '@/symbols/minesweeper';
+import Timer from '../timer';
 import { type Tile, SquareGrid } from 'src/classes/SquareGrid';
 
 import styles from './styles.module.css';
-import Image from 'next/image';
-import Timer from '../timer';
 
 type GridProps = {
   grid: SquareGrid;
@@ -536,9 +536,6 @@ const MobileMenu = ({
         ))}
       </div>
       <div className={classnames([styles.configuration, styles.theme, styles.mobile, {[styles.open]: showThemes}])}>
-        <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
-          <span className={styles.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
-        </button>
         {!showThemes
           ? null
           : (
@@ -555,6 +552,9 @@ const MobileMenu = ({
             </div>
           )
         }
+        <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
+          <span className={styles.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
+        </button>
       </div>
     </div>
   );
@@ -800,7 +800,7 @@ const DesktopResults = ({
       <div className={classnames([styles.timer])}>
         <span className={styles.timeIcon}>⏱</span>
         <span className={styles.timerText}>
-          <Timer ref={timerRef} />
+          {/* <Timer ref={timerRef} /> */}
         </span>
       </div>
       {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={timerRef} /> : '' }

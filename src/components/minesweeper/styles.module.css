@@ -155,11 +155,12 @@
   }
 
   .button {
-    @apply py-[6px] mb-2;
+    @apply py-[4px] mb-2;
+    @apply sm:py-[6px];
   }
 
   .arrowUp, .arrowDown {
-    @apply w-[20px] h-[20px];
+    @apply w-[24px] h-[24px];
     @apply flex-auto;
     @apply cursor-pointer;
   }
@@ -190,7 +191,8 @@
   @apply lg:hidden;
 
   .button {
-    @apply py-[6px];
+    @apply py-[4px];
+    @apply sm:py-[6px];
   }
 }
 
@@ -211,12 +213,12 @@
   @apply fixed right-[-4px] top-72;
   @apply border rounded-sm border-black;
   @apply bg-white;
-  @apply pt-[3px] pb-[2px];
-  @apply w-[34px];
+  /* @apply pt-[3px] pb-[2px]; */
+  @apply py-1;
+  @apply w-[40px];
   @apply text-center;
   @apply text-base;
   @apply sm:text-lg;
-  @apply sm:py-1;
   @apply lg:hidden;
 
   .themes {
@@ -230,7 +232,7 @@
 
     span {
       @apply flex items-center;
-      @apply mt-[1px];
+      @apply mt-[2px];
       line-height: 22px;
     }
   }
@@ -252,8 +254,7 @@
 .configurationButton {
   @apply px-2 py-[1px];
   @apply text-left;
-  @apply text-xs;
-  @apply sm:text-sm;
+  @apply text-sm;
 }
 
 .configurationButton.advanced {
@@ -284,8 +285,8 @@
   @apply right-4 bottom-4;
   @apply bg-white;
   @apply px-2 py-1;
-  @apply text-sm;
-  @apply sm:text-base;
+  @apply text-base;
+  /* @apply sm:text-base; */
   @apply lg:hidden;
 }
 
@@ -317,8 +318,7 @@
   }
 
   .gameOver {
-    @apply text-xs;
-    @apply sm:text-sm;
+    @apply text-sm;
   }
 }
 

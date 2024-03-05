@@ -567,48 +567,51 @@ const MobilePresets = ({
   configuration: MinesweeperConfig,
   selectConfiguration: (configuration: string) => void
 }) => {
-  const [currentScrollYPosition, setCurrentScrollYPosition] = useState(0);
+  const [currentScrollXPosition, setCurrentScrollXPosition] = useState(0);
   const presetButtonsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     presetButtonsRef.current?.scrollTo({
-      top: currentScrollYPosition,
+      left: currentScrollXPosition,
       behavior: 'smooth'
     });
-  }, [currentScrollYPosition]);
+  }, [currentScrollXPosition]);
 
-  const scrollDown = useCallback(() => {
-    const presetButtonsHeight = Number(presetButtonsRef.current?.scrollHeight);
+  const scrollRight = useCallback(() => {
+    const presetButtonsWidth = Number(presetButtonsRef.current?.scrollWidth);
+    const presetButtonsFrameWidth = Number(presetButtonsRef.current?.clientWidth);
     const presetButtonsRowGap = parseInt((getComputedStyle(presetButtonsRef.current as Element).columnGap), 10);
-    const buttonHeight = Number(buttonRef.current?.scrollHeight);
-    const scrollChange = buttonHeight + presetButtonsRowGap + 2;
-    if (currentScrollYPosition < presetButtonsHeight) {
-      setCurrentScrollYPosition(Math.min(presetButtonsHeight, currentScrollYPosition + scrollChange));
+    // const buttonWidth = Number(buttonRef.current?.scrollWidth);
+    const scrollChange = presetButtonsFrameWidth/2 + presetButtonsRowGap + 2;
+    if (currentScrollXPosition < presetButtonsWidth) {
+      setCurrentScrollXPosition(Math.min(presetButtonsWidth, currentScrollXPosition + scrollChange));
     }
-  }, [presetButtonsRef, currentScrollYPosition]);
+  }, [presetButtonsRef, currentScrollXPosition]);
 
-  const scrollUp = useCallback(() => {
+  const scrollLeft = useCallback(() => {
+    const presetButtonsWidth = Number(presetButtonsRef.current?.scrollWidth);
+    const presetButtonsFrameWidth = Number(presetButtonsRef.current?.clientWidth);
     const presetButtonsRowGap = parseInt((getComputedStyle(presetButtonsRef.current as Element).columnGap), 10);
-    const buttonHeight = Number(buttonRef.current?.scrollHeight);
-    const scrollChange = buttonHeight + presetButtonsRowGap + 2;
-    if (currentScrollYPosition > 0) {
-      setCurrentScrollYPosition(Math.max(0, currentScrollYPosition - scrollChange));
+    // const buttonWidth = Number(buttonRef.current?.scrollWidth);
+    const scrollChange = presetButtonsFrameWidth/2 + presetButtonsRowGap + 2;
+    if (currentScrollXPosition > 0) {
+      setCurrentScrollXPosition(Math.max(0, currentScrollXPosition - scrollChange));
     }
-  }, [presetButtonsRef, currentScrollYPosition]);
+  }, [presetButtonsRef, currentScrollXPosition]);
 
   return (
     <div className={classnames([styles.configuration, styles.presets, styles.mobile])}>
       <Image 
         className={classnames([
-          styles.arrowUp,
-          {[styles.isDisabled]: currentScrollYPosition === 0}
+          styles.arrowLeft,
+          {[styles.isDisabled]: currentScrollXPosition === 0}
         ])}
-        src='/arrow-circle-up.svg'
+        src='/arrow-circle-left.svg'
         width={20}
         height={20}
-        alt='scroll up'
-        onClick={() => scrollUp()}
+        alt='scroll left'
+        onClick={() => scrollLeft()}
       />
       <div className={styles.presetButtons} ref={presetButtonsRef}>
         {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ], i) => (
@@ -629,14 +632,14 @@ const MobilePresets = ({
       </div>
       <Image
         className={classnames([
-          styles.arrowDown,
-          {[styles.isDisabled]: currentScrollYPosition === Number(presetButtonsRef.current?.scrollHeight)}
+          styles.arrowRight,
+          {[styles.isDisabled]: currentScrollXPosition >= Number(presetButtonsRef.current?.scrollWidth)}
         ])}
-        src='/arrow-circle-down.svg'
+        src='/arrow-circle-right.svg'
         width={20}
         height={20}
-        alt='scroll down'
-        onClick={() => scrollDown()}
+        alt='scroll right'
+        onClick={() => scrollRight()}
       />
     </div>
   );

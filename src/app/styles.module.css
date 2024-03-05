@@ -1,0 +1,44 @@
+.page {
+  @apply w-full h-[100vh];
+}
+
+.sparkles {
+
+}
+
+.header {
+  @apply w-full;
+  @apply fixed bottom-[clamp(0px,200px,10vh)] top-[clamp(100px,200px,40vh)];
+  @apply text-center;
+  @apply text-base;
+  @apply md:text-lg;
+}
+
+.emojis {
+  @apply text-lg;
+  @apply w-[72px] h-[60px];
+  @apply mx-auto mt-4;
+  @apply grid grid-rows-3 grid-cols-3;
+}
+
+.tagline {
+  @apply mt-8;
+  @apply text-sm;
+}
+
+.minesweeper {
+  @apply inline-block;
+  @apply mt-8;
+  @apply border border-black;
+  @apply px-2 py-1 rounded-sm;
+  @apply bg-white;
+  @apply text-sm;
+}
+
+.footer {
+  @apply w-full;
+  @apply fixed;
+  @apply bottom-4;
+  @apply text-center;
+  @apply text-sm;
+}

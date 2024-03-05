@@ -211,12 +211,13 @@ export default function Game({
   }]);
 
   return (
-    <div className={classnames([styles.container, {[styles.isGameOver]: isGameOver}])}>
+    <div className={classnames([styles.container, styles[configuration.id], {[styles.isGameOver]: isGameOver}])}>
       <div className={cx}>
         <MobilePresets configuration={configuration} selectConfiguration={selectConfiguration} />
         <DesktopControls
           configuration={configuration}
           difficulty={difficulty}
+          theme={theme}
           selectConfiguration={selectConfiguration}
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
@@ -251,6 +252,7 @@ export default function Game({
         <MobileControls
           difficulty={difficulty}
           selectDifficulty={selectDifficulty}
+          theme={theme}
           selectTheme={selectTheme}
         />
       </div>
@@ -280,16 +282,18 @@ const DesktopFooter = () => {
 const MobileControls = ({
   difficulty,
   selectDifficulty,
+  theme,
   selectTheme
 }: {
   difficulty: DifficultyConfig,
   selectDifficulty: (difficuly: DifficultyConfig) => void,
+  theme: string,
   selectTheme: (theme: ThemeConfig) => void,
 }) => {
   return (
     <div className={classnames([styles.mobile, styles.controls])}>
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
-        <MobileMenu difficulty={difficulty} selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
+        <MobileMenu difficulty={difficulty} selectDifficulty={selectDifficulty} theme={theme} selectTheme={selectTheme} />
       </ErrorBoundary>
     </div>
   );
@@ -300,25 +304,35 @@ const DesktopControls = ({
   selectConfiguration,
   difficulty,
   selectDifficulty,
+  theme,
   selectTheme
 }: {
   configuration: MinesweeperConfig,
   selectConfiguration: (configuration: string) => void,
   difficulty: DifficultyConfig,
   selectDifficulty: (difficuly: DifficultyConfig) => void,
+  theme: ThemeConfig,
   selectTheme: (theme: ThemeConfig) => void,
 }) => {
   return (
     <div className={classnames([styles.desktop, styles.controls])}>
       <ErrorBoundary fallback={<p>an error has occurred!</p>}>
         <DesktopPresets configuration={configuration} selectConfiguration={selectConfiguration} />
-        <DesktopMenu difficulty={difficulty} selectDifficulty={selectDifficulty} selectTheme={selectTheme} />
+        <DesktopMenu difficulty={difficulty} selectDifficulty={selectDifficulty} theme={theme} selectTheme={selectTheme} />
       </ErrorBoundary>
     </div>
   );
 }
 
-const GameOverMobile = ({ configuration, playCount, timerRef }: { configuration: MinesweeperConfig, playCount: number, timerRef: TimerRef }) => {
+const GameOverMobile = ({
+  configuration,
+  playCount,
+  timerRef
+}: {
+  configuration: MinesweeperConfig,
+  playCount: number,
+  timerRef: TimerRef
+}) => {
   const [cursor, setCursor] = useState(false);
   const [message, setMessage] = useState('');
   
@@ -448,7 +462,7 @@ const DesktopLegend = ({ configuration }: { configuration: MinesweeperConfig }) 
   const [showLegend, setShowLegend] = useState(true);
 
   return (
-    <div className={classnames([styles.desktop, styles.legend])}>
+    <div className={classnames([styles.legend, styles.desktop])}>
       {showLegend
         ? (
           <button
@@ -485,51 +499,127 @@ const DesktopLegend = ({ configuration }: { configuration: MinesweeperConfig }) 
   );
 };
 
-const MobileMenu = ({ difficulty, selectDifficulty, selectTheme }: { difficulty: DifficultyConfig, selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
-  console.log(">>> d", DIFFICULTY_CONFIGS[difficulty].id)
+const MobileMenu = ({
+  difficulty,
+  selectDifficulty,
+  theme,
+  selectTheme
+}: {
+  difficulty: DifficultyConfig,
+  selectDifficulty: (difficulty: DifficultyConfig) => void,
+  theme: string,
+  selectTheme: (theme: ThemeConfig) => void
+}) => {
+  const [showThemes, setShowThemes] = useState(false);
+
+  const _selectTheme = (newTheme: ThemeConfig) => {
+    setShowThemes(false);
+    selectTheme(newTheme);
+  };
+
   return (
     <div className={styles.configurationsMobile}>
-      <div className={classnames([styles.configuration, styles.difficulty])}>
-        <div className={styles.difficultyButtons}>
-          {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
-            <button
-              className={classnames([
-                styles.button,
-                styles.difficultyButton,
-                styles.configurationButton,
-                styles[DIFFICULTY_CONFIGS[key].id],
-                {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[key].id}])}
-              key={key}
-              onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
-            >
-              {DIFFICULTY_CONFIGS[key].name}
-            </button>
-          ))}
-        </div>
+      <div className={classnames([styles.configuration, styles.difficulty, styles.mobile])}>
+        {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
+          <button
+            className={classnames([
+              styles.button,
+              styles.difficultyButton,
+              styles.configurationButton,
+              styles[DIFFICULTY_CONFIGS[key].id],
+              {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[key].id}])}
+            key={key}
+            onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
+          >
+            {DIFFICULTY_CONFIGS[key].name}
+          </button>
+        ))}
       </div>
-      <div className={classnames([styles.configuration, styles.theme])}>
-        <div className={styles.themeButtons}>
-          {Object.keys(THEME_CONFIGS).map((key) => (
-            <button className={styles.themeButton} key={key} onClick={() => selectTheme(THEME_CONFIGS[key].id)}>
-              {THEME_CONFIGS[key].icon 
-                ? <span className={styles.themeIcon}>{THEME_CONFIGS[key].icon}</span>
-                : <span className={styles.themeText}>{THEME_CONFIGS[key].text}</span>
-              }
-            </button>
-          ))}
-        </div>
+      <div className={classnames([styles.configuration, styles.theme, styles.mobile, {[styles.open]: showThemes}])}>
+        <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
+          <span className={styles.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
+        </button>
+        {!showThemes
+          ? null
+          : (
+            <div className={styles.themes}>
+              {Object.keys(THEME_CONFIGS).map((key) => {
+                if (key === theme) return null;
+
+                return (
+                  <button className={styles.themeButton} key={key} onClick={() => _selectTheme(THEME_CONFIGS[key].id)}>
+                    <span className={styles.themeIcon}>{THEME_CONFIGS[key].icon}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )
+        }
       </div>
     </div>
   );
 }
 
-const MobilePresets = ({ configuration, selectConfiguration }: { configuration: MinesweeperConfig, selectConfiguration: (configuration: string) => void }) => {
+const MobilePresets = ({
+  configuration,
+  selectConfiguration
+}: {
+  configuration: MinesweeperConfig,
+  selectConfiguration: (configuration: string) => void
+}) => {
+  const [currentScrollYPosition, setCurrentScrollYPosition] = useState(0);
+  const presetButtonsRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    presetButtonsRef.current?.scrollTo({
+      top: currentScrollYPosition,
+      behavior: 'smooth'
+    });
+  }, [currentScrollYPosition]);
+
+  const scrollDown = useCallback(() => {
+    const presetButtonsHeight = Number(presetButtonsRef.current?.scrollHeight);
+    const presetButtonsRowGap = parseInt((getComputedStyle(presetButtonsRef.current as Element).columnGap), 10);
+    const buttonHeight = Number(buttonRef.current?.scrollHeight);
+    const scrollChange = buttonHeight + presetButtonsRowGap + 2;
+    if (currentScrollYPosition < presetButtonsHeight) {
+      setCurrentScrollYPosition(Math.min(presetButtonsHeight, currentScrollYPosition + scrollChange));
+    }
+  }, [presetButtonsRef, currentScrollYPosition]);
+
+  const scrollUp = useCallback(() => {
+    const presetButtonsRowGap = parseInt((getComputedStyle(presetButtonsRef.current as Element).columnGap), 10);
+    const buttonHeight = Number(buttonRef.current?.scrollHeight);
+    const scrollChange = buttonHeight + presetButtonsRowGap + 2;
+    if (currentScrollYPosition > 0) {
+      setCurrentScrollYPosition(Math.max(0, currentScrollYPosition - scrollChange));
+    }
+  }, [presetButtonsRef, currentScrollYPosition]);
+
   return (
     <div className={classnames([styles.configuration, styles.presets, styles.mobile])}>
-      <div className={styles.presetButtons}>
-        {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ]) => (
+      <Image 
+        className={classnames([
+          styles.arrowUp,
+          {[styles.isDisabled]: currentScrollYPosition === 0}
+        ])}
+        src='/arrow-fat-up.svg'
+        width={20}
+        height={20}
+        alt='scroll up'
+        onClick={() => scrollUp()}
+      />
+      <div className={styles.presetButtons} ref={presetButtonsRef}>
+        {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ], i) => (
           <button
-            className={classnames([styles.button, styles.configurationButton, styles.presetButton, {[styles.selected]: configuration.id === key}, styles[configuration.id]])}
+            className={classnames([
+              styles.button,
+              styles.configurationButton,
+              styles.presetButton,
+              {[styles.selected]: configuration.id === key}, styles[configuration.id]
+            ])}
+            ref={i === 0 ? buttonRef : null}
             key={key}
             onClick={() => selectConfiguration(key)}
           >
@@ -537,14 +627,35 @@ const MobilePresets = ({ configuration, selectConfiguration }: { configuration: 
           </button>
         ))}
       </div>
+      <Image
+        className={classnames([
+          styles.arrowDown,
+          {[styles.isDisabled]: currentScrollYPosition === Number(presetButtonsRef.current?.scrollHeight)}
+        ])}
+        src='/arrow-fat-down.svg'
+        width={20}
+        height={20}
+        alt='scroll down'
+        onClick={() => scrollDown()}
+      />
     </div>
   );
 };
 
-const DesktopMenu = ({ difficulty, selectDifficulty, selectTheme }: { difficulty: DifficultyConfig, selectDifficulty: (difficulty: DifficultyConfig) => void, selectTheme: (theme: ThemeConfig) => void }) => {
+const DesktopMenu = ({
+  difficulty,
+  selectDifficulty,
+  theme,
+  selectTheme
+}: {
+  difficulty: DifficultyConfig,
+  selectDifficulty: (difficulty: DifficultyConfig) => void,
+  theme: ThemeConfig,
+  selectTheme: (theme: ThemeConfig) => void
+}) => {
   return (
     <div className={styles.configurationsDesktop}>
-      <div className={classnames([styles.configuration, styles.difficulty])}>
+      <div className={classnames([styles.configuration, styles.difficulty, styles.desktop])}>
         <div className={styles.configurationLabel}>
           difficulty
         </div>
@@ -566,13 +677,23 @@ const DesktopMenu = ({ difficulty, selectDifficulty, selectTheme }: { difficulty
           ))}
         </div>
       </div>
-      <div className={classnames([styles.configuration, styles.theme])}>
+      <div className={classnames([styles.configuration, styles.theme, styles.desktop])}>
         <div className={styles.configurationLabel}>
           theme
         </div>
         <div className={styles.themeButtons}>
           {Object.keys(THEME_CONFIGS).map((key) => (
-            <button className={classnames([styles.button, styles.themeButton, styles.configurationButton])} key={key} onClick={() => selectTheme(THEME_CONFIGS[key].id)}>
+            <button
+              className={classnames([
+                styles.button,
+                styles.themeButton,
+                styles.configurationButton,
+                {[styles.selected]: THEME_CONFIGS[key].id === THEME_CONFIGS[theme].id}
+              ])}
+              key={key}
+              onClick={() =>
+              selectTheme(THEME_CONFIGS[key].id)}
+            >
               {THEME_CONFIGS[key].id}
             </button>
           ))}
@@ -582,7 +703,13 @@ const DesktopMenu = ({ difficulty, selectDifficulty, selectTheme }: { difficulty
   );
 }
 
-const DesktopPresets = ({ configuration, selectConfiguration }: { configuration: MinesweeperConfig, selectConfiguration: (configuration: string) => void }) => {
+const DesktopPresets = ({
+  configuration,
+  selectConfiguration
+}: {
+  configuration: MinesweeperConfig,
+  selectConfiguration: (configuration: string) => void
+}) => {
   return (
     <div className={classnames([styles.configuration, styles.presets, styles.desktop])}>
       <div className={styles.configurationLabel}>
@@ -591,7 +718,12 @@ const DesktopPresets = ({ configuration, selectConfiguration }: { configuration:
       <div className={styles.presetButtons}>
         {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ]) => (
           <button
-            className={classnames([styles.button, styles.configurationButton, styles.presetButton, {[styles.selected]: configuration.id === key}, styles[configuration.id]])}
+            className={classnames([
+              styles.button,
+              styles.configurationButton,
+              styles.presetButton,
+              {[styles.selected]: configuration.id === key}, styles[configuration.id]
+            ])}
             key={key}
             onClick={() => selectConfiguration(key)}
           >

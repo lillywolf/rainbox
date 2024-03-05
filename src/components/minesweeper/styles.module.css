@@ -1,33 +1,28 @@
 .container {
-  @apply w-full;
+  @apply relative;
+  @apply w-full min-h-[100vh];
+  /* @apply bg-[#ddf0ff]; */
 }
-
-/* .container.isGameOver {
-  @apply bg-[#f0f0f0];
-} */
 
 .configurationAndGame {
   @apply w-full;
   @apply relative mx-auto gap-x-6;
-  @apply mt-12;
+  @apply pt-12;
   @apply flex flex-col justify-center;
-  @apply sm:mt-16;
-  @apply sm:flex-row;
-  @apply sm:pl-[90px];
-  @apply md:pl-[50px]; /* this is to account for the space taken up by the controls */
+  @apply lg:mt-16;
+  @apply lg:flex-row;
+  @apply lg:pl-[90px]; /* this is to account for the space taken up by the controls */
   @apply lg:w-[1080px];
 }
 
 .game {
   @apply grid;
-  @apply grid-rows-[repeat(auto-fill,minmax(24px,1fr))];
-  @apply grid-cols-[repeat(auto-fill,minmax(24px,1fr))];
-  /* @apply sm:grid-rows-[repeat(auto-fill,minmax(26px,1fr))];
-  @apply sm:grid-cols-[repeat(auto-fill,minmax(26px,1fr))]; */
+  @apply grid-rows-[repeat(auto-fill,minmax(24px,1fr))]; /* 26px? */
+  @apply grid-cols-[repeat(auto-fill,minmax(24px,1fr))]; /* 26px? */
   @apply mx-auto;
-  @apply sm:mx-0;
-  @apply mt-4;
-  @apply sm:mt-4;
+  @apply mt-[10px];
+  @apply lg:mx-0;
+  @apply lg:mt-4;
 }
 
 .footer.mobile {
@@ -35,7 +30,7 @@
   @apply relative;
   @apply text-right text-[12px];
   @apply mt-4;
-  @apply sm:hidden;
+  @apply lg:hidden;
 }
 
 .footer.desktop {
@@ -43,7 +38,7 @@
   @apply fixed bottom-4 right-4;
   @apply text-right;
   @apply text-sm;
-  @apply sm:block;
+  @apply lg:block;
 }
 
 .tile {
@@ -51,21 +46,21 @@
 }
 
 .results.mobile {
-  @apply sm:hidden;
-  @apply mt-6;
-  @apply mx-auto;
+  @apply md:hidden;
+  @apply w-full;
+  @apply pt-6 px-8 pb-32;
 }
 
 .timerAndRefresh.desktop {
   @apply hidden;
-  @apply sm:block;
+  @apply lg:block;
 }
 
 .timerAndRefresh.mobile {
   @apply flex items-center gap-x-1;
-  @apply sm:hidden;
   @apply relative;
-  @apply mx-auto mt-4;
+  @apply mx-auto mt-6;
+  @apply lg:hidden;
 }
 
 .timer {
@@ -76,137 +71,194 @@
 
 .timerText {
   @apply text-sm;
-  @apply sm:text-base;
+  @apply md:text-base;
 }
 
 .reload {
   @apply h-[24px] w-[24px];
   @apply flex items-center;
   @apply text-xl;
-  @apply sm:mt-4;
+  @apply lg:mt-4;
 }
 
 .reloadIcon {
   @apply mx-auto;
-  @apply mt-[-2px];
-  @apply sm:mt-0;
-  @apply ml-[-2px];
+  @apply mt-[-2px] ml-[-2px];
+  @apply lg:mt-0;
 }
 
 .timer {
   @apply text-[16px];
-  @apply sm:text-[28px];
   @apply text-center;
+  @apply lg:text-[28px];
 }
 
 .controls.mobile {
-  @apply sm:hidden;
-  @apply fixed;
-  @apply bottom-0;
-  @apply border-t border-black;
-  @apply bg-white;
-  @apply w-full;
-  @apply px-4 py-3;
   @apply z-10;
+  @apply lg:hidden;
 }
 
 .controls.desktop {
   @apply hidden;
-  @apply sm:block;
   @apply fixed;
-  @apply w-full;
   @apply top-[50px] left-4;
-  @apply sm:w-[240px];
-  @apply md:w-[300px];
-}
-
-.controls.desktop {
-  .presetButton, .difficultyButton, .themeButton {
-    @apply mb-3;
-  }
-}
-
-.controls.mobile {
-  .difficultyButton {
-    @apply py-1;
-  }
-}
-
-.configurationsMobile {
-  @apply flex justify-between;
+  @apply lg:block;
+  @apply lg:w-[300px];
 }
 
 .configurationsDesktop {
   @apply hidden;
-  @apply sm:block;
+  @apply lg:block;
 }
 
+/* .configurationButton.selected {
+  @apply border-[#ffc2fc];
+  @apply bg-[#fee3ff];
+} */
+
+/* .difficultyButton.selected {
+  @apply border-[#ffc2fc];
+  @apply bg-[#fee3ff];
+} */
+
 .button {
+  /* @apply bg-[#f5faff];
+  @apply border-[#c2e1ff]; */
+  @apply border-black;
+  @apply border rounded-sm;
+}
+
+.button.standard, .button.dark, .button.classic {
   @apply bg-white;
+  @apply border-black;
+}
+
+.button.selected {
+  @apply bg-[#fee3ff];
+  /* @apply border-[#ffb8fb]; */
+}
+
+.button.standard.selected, .button.dark.selected, .button.classic.selected {
+  @apply border-black;
 }
 
 .presets.mobile {
-  @apply sm:hidden;
-  @apply mt-0;
-  @apply px-4;
-  @apply max-h-[65px];
-  @apply overflow-scroll;
+  @apply mt-0 px-2;
+  @apply lg:hidden;
+  @apply flex items-center;
 
   .presetButtons {
-    @apply flex flex-wrap;
-    @apply justify-center;
-    @apply gap-x-2;
+    @apply flex flex-wrap gap-x-2 justify-center;
+    @apply max-h-[68px];
+    @apply overflow-scroll;
+    @apply sm:max-h-none;
   }
 
-  .presetButton {
-    @apply py-1;
-    @apply mb-2;
+  .button {
+    @apply py-[6px] mb-2;
+  }
+
+  .arrowUp, .arrowDown {
+    @apply w-[20px] h-[20px];
+    @apply flex-auto;
+    @apply cursor-pointer;
+  }
+
+  .arrowUp.isDisabled,
+  .arrowDown.isDisabled {
+    @apply opacity-30;
   }
 }
 
 .presets.desktop {
   @apply hidden;
   @apply mt-2;
-  @apply sm:block;
+  @apply lg:block;
 
   .presetButtons {
-    @apply w-full;
-    @apply flex flex-wrap;
-    @apply gap-x-2;
+    @apply flex flex-wrap gap-x-2;
   }
 
-  .presetButton {
-    @apply mb-3;
+  .button {
+    @apply py-[6px] mb-2;
   }
 }
 
-.difficultyButtons, .themeButtons {
-  @apply w-full;
-  @apply flex flex-wrap;
-  @apply gap-x-2;
+.difficulty.mobile {
+  @apply fixed left-4 bottom-4;
+  @apply flex gap-x-2;
+  @apply lg:hidden;
+
+  .button {
+    @apply py-[6px];
+  }
 }
 
-.mobile {
+.difficulty.desktop {
+  @apply hidden;
+  @apply lg:block;
+
+  .difficultyButtons {
+    @apply flex flex-wrap gap-x-2;
+  }
+
+  .button {
+    @apply py-[6px] mb-2;
+  }
+}
+
+.theme.mobile {
+  @apply fixed right-[-4px] top-72;
+  @apply border rounded-sm border-black;
+  @apply bg-white;
+  @apply pt-[3px] pb-[2px];
+  @apply w-[34px];
+  @apply text-center;
+  @apply text-base;
+  @apply sm:text-lg;
+  @apply sm:py-1;
+  @apply lg:hidden;
+
+  .themes {
+    @apply flex flex-col gap-y-1 items-center;
+  }
+
+  .button {
+    @apply rounded-sm;
+    @apply text-base;
+    @apply sm:text-lg;
+
+    span {
+      @apply flex items-center;
+      @apply mt-[1px];
+      line-height: 22px;
+    }
+  }
+}
+
+.theme.desktop {
+  @apply hidden;
+  @apply lg:block;
+
   .themeButtons {
-    @apply flex items-center;
+    @apply flex flex-wrap gap-x-2;
   }
 
-  .themeButton {
-    @apply text-lg;
+  .button {
+    @apply py-[6px] mb-2;
   }
 }
 
 .configurationButton {
-  @apply border border-black;
   @apply px-2 py-[1px];
   @apply text-left;
   @apply text-xs;
-  @apply md:text-sm;
+  @apply sm:text-sm;
 }
 
 .configurationButton.advanced {
   @apply hidden;
-  @apply md:block;
+  @apply lg:block;
 }
 
 .configurationLabel {
@@ -226,52 +278,47 @@
   }
 }
 
-.configurationButton.selected {
-  @apply bg-[#fee3ff];
-}
-
-.difficultyButton.selected {
-  @apply bg-[#fee3ff];
-}
-
 .legend.mobile {
   @apply fixed;
-  @apply right-2 bottom-16;
+  @apply border rounded-sm border-black;
+  @apply right-4 bottom-4;
   @apply bg-white;
-  @apply pl-2 pt-2 pb-2;
-  @apply sm:hidden;
+  @apply px-2 py-1;
+  @apply text-sm;
+  @apply sm:text-base;
+  @apply lg:hidden;
 }
 
 .legend.desktop {
   @apply hidden;
   @apply fixed;
-  @apply sm:block;
-  @apply top-16 right-8;
+  @apply lg:block;
+  @apply top-16 right-4;
 
   .legendBox {
     @apply text-right;
     @apply mt-2;
   }
-}
 
-.legendButton {
-  @apply border border-black;
-  @apply text-xs;
-  @apply md:text-sm;
-  @apply px-2 py-[1px];
+  .button {
+    @apply text-xs;
+    @apply border border-black rounded-sm;
+    @apply px-2 py-[4px];
+  }
 }
 
 .mobile {
   .gameOverContainer {
-    @apply text-sm text-center mx-8 mb-32;
+    @apply text-sm text-center;
   }
 
   .stats {
-    @apply mb-4;
+    @apply mb-2;
   }
 
   .gameOver {
     @apply text-xs;
+    @apply sm:text-sm;
   }
 }
 
@@ -348,9 +395,6 @@
   @apply opacity-0;
 }
 
-.gameOverText {
-}
-
 .classic {
   .unclicked {
     @apply border-[3px] border-white;
@@ -389,20 +433,19 @@
 }
 
 .simple {
-  @apply border border-[#a1a1a1];
+  /* box-shadow: 0 0 0 1px #a13f4e; */
+  /* @apply outline outline-[#031c12];
+  outline-offset: 0;
+  outline-width: 1px; */
 
   .unclicked {
-    box-shadow: 0 0 0 1px #e6e6e6;
-    /* @apply outline outline-[#e6e6e6]; */
-    /* outline-offset: 0; */
+    box-shadow: 0 0 0 1px #d6d6d6;
     @apply bg-white;
   }
 
   .clicked {
     @apply bg-[#f0f0f0];
     outline: solid 1px #d1d1d1;
-    /* @apply outline outline-[#d1d1d1];
-    outline-offset: 0; */
   }  
 }
 
@@ -417,10 +460,11 @@
   }
 
   .clicked {
-    @apply text-white;
+    @apply text-black;
     @apply bg-[#525252];
     @apply border-0;
     @apply outline outline-[#303030];
+    outline-width: 1px;
     outline-style: solid;
     outline-offset: 0;
   }
@@ -432,16 +476,12 @@
   .unclicked {
     @apply bg-[#e6f9ff];
     box-shadow: 0 0 0 1px #cff3ff;
-    /* @apply outline outline-[#cff3ff];
-    outline-offset: 0; */
   }
 
   .clicked {
     @apply text-[#291322];
     @apply bg-[#cff3ff];
     outline: solid 1px #e6f9ff;
-    /* @apply outline outline-[#e6f9ff];
-    outline-offset: 0; */
   }
 }
 
@@ -478,16 +518,12 @@
   .unclicked {
     @apply bg-[#ffe6fb];
     box-shadow: 0 0 0 1px #fcf2fb;
-    /* @apply outline outline-[#fcf2fb];
-    outline-offset: 0; */
   }
 
   .clicked {
     @apply text-[#181924];
     @apply bg-[#ffc9f6];
     outline: solid 1px #fab4ee;
-    /* @apply outline outline-[#fab4ee];
-    outline-offset: 0; */
   }
 }
 
@@ -497,16 +533,12 @@
   .unclicked {
     @apply bg-[#dfffcc];
     box-shadow: 0 0 0 1px #d4f5bf;
-    /* @apply outline outline-[#d4f5bf];
-    outline-offset: 0; */
   }
 
   .clicked {
     @apply text-[#525c4a];
     @apply bg-[#beff99];
     outline: solid 1px #c9f2ae;
-    /* @apply outline outline-[#c9f2ae];
-    outline-offset: 0; */
   }
 }
 

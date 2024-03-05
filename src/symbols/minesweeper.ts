@@ -449,7 +449,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   },
   'standard': {
     id: 'standard',
-    text: 'standard',
+    text: 'simple',
     endgameLabel: 'game over ☹',
     endgame: [
       'you have died. please take a number',

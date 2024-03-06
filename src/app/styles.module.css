@@ -17,6 +17,10 @@
   @apply md:text-lg;
 }
 
+.site {
+  @apply text-xl;
+}
+
 .emojis {
   @apply text-lg;
   @apply w-[72px] h-[60px];

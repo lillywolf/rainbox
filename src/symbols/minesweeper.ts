@@ -27,6 +27,8 @@ export type MinesweeperConfig = {
   cursor?: string;
   endgameLabel?: string;
   endgamePrefix?: string;
+  wingameLabel?: string;
+  wingamePrefix?: string;
   endgame: string | string[];
   wingame: string | string[];
   symbols: Symbols;

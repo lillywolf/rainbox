@@ -46,13 +46,7 @@
   @apply text-[16px];
 }
 
-.results.mobile {
-  @apply md:hidden;
-  @apply w-full;
-  @apply pt-4 px-8 pb-32;
-}
-
-.timerAndRefresh.desktop {
+.results.desktop {
   @apply hidden;
   @apply lg:block;
 }
@@ -220,6 +214,7 @@
   @apply px-2 py-[1px];
   @apply text-left;
   @apply text-sm;
+  @apply leading-6;
 }
 
 .configurationButton.advanced {
@@ -253,8 +248,10 @@
 .theme.mobile {
   @apply border rounded-sm;
   @apply bg-white;
-  @apply pt-[3px] pb-[2px];
-  @apply w-[34px];
+  @apply py-[4px];
+  @apply w-[36px];
+  @apply sm:py-[6px];
+  @apply sm:w-[40px];
   @apply text-center;
   @apply text-sm;
   @apply sm:text-base;
@@ -310,6 +307,7 @@
   @apply border rounded-sm border-black;
   @apply bg-white;
   @apply px-2 py-1;
+  @apply sm:px-3 sm:py-2;
   @apply text-sm;
   @apply sm:text-base;
   @apply leading-5;
@@ -338,26 +336,29 @@
   }
 }
 
-.mobile {
-  .gameOverContainer {
+.gameOverContainer.mobile,
+.gameWonContainer.mobile {
     @apply text-sm text-center;
-  }
+    @apply md:hidden;
+    @apply w-full;
+    @apply pt-4 px-8 pb-32;
 
-  .stats {
-    @apply mb-2;
-  }
-
-  .gameOver {
-    @apply text-sm;
-  }
+    .stats {
+      @apply mb-2;
+    }
+  
+    .gameOver,
+    .gameWon {
+      @apply text-sm;
+    }  
 }
 
-.desktop {
-  .gameOverContainer {
-    @apply relative;
-    @apply absolute;
-    @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)];
-  }
+.gameOverContainer.desktop,
+.gameWonContainer.desktop {
+  @apply hidden;
+  @apply md:block;
+  @apply absolute;
+  @apply lg:fixed lg:bottom-[clamp(0px,100px,10vh)] lg:top-[clamp(200px,300px,40vh)];
 
   .stats {
     @apply w-[150px];
@@ -367,28 +368,33 @@
     @apply px-3 py-[6px];
   }
 
-  .gameOver {
+  .gameOver,
+  .gameWon {
     @apply bg-white;
     @apply text-[14px];
     @apply border border-black;
     @apply px-3 py-[6px] mt-[1.2rem];
   }
 
-  .gameOver.short {
+  .gameOver.short,
+  .gameWon.short {
     @apply max-w-[100px];
   }
   
-  .gameOver.medium {
+  .gameOver.medium,
+  .gameWon.medium {
     @apply min-w-[100px];
     @apply max-w-[150px];
   }
   
-  .gameOver.long {
+  .gameOver.long,
+  .gameWon.long {
     @apply min-w-[150px];
     @apply max-w-[200px];
   }
   
-  .gameOver.extraLong {
+  .gameOver.extraLong,
+  .gameWon.extraLong {
     @apply w-[360px];
   }
 }
@@ -411,7 +417,8 @@
   }
 } */
 
-.gameOverLabel {
+.gameOverLabel,
+.gameWonLabel {
   @apply font-bold;
   @apply w-full;
 }

@@ -88,3 +88,10 @@ export const setMineCounts = ({ grid }: { grid: SquareGrid }) => {
     }
   }
 };
+
+export const getIsGameWon = ({ grid }: { grid: SquareGrid }) => {
+  const oneDimensionalArray = grid.oneDimensionalArray();
+
+  return !oneDimensionalArray.find((tile) => !tile.metadata.mine && !tile.metadata.clicked);
+};
+

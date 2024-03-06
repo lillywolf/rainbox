@@ -6,7 +6,7 @@ import Image from 'next/image';
 import classnames from 'classnames';
 
 import { DIFFICULTY_CONFIG, DIFFICULTY_CONFIGS, DifficultyConfig, THEME_CONFIG, THEME_CONFIGS, ThemeConfig } from '@/constants/minesweeper';
-import { buildSquareGrid, placeMines, setMineCounts } from '@/utils/minesweeper';
+import { buildSquareGrid, getIsGameWon, placeMines, setMineCounts } from '@/utils/minesweeper';
 import { CONFIGURATION_OPTIONS, MinesweeperConfig, Symbol, initializeConfiguration } from '@/symbols/minesweeper';
 import Timer from '../timer';
 import { type Tile, SquareGrid } from 'src/classes/SquareGrid';
@@ -19,8 +19,9 @@ type GridProps = {
   difficulty: DifficultyConfig;
   theme: ThemeConfig;
   isGameReset: boolean;
+  isGameWon: boolean;
   onGameOver: () => void;
-  onGameReset: () => void;
+  onGameWon: () => void;
   onGameStarted: (tile: Tile) => void;
 };
 
@@ -84,8 +85,9 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
   configuration,
   theme,
   isGameReset,
+  isGameWon,
   onGameOver,
-  onGameReset,
+  onGameWon,
   onGameStarted,
 }, _ref) {
   const [cellsClicked, setCellsClicked] = useState([...Array(grid.dimensionQ * grid.dimensionR)].fill(false));
@@ -103,7 +105,7 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
   }, [grid, configuration]);
 
   const onCellClick = (tile: Tile) => {
-    if (isGameOver) return;
+    if (isGameOver || isGameWon) return;
 
     if (tile.metadata.mine) {
       setIsGameOver(true);
@@ -133,6 +135,10 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
     setCellsClicked((c) => {
       return c.with(oneDimensionalIndex, true);
     });
+
+    if (getIsGameWon({ grid })) {
+      onGameWon();
+    }
 
     if (tile.metadata.mine || tile.metadata.count > 0) return;
 
@@ -184,6 +190,7 @@ export default function Game({
   const [isGameReset, setIsGameReset] = useState(true);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
 
   const mobiletimerRef = useRef<TimerHandle>(null);
   const desktoptimerRef = useRef<TimerHandle>(null);
@@ -197,11 +204,12 @@ export default function Game({
     setIsGameStarted(false);
   };
 
-  // do we need this function?
-  const onGameReset = () => {
+  const onGameWon = () => {
+    mobiletimerRef.current?.stop();
+    desktoptimerRef.current?.stop();
+    setIsGameWon(true);
     setIsGameStarted(false);
-    setIsGameReset(true);
-  };
+  }
 
   const onGameStarted = (tile: Tile) => {
     if (!gridRef.current) {
@@ -228,6 +236,7 @@ export default function Game({
 
   useEffect(() => {
     setIsGameOver(false);
+    setIsGameWon(false);
     gridRef.current = initializeGrid({ difficulty });
     mobiletimerRef.current?.reset();
     desktoptimerRef.current?.reset();
@@ -259,7 +268,12 @@ export default function Game({
   }]);
 
   return (
-    <div className={classnames([styles.container, styles[configuration.id], {[styles.isGameOver]: isGameOver}])}>
+    <div className={classnames([
+      styles.container,
+      styles[configuration.id],
+      {[styles.isGameOver]: isGameOver},
+      {[styles.isGameWon]: isGameWon}
+    ])}>
       <div className={cx}>
         <MobilePresets configuration={configuration} selectConfiguration={selectConfiguration} />
         <DesktopControls
@@ -279,28 +293,38 @@ export default function Game({
             theme={theme}
             ref={gridComponentRef}
             isGameReset={isGameReset}
+            isGameWon={isGameWon}
             onGameOver={onGameOver}
-            onGameReset={onGameReset}
+            onGameWon={onGameWon}
             onGameStarted={onGameStarted}
           />
         )}
         <div className={classnames([styles.themeAndLegend, styles.mobile])}>
           <MobileTheme theme={theme} selectTheme={selectTheme} />
-          <MobileLegend configuration={configuration} isGameOver={isGameOver} />
+          <MobileLegend configuration={configuration} isGameOver={isGameOver} isGameWon={isGameWon} />
         </div>
-        <MobileGameOver
-          configuration={configuration}
-          isGameOver={isGameOver}
-          timerRef={mobiletimerRef}
-          playCount={playCount}
-        />
-        <DesktopResults
-          configuration={configuration}
-          selectConfiguration={selectConfiguration}
-          isGameOver={isGameOver}
-          timerRef={desktoptimerRef}
-          playCount={playCount}
-        />
+        {isGameOver ? (
+          <GameOverMobile
+            configuration={configuration}
+            playCount={playCount}
+            timerRef={mobiletimerRef} /> 
+        ) : ''}
+        {isGameWon ? (
+          <GameWonMobile
+            configuration={configuration}
+            timerRef={mobiletimerRef}
+            playCount={playCount}
+          />
+          ) : ''}
+        <div className={classnames([styles.results, styles.desktop])}>
+          <DesktopTimerAndRefresh
+            configuration={configuration}
+            selectConfiguration={selectConfiguration}
+            timerRef={desktoptimerRef}
+          />
+          {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
+          {isGameWon ? <GameWonDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
+        </div>
         <DesktopLegend configuration={configuration} />
         <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} />
       </div>
@@ -352,6 +376,58 @@ const DesktopControls = ({
   );
 }
 
+const GameWonMobile = ({
+  configuration,
+  playCount,
+  timerRef
+}: {
+  configuration: MinesweeperConfig,
+  playCount: number,
+  timerRef: TimerRef
+}) => {
+  const [cursor, setCursor] = useState(false);
+  const [message, setMessage] = useState('');
+  
+  const cursorRef = useRef<NodeJS.Timeout>();
+  
+  useEffect(() => {
+    const wingameMessage = typeof configuration.wingame === 'string'
+      ? configuration.wingame
+      : configuration.wingame[Math.floor(Math.random() * configuration.wingame.length)];
+
+    setMessage(wingameMessage);
+  }, [configuration, playCount]);
+
+  useEffect(() => {
+    if (configuration.id !== 'signal_loss') return;
+
+    cursorRef.current = setInterval(() => {
+      setCursor(!cursor);
+    }, 1000);
+
+    return () => clearInterval(cursorRef.current);
+  }, [cursor, configuration]);
+
+  const time = timerRef.current?.getTime();
+
+  return (
+    <div className={classnames([styles.gameWonContainer, styles.mobile])}>
+      <div className={styles.stats}>
+        <div className={styles.gameWonLabel}>
+          {configuration.wingameLabel}
+          {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : null}
+        </div>
+      </div>
+      <div className={styles.gameWon}>
+        <div className={styles.gameWonText}>
+          {configuration.wingamePrefix ? <span className={styles.gameWonPrefix}>{configuration.wingamePrefix}</span> : ''}
+          {message}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const GameOverMobile = ({
   configuration,
   playCount,
@@ -387,7 +463,7 @@ const GameOverMobile = ({
   const time = timerRef.current?.getTime();
 
   return (
-    <div className={styles.gameOverContainer}>
+    <div className={classnames([styles.gameOverContainer, styles.mobile])}>
       {configuration.endgameLabel ? (
         <div className={styles.stats}>
           <div className={styles.gameOverLabel}>
@@ -399,6 +475,62 @@ const GameOverMobile = ({
       <div className={styles.gameOver}>
         <div className={styles.gameOverText}>
           {configuration.endgamePrefix ? <span className={styles.gameOverPrefix}>{configuration.endgamePrefix}</span> : ''}
+          {message}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GameWonDesktop = ({ configuration, playCount, timerRef }: { configuration: MinesweeperConfig, playCount: number, timerRef: TimerRef }) => {
+  const [cursor, setCursor] = useState(false);
+  const [message, setMessage] = useState('');
+  
+  const cursorRef = useRef<NodeJS.Timeout>();
+  
+  const cx = classnames([ styles.gameWon, {
+    [styles.short]: message?.length < 20,
+    [styles.medium]: message?.length >= 20 && message.length < 60,
+    [styles.long]: message.length >= 60 && message.length < 120,
+    [styles.extraLong]: message.length >= 120,
+  }]);
+
+  useEffect(() => {
+    const winameMessage = typeof configuration.wingame === 'string'
+      ? configuration.wingame
+      : configuration.wingame[Math.floor(Math.random() * configuration.wingame.length)];
+
+    setMessage(winameMessage);
+  }, [configuration, playCount]);
+
+  useEffect(() => {
+    if (configuration.id !== 'signal_loss') return;
+
+    cursorRef.current = setInterval(() => {
+      setCursor(!cursor);
+    }, 1000);
+
+    return () => clearInterval(cursorRef.current);
+  }, [cursor, configuration]);
+
+  const time = timerRef.current?.getTime();
+
+  return (
+    <div className={classnames([styles.gameWonContainer, styles.desktop])}>
+      <div className={styles.stats}>
+        {configuration.wingameLabel ? (
+          <div className={styles.gameOverLabel}>
+            {configuration.wingameLabel}
+            {configuration.cursor ? <span className={classnames([styles.gameOverCursor, {[styles.cursorOff]: cursor}])}>{configuration.cursor}</span> : ''}
+          </div>
+        ) : ''}
+        {time && <div className={styles.time}>
+          <span>time: </span>{new Date(time * 10).toISOString().slice(11, 22)}
+        </div>}
+      </div>
+      <div className={cx}>
+        <div className={styles.gameWonText}>
+          {configuration.wingamePrefix ? <span className={styles.gameWonPrefix}>{configuration.wingamePrefix}</span> : ''}
           {message}
         </div>
       </div>
@@ -440,7 +572,7 @@ const GameOverDesktop = ({ configuration, playCount, timerRef }: { configuration
   const time = timerRef.current?.getTime();
 
   return (
-    <div className={styles.gameOverContainer}>
+    <div className={classnames([styles.gameOverContainer, styles.desktop])}>
       <div className={styles.stats}>
         {configuration.endgameLabel ? (
           <div className={styles.gameOverLabel}>
@@ -462,11 +594,19 @@ const GameOverDesktop = ({ configuration, playCount, timerRef }: { configuration
   );
 };
 
-const MobileLegend = ({ configuration, isGameOver }: { configuration: MinesweeperConfig, isGameOver: boolean }) => {
+const MobileLegend = ({
+  configuration,
+  isGameOver,
+  isGameWon
+}: {
+  configuration: MinesweeperConfig,
+  isGameOver: boolean,
+  isGameWon: boolean
+}) => {
   // const [showLegend, setShowLegend] = useState(true);
 
   return (
-    <div className={classnames([styles.legend, styles.mobile, {[styles.hide]: isGameOver}])}>
+    <div className={classnames([styles.legend, styles.mobile, {[styles.hide]: isGameOver || isGameWon}])}>
       {Object.entries(configuration.symbols).map(([key, symbol]) => ( 
         key === 'empty' || key === '0' || key === 'mine'
           ? null
@@ -535,23 +675,21 @@ const MobileDifficulty = ({
   selectDifficulty: (difficulty: DifficultyConfig) => void,
 }) => {
   return (
-    <div className={styles.configurationsMobile}>
-      <div className={classnames([styles.configuration, styles.difficulty, styles.mobile])}>
-        {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
-          <button
-            className={classnames([
-              styles.button,
-              styles.difficultyButton,
-              styles.configurationButton,
-              styles[DIFFICULTY_CONFIGS[key].id],
-              {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[key].id}])}
-            key={key}
-            onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
-          >
-            {DIFFICULTY_CONFIGS[key].name}
-          </button>
-        ))}
-      </div>
+    <div className={classnames([styles.configuration, styles.difficulty, styles.mobile])}>
+      {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
+        <button
+          className={classnames([
+            styles.button,
+            styles.difficultyButton,
+            styles.configurationButton,
+            styles[DIFFICULTY_CONFIGS[key].id],
+            {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[key].id}])}
+          key={key}
+          onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
+        >
+          {DIFFICULTY_CONFIGS[key].name}
+        </button>
+      ))}
     </div>
   );
 }
@@ -623,7 +761,6 @@ const MobilePresets = ({
     const presetButtonsWidth = Number(presetButtonsRef.current?.scrollWidth);
     const presetButtonsFrameWidth = Number(presetButtonsRef.current?.clientWidth);
     const presetButtonsRowGap = parseInt((getComputedStyle(presetButtonsRef.current as Element).columnGap), 10);
-    // const buttonWidth = Number(buttonRef.current?.scrollWidth);
     const scrollChange = presetButtonsFrameWidth/2 + presetButtonsRowGap + 2;
     if (currentScrollXPosition < presetButtonsWidth) {
       setCurrentScrollXPosition(Math.min(presetButtonsWidth, currentScrollXPosition + scrollChange));
@@ -631,10 +768,8 @@ const MobilePresets = ({
   }, [presetButtonsRef, currentScrollXPosition]);
 
   const scrollLeft = useCallback(() => {
-    const presetButtonsWidth = Number(presetButtonsRef.current?.scrollWidth);
     const presetButtonsFrameWidth = Number(presetButtonsRef.current?.clientWidth);
     const presetButtonsRowGap = parseInt((getComputedStyle(presetButtonsRef.current as Element).columnGap), 10);
-    // const buttonWidth = Number(buttonRef.current?.scrollWidth);
     const scrollChange = presetButtonsFrameWidth/2 + presetButtonsRowGap + 2;
     if (currentScrollXPosition > 0) {
       setCurrentScrollXPosition(Math.max(0, currentScrollXPosition - scrollChange));
@@ -803,38 +938,14 @@ const MobileTimerAndRefresh = ({
   );
 }
 
-const MobileGameOver = ({
-  configuration,
-  isGameOver,
-  playCount,
-  timerRef,
-}: {
-  configuration: MinesweeperConfig,
-  isGameOver: boolean,
-  playCount: number,
-  timerRef: TimerRef
-}) => {
-  return isGameOver 
-    ? (
-      <div className={classnames([styles.mobile, styles.results])}>
-        <GameOverMobile configuration={configuration} playCount={playCount} timerRef={timerRef} /> 
-      </div>
-    )
-    : '';
-};
-
-const DesktopResults = ({
+const DesktopTimerAndRefresh = ({
   configuration,
   selectConfiguration,
-  isGameOver,
   timerRef,
-  playCount,
 }: {
   configuration: MinesweeperConfig,
   selectConfiguration: (configuration: string) => void,
-  isGameOver: boolean,
   timerRef: TimerRef,
-  playCount: number,
 }) => {
   return (
     <div className={classnames([styles.desktop, styles.timerAndRefresh])}>
@@ -847,7 +958,6 @@ const DesktopResults = ({
           <Timer ref={timerRef} />
         </span>
       </div>
-      {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={timerRef} /> : '' }
   </div>
   );
 }

@@ -15,6 +15,9 @@ const Timer = forwardRef(function TimerComponent(props, _ref) {
 
   useImperativeHandle(_ref, () => ({
     reset: () => {
+      setTimer(0);
+    },
+    start: () => {
       start();
     },
     stop: () => {

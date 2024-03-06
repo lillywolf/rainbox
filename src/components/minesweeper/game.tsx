@@ -19,7 +19,10 @@ type GridProps = {
   difficulty: DifficultyConfig;
   theme: ThemeConfig;
   timerRef: TimerRef;
-  onGameOver: () => void
+  isGameReset: boolean;
+  onGameOver: () => void;
+  onGameReset: () => void;
+  onGameStarted: () => void;
 };
 
 type MinesweeperButtonProps = {
@@ -30,7 +33,7 @@ type MinesweeperButtonProps = {
   style?: object;
 };
 
-type TimerHandle = { reset: () => void, stop: () => void, getTime: () => number };
+type TimerHandle = { reset: () => void, start: () => void, stop: () => void, getTime: () => number };
 type TimerRef = RefObject<TimerHandle>;
 
 function getSymbol(s: Symbol, tile: Tile) {
@@ -77,7 +80,15 @@ function MinesweeperButton({
   );
 }
 
-const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridComponent({ grid, difficulty, configuration, theme, onGameOver }, _ref) {
+const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridComponent({
+  grid,
+  configuration,
+  theme,
+  isGameReset,
+  onGameOver,
+  onGameReset,
+  onGameStarted,
+}, _ref) {
   const [cellsClicked, setCellsClicked] = useState([...Array(grid.dimensionQ * grid.dimensionR)].fill(false));
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -104,6 +115,10 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
       });
 
       return;
+    }
+
+    if (isGameReset) {
+      onGameStarted();
     }
 
     checkTile(tile);
@@ -153,12 +168,7 @@ const getStyleRuleForTile = ({ index, grid }: { index: number, grid: SquareGrid 
 };
 
 const initializeGrid = ({ difficulty }: { difficulty: DIFFICULTY_CONFIG }) => {
-  const grid = buildSquareGrid({ dimension: DIFFICULTY_CONFIGS[difficulty].dimension });
-
-  placeMines({ grid, difficulty });
-  setMineCounts({ grid });
-
-  return grid;
+  return buildSquareGrid({ dimension: DIFFICULTY_CONFIGS[difficulty].dimension });
 };
 
 export default function Game({
@@ -172,6 +182,8 @@ export default function Game({
   const [difficulty, setDifficulty] = useState<DifficultyConfig>(difficultyDefault);
   const [theme, setTheme] = useState<ThemeConfig>(themeDefault);
   const [playCount, setPlayCount] = useState(0);
+  const [isGameReset, setIsGameReset] = useState(true);
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
 
   const timerRef = useRef<TimerHandle>(null);
@@ -181,26 +193,57 @@ export default function Game({
   const onGameOver = () => {
     timerRef.current?.stop();
     setIsGameOver(true);
+    setIsGameStarted(false);
   };
+
+  // do we need this function?
+  const onGameReset = () => {
+    setIsGameStarted(false);
+    setIsGameReset(true);
+  };
+
+  const onGameStarted = () => {
+    if (!gridRef.current) {
+      console.error('attempted to start game without grid');
+      return;
+    }
+
+    setIsGameReset(false);
+    placeMines({ grid: gridRef.current, difficulty });
+    setMineCounts({ grid: gridRef.current });
+    timerRef.current?.start();
+    setIsGameStarted(true);
+  };
+
+  useEffect(() => {
+    if (isGameReset) {
+      timerRef.current?.stop();
+      timerRef.current?.reset();
+    }
+  }, [isGameReset]);
 
   useEffect(() => {
     setIsGameOver(false);
     gridRef.current = initializeGrid({ difficulty });
     timerRef.current?.reset();
-    setPlayCount((p) => p + 1);
+    setIsGameReset(true);
+    setPlayCount((p) => p + 1); // this is to trigger a state update
   }, [difficulty, configuration, theme]);
 
   const selectConfiguration = (index: string) => {
+    setIsGameReset(true);
     const selectedConfig = {...CONFIGURATION_OPTIONS[index]};
     initializeConfiguration(selectedConfig);
     setConfiguration(selectedConfig);
   };
 
   const selectDifficulty = (value: DifficultyConfig) => {
+    setIsGameReset(true);
     setDifficulty(value);
   };
 
   const selectTheme = (value: ThemeConfig) => {
+    setIsGameReset(true);
     setTheme(value);
   };
 
@@ -231,12 +274,15 @@ export default function Game({
             theme={theme}
             timerRef={timerRef}
             ref={gridComponentRef}
+            isGameReset={isGameReset}
             onGameOver={onGameOver}
+            onGameReset={onGameReset}
+            onGameStarted={onGameStarted}
           />
         )}
         <div className={classnames([styles.themeAndLegend, styles.mobile])}>
           <MobileTheme theme={theme} selectTheme={selectTheme} />
-          <MobileLegend configuration={configuration} />
+          <MobileLegend configuration={configuration} isGameOver={isGameOver} />
         </div>
         <MobileGameOver
           configuration={configuration}
@@ -412,11 +458,11 @@ const GameOverDesktop = ({ configuration, playCount, timerRef }: { configuration
   );
 };
 
-const MobileLegend = ({ configuration }: { configuration: MinesweeperConfig }) => {
+const MobileLegend = ({ configuration, isGameOver }: { configuration: MinesweeperConfig, isGameOver: boolean }) => {
   // const [showLegend, setShowLegend] = useState(true);
 
   return (
-    <div className={classnames([styles.legend, styles.mobile])}>
+    <div className={classnames([styles.legend, styles.mobile, {[styles.hide]: isGameOver}])}>
       {Object.entries(configuration.symbols).map(([key, symbol]) => ( 
         key === 'empty' || key === '0' || key === 'mine'
           ? null
@@ -521,7 +567,13 @@ const MobileTheme = ({
   };
 
   return (
-    <div className={classnames([styles.configuration, styles.theme, styles.mobile, {[styles.open]: showThemes}])}>
+    <div className={classnames([
+      styles.configuration,
+      styles.theme,
+      styles.mobile,
+      styles[THEME_CONFIGS[theme].id],
+      {[styles.open]: showThemes},
+    ])}>
     {!showThemes
       ? null
       : (

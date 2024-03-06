@@ -53,6 +53,18 @@ export const SYMBOLS_COCAINE = {
   },
   4: {
     text: '💉'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -77,6 +89,18 @@ export const SYMBOLS_DRUGS = {
   },
   4: {
     text: '🤎'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -101,6 +125,18 @@ export const SYMBOLS_LOVE = {
   },
   4: {
     text: '❤️'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -121,6 +157,10 @@ export const symbolsFruit = () => {
     2: symbols[2],
     3: symbols[3],
     4: symbols[4],
+    5: symbols[5],
+    6: symbols[6],
+    7: symbols[7],
+    8: symbols[8],
   };
 };
 
@@ -137,6 +177,10 @@ export const symbolsDreams = () => {
     2: symbols[2],
     3: symbols[3],
     4: symbols[4],
+    5: symbols[5],
+    6: symbols[6],
+    7: symbols[7],
+    8: symbols[8],
   };
 }
 
@@ -161,6 +205,18 @@ export const SYMBOLS_COSMOS = {
   },
   4: {
     text: '🪐'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -185,6 +241,18 @@ export const SYMBOLS_RETRO = {
   },
   4: {
     text: '🤯'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -209,6 +277,18 @@ export const SYMBOLS_STANDARD = {
   },
   4: {
     text: '➍'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -233,6 +313,18 @@ export const SYMBOLS_NUMBER = {
   },
   4: {
     text: '➍'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -258,6 +350,18 @@ export const SYMBOLS_FEMININITY = {
   },
   4: {
     text: '❣️'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -282,6 +386,18 @@ export const SYMBOLS_POWER = {
   },
   4: {
     text: '♛'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -306,6 +422,18 @@ export const SYMBOLS_SADNESS = {
   },
   4: {
     text: '🪽'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -330,6 +458,18 @@ export const SYMBOLS_REGEX = {
   },
   4: {
     text: '🫀'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 }
 
@@ -354,6 +494,18 @@ export const SYMBOLS_COMPILER = {
   },
   4: {
     text: ''
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -378,6 +530,18 @@ export const SYMBOLS_DIVINATION = {
   },
   4: {
     text: '🐍'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 
@@ -402,6 +566,18 @@ export const SYMBOLS_DREAMS = {
   },
   4: {
     text: '❤️'
+  },
+  5: {
+    text: '⬜'
+  },
+  6: {
+    text: '⬜'
+  },
+  7: {
+    text: '⬜'
+  },
+  8: {
+    text: '⬜'
   }
 };
 

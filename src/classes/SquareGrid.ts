@@ -41,6 +41,10 @@ export class SquareGrid {
       ... q >= 1 ? [this.tiles[q - 1][r]] : [],
       ... (r < this.maxR - 1) ? [this.tiles[q][r + 1]] : [],
       ... (q < this.maxQ - 1) ? [this.tiles[q + 1][r]] : [],
+      ... r >= 1 && q >= 1 ? [this.tiles[q - 1][r - 1]] : [],
+      ... q >= 1 && (r < this.maxR - 1) ? [this.tiles[q - 1][r + 1]] : [],
+      ... (q < this.maxQ - 1) && r >= 1 ? [this.tiles[q + 1][r - 1]] : [],
+      ... (q < this.maxQ - 1) && (r < this.maxR - 1) ? [this.tiles[q + 1][r + 1]] : [],
     ];
   }
 

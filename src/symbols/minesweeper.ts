@@ -1014,11 +1014,10 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'there are no dangerous weapons; there are only dangerous men.',
       'you should never be in the company of anyone with whom you would not want to die.',
       'stand in the ashes of a trillion dead souls and ask the ghosts if honor matters.',
-      'it was a dangerous habit: once policemen stopped being civilians the only other thing they could be was soldiers.',
-      'remember, the enemy\'s gate is down',
       'zakalwe, in all the human societies we have ever reviewed, in every age and every state, there has seldom if ever been a shortage of eager young males prepared to kill and die to preserve the security, comfort and prejudices of their elders, and what you call heroism is just an expression of this simple fact; there is never a scarcity of idiots.',
     ],
     wingame: [
+      'remember, the enemy\'s gate is down',
       'i have told my sons that they are not under any circumstances to take part in massacres, and that the news of massacres of enemies is not to fill them with satisfaction or glee. i have also told them not to work for companies which make massacre machinery, and to express contempt for people who think we need machinery like that.',
       'human beings can\'t see anything without wanting to destroy it. that\'s original sin. and i\'m going to destroy it. death is going to die.',
       'to defeat evil, i must become a greater evil',

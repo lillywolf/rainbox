@@ -1159,18 +1159,18 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
 };
 
 export const LOVE_LETTERS = [
-  'dear friend, even though we are far apart, i think about you every day. your friend, me',
-  'when i met you, i liked you instantly',
-  'you felt familiar to me, like someone i\'ve always known but had only just met',
-  'i like being lost with you',
-  '"let\'s go" -- you, to me, a long time ago',
-  'it always felt like the truth with you',
-  'it wasn\'t a punishment but a new wrinkle',
-  'it wasn\'t proof of our idle guilt but a sign of our pointless and miraculous innocence',
-  'every day i miss you. every day that goes by that we don\'t speak is still a day i think of you',
-  'hi. can we go back in in time?',
-  'let\'s dance together',
-  'we were both dreaming in the same direction',
-  'touch me, talk to me',
-  'sitting on the dock on a sunday afternoon drinking coffee'
+  'i miss you',
+  'i think our love can do anything we want it to',
+  'you are a song a dream a whisper',
+  'it was real wasnt it',
+  'kiss me again kiss me until im sick of it',
+  'you dont love because you love despite',
+  'you have been in every line i have ever read',
+  'i am half agony half hope',
+  'against reason against promise against peace against hope against happiness against all discouragement',
+  'im never not thinking of you',
+  'i fell in love with your courage your sincerity and your flaming self respect',
+  'you are one of the lights the lights of all lights',
+  'you know youre in love when you cant fall asleep because reality is finally better than your dreams',
+  'have you ever been in love? horrible isnt it?',
 ];

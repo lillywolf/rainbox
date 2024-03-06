@@ -44,10 +44,10 @@ export const buildSquareGrid = ({ dimension }: { dimension: number }): SquareGri
   return squareGrid;
 }
 
-export const placeMines = ({ grid, difficulty }: { grid: SquareGrid, difficulty: DifficultyConfig }) => {
+export const placeMines = ({ grid, difficulty, startingTile }: { grid: SquareGrid, difficulty: DifficultyConfig, startingTile: Tile }) => {
   const oneDimensionalArray = grid.oneDimensionalArray();
   const prefilledArray = oneDimensionalArray.map((_, i) => i);
-  const clickedIndex = oneDimensionalArray.findIndex((t) => t.metadata.clicked);
+  const clickedIndex = startingTile.q * grid.dimensionR + startingTile.r;
   console.log(">>>> clickedIndex", clickedIndex);
 
   prefilledArray.splice(clickedIndex, 1); // argh this still isn't working

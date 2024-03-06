@@ -18,11 +18,10 @@ type GridProps = {
   configuration: MinesweeperConfig;
   difficulty: DifficultyConfig;
   theme: ThemeConfig;
-  timerRef: TimerRef;
   isGameReset: boolean;
   onGameOver: () => void;
   onGameReset: () => void;
-  onGameStarted: () => void;
+  onGameStarted: (tile: Tile) => void;
 };
 
 type MinesweeperButtonProps = {
@@ -118,7 +117,7 @@ const Grid = forwardRef<{ isGameOver: () => boolean }, GridProps>(function GridC
     }
 
     if (isGameReset) {
-      onGameStarted();
+      onGameStarted(tile);
     }
 
     checkTile(tile);
@@ -186,12 +185,14 @@ export default function Game({
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const timerRef = useRef<TimerHandle>(null);
+  const mobiletimerRef = useRef<TimerHandle>(null);
+  const desktoptimerRef = useRef<TimerHandle>(null);
   const gridRef = useRef<SquareGrid | null>(null);
   const gridComponentRef = useRef<{ isGameOver: () => boolean }>(null);
 
   const onGameOver = () => {
-    timerRef.current?.stop();
+    mobiletimerRef.current?.stop();
+    desktoptimerRef.current?.stop();
     setIsGameOver(true);
     setIsGameStarted(false);
   };
@@ -202,30 +203,34 @@ export default function Game({
     setIsGameReset(true);
   };
 
-  const onGameStarted = () => {
+  const onGameStarted = (tile: Tile) => {
     if (!gridRef.current) {
       console.error('attempted to start game without grid');
       return;
     }
 
     setIsGameReset(false);
-    placeMines({ grid: gridRef.current, difficulty });
+    placeMines({ grid: gridRef.current, difficulty, startingTile: tile });
     setMineCounts({ grid: gridRef.current });
-    timerRef.current?.start();
+    mobiletimerRef.current?.start();
+    desktoptimerRef.current?.start();
     setIsGameStarted(true);
   };
 
   useEffect(() => {
     if (isGameReset) {
-      timerRef.current?.stop();
-      timerRef.current?.reset();
+      mobiletimerRef.current?.stop();
+      mobiletimerRef.current?.reset();
+      desktoptimerRef.current?.stop();
+      desktoptimerRef.current?.reset();
     }
   }, [isGameReset]);
 
   useEffect(() => {
     setIsGameOver(false);
     gridRef.current = initializeGrid({ difficulty });
-    timerRef.current?.reset();
+    mobiletimerRef.current?.reset();
+    desktoptimerRef.current?.reset();
     setIsGameReset(true);
     setPlayCount((p) => p + 1); // this is to trigger a state update
   }, [difficulty, configuration, theme]);
@@ -265,14 +270,13 @@ export default function Game({
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
         />
-        <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={timerRef} />
+        <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={mobiletimerRef} />
         {gridRef.current && (
           <Grid
             grid={gridRef.current}
             configuration={configuration}
             difficulty={difficulty}
             theme={theme}
-            timerRef={timerRef}
             ref={gridComponentRef}
             isGameReset={isGameReset}
             onGameOver={onGameOver}
@@ -287,14 +291,14 @@ export default function Game({
         <MobileGameOver
           configuration={configuration}
           isGameOver={isGameOver}
-          timerRef={timerRef}
+          timerRef={mobiletimerRef}
           playCount={playCount}
         />
         <DesktopResults
           configuration={configuration}
           selectConfiguration={selectConfiguration}
           isGameOver={isGameOver}
-          timerRef={timerRef}
+          timerRef={desktoptimerRef}
           playCount={playCount}
         />
         <DesktopLegend configuration={configuration} />
@@ -840,7 +844,7 @@ const DesktopResults = ({
       <div className={classnames([styles.timer])}>
         <span className={styles.timeIcon}>⏱</span>
         <span className={styles.timerText}>
-          {/* <Timer ref={timerRef} /> */}
+          <Timer ref={timerRef} />
         </span>
       </div>
       {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={timerRef} /> : '' }

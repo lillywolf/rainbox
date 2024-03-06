@@ -118,16 +118,16 @@ export const FRUITS = [{
     text: '🥝',
   },
   5: {
-    text: '⬜'
+    text: '🥭'
   },
   6: {
-    text: '⬜'
+    text: '🍈'
   },
   7: {
-    text: '⬜'
+    text: '🍐'
   },
   8: {
-    text: '⬜'
+    text: '🍓'
   },
 }, {
   1: {
@@ -143,16 +143,16 @@ export const FRUITS = [{
     text: '🍍'
   },
   5: {
-    text: '⬜'
+    text: '🥥'
   },
   6: {
-    text: '⬜'
+    text: '🍌'
   },
   7: {
-    text: '⬜'
+    text: '🍏'
   },
   8: {
-    text: '⬜'
+    text: '🍑'
   }
 }];
 

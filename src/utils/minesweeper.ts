@@ -47,6 +47,10 @@ export const buildSquareGrid = ({ dimension }: { dimension: number }): SquareGri
 export const placeMines = ({ grid, difficulty }: { grid: SquareGrid, difficulty: DifficultyConfig }) => {
   const oneDimensionalArray = grid.oneDimensionalArray();
   const prefilledArray = oneDimensionalArray.map((_, i) => i);
+  const clickedIndex = oneDimensionalArray.findIndex((t) => t.metadata.clicked);
+  console.log(">>>> clickedIndex", clickedIndex);
+
+  prefilledArray.splice(clickedIndex, 1); // argh this still isn't working
 
   return [...Array(DIFFICULTY_TO_MINES[difficulty])].map(() => {
     const mineIndex = prefilledArray[Math.floor(Math.random() * prefilledArray.length)];

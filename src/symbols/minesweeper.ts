@@ -1,5 +1,6 @@
 import { COSMOS, SYMBOLS as SYMBOLS_SPARKLES } from './sparkles';
 import { SYMBOLS_OCCULT, SYMBOLS as SYMBOLS_WEIRD } from './weird';
+import { SYMBOLS as SYMBOLS_COMPILER } from './compiler';
 import { FRUITS } from './fruits';
 import { MINESWEEPER as SYMBOLS_CLOUDS } from './clouds';
 import { getWeightedSymbol } from '@/utils/minesweeper';
@@ -73,13 +74,13 @@ export const SYMBOLS_DRUGS = {
     text: '💀',
   },
   empty: {
-    text: '⬜',
+    text: '💠🚌⚡,🌨️, ⛄, 💎,🎱',
   },
   0: {
     text: '💊'
   },
   1: {
-    text: '⚡'
+    text: '❄️'
   },
   2: {
     text: '❤️'
@@ -88,19 +89,19 @@ export const SYMBOLS_DRUGS = {
     text: '🐉'
   },
   4: {
-    text: '🤎'
+    text: '🍁'
   },
   5: {
-    text: '⬜'
+    text: '💎'
   },
   6: {
-    text: '⬜'
+    text: '🎱'
   },
   7: {
-    text: '⬜'
+    text: '🐡'
   },
   8: {
-    text: '⬜'
+    text: '💉'
   }
 };
 
@@ -109,7 +110,7 @@ export const SYMBOLS_LOVE = {
     text: '🥀',
   },
   empty: {
-    text: '',
+    text: '🩶',
   },
   0: {
     text: '💛'
@@ -127,16 +128,16 @@ export const SYMBOLS_LOVE = {
     text: '❤️'
   },
   5: {
-    text: '⬜'
+    text: '💘'
   },
   6: {
-    text: '⬜'
+    text: '🩵'
   },
   7: {
-    text: '⬜'
+    text: '💙'
   },
   8: {
-    text: '⬜'
+    text: '💔'
   }
 };
 
@@ -195,28 +196,28 @@ export const SYMBOLS_COSMOS = {
     text: () => getWeightedSymbol(COSMOS)
   },
   1: {
-    text: '🌕'
-  },
-  2: {
-    text: '🌑'
-  },
-  3: {
-    text: '☄️'
-  },
-  4: {
     text: '🪐'
   },
+  2: {
+    text: '☄️'
+  },
+  3: {
+    text: '🌕'
+  },
+  4: {
+    text: '🚀'
+  },
   5: {
-    text: '⬜'
+    text: '✨'
   },
   6: {
-    text: '⬜'
+    text: '🛰️'
   },
   7: {
-    text: '⬜'
+    text: '🌒'
   },
   8: {
-    text: '⬜'
+    text: '🌌'
   }
 };
 
@@ -279,16 +280,16 @@ export const SYMBOLS_STANDARD = {
     text: '➍'
   },
   5: {
-    text: '⬜'
+    text: '➎'
   },
   6: {
-    text: '⬜'
+    text: '➏'
   },
   7: {
-    text: '⬜'
+    text: '➐'
   },
   8: {
-    text: '⬜'
+    text: '➑'
   }
 };
 
@@ -329,39 +330,40 @@ export const SYMBOLS_NUMBER = {
 };
 
 
-export const SYMBOLS_FEMININITY = {
+export const GIRLS = {
   mine: {
-    text: '👶',
+    text: '☠️',
   },
   empty: {
-    text: '🦢',
+    text: '🦢˚˖𓍢ִ໋🌷͙֒🎀༘⋆✩',
   },
   0: {
-    text: '🦢',
+    text: '🎧',
+    // text: () => getWeightedSymbol(SYMBOLS_SPARKLES),
   },
   1: {
-    text: '🎀'
+    text: '🌸'
   },
   2: {
-    text: '💄'
+    text: '✰'
   },
   3: {
-    text: '🎈'
+    text: '🪐༘⋆'
   },
   4: {
-    text: '❣️'
+    text: '🎀'
   },
   5: {
-    text: '⬜'
+    text: '🔬'
   },
   6: {
-    text: '⬜'
+    text: '🩰'
   },
   7: {
-    text: '⬜'
+    text: '🎮'
   },
   8: {
-    text: '⬜'
+    text: '♡'
   }
 };
 
@@ -406,25 +408,58 @@ export const SYMBOLS_SADNESS = {
     text: '🌧️',
   },
   empty: {
-    text: '❤︎',
+    text: '❤︎💭🤎🧸🍂',
   },
   0: {
     text: '␡',
   },
   1: {
-    text: '❤︎'
+    text: '💌'
   },
   2: {
-    text: '☎'
+    text: '✂️'
   },
   3: {
-    text: '✄'
+    text: '🤍'
   },
   4: {
-    text: '🪽'
+    text: '☔︎︎'
   },
   5: {
-    text: '⬜'
+    text: '💔'
+  },
+  6: {
+    text: '🪞'
+  },
+  7: {
+    text: '🕊️'
+  },
+  8: {
+    text: '⌛'
+  }
+};
+
+export const LETTERS = {
+  mine: {
+    text: '☹'
+  },
+  0: {
+    text: '🇮'
+  },
+  1: {
+    text: '🇲',
+  },
+  2: {
+    text: '🇸'
+  },
+  3: {
+    text: '🇾'
+  },
+  4: {
+    text: '🇴'
+  },
+  5: {
+    text: '🇺'
   },
   6: {
     text: '⬜'
@@ -435,7 +470,7 @@ export const SYMBOLS_SADNESS = {
   8: {
     text: '⬜'
   }
-};
+}
 
 export const SYMBOLS_REGEX = {
   mine: {
@@ -473,39 +508,108 @@ export const SYMBOLS_REGEX = {
   }
 }
 
-export const SYMBOLS_COMPILER = {
+export const SIGNAL_LOSS = {
   mine: {
-    text: '✖',
-  },
-  empty: {
-    text: '⚛☒☒⍁❑',
+    text: '☠',
   },
   0: {
-    text: '❑',
+    text: () => getWeightedSymbol(SYMBOLS_COMPILER)
   },
   1: {
-    text: '␛'
+    text: '⋰',
   },
   2: {
-    text: '☒'
+    text: '🔙',
   },
   3: {
-    text: '﹟'
+    text: '📴',
   },
   4: {
-    text: ''
+    text: '☢️',
   },
   5: {
-    text: '⬜'
+    text: '⏰',
   },
   6: {
-    text: '⬜'
+    text: '📵',
   },
   7: {
-    text: '⬜'
+    text: '🚫',
   },
   8: {
-    text: '⬜'
+    text: '❌',
+  },
+};
+
+export const COMPILER = {
+  mine: {
+    text: '⛔',
+  },
+  empty: {
+    text: '',
+  },
+  0: {
+    text: () => getWeightedSymbol(SYMBOLS_COMPILER),
+  },
+  1: {
+    text: '#️⃣'
+  },
+  2: {
+    text: '*️⃣'
+  },
+  3: {
+    text: '🔁'
+  },
+  4: {
+    text: '➡️'
+  },
+  5: {
+    text: '⚠️'
+  },
+  6: {
+    text: '📳'
+  },
+  7: {
+    text: '✳️'
+  },
+  8: {
+    text: '⚙️'
+  }
+};
+
+export const ENTROPY = {
+  mine: {
+    text: '𓆉︎',
+  },
+  empty: {
+    text: '⚱️🛕',
+  },
+  0: {
+    text: '❦.',
+  },
+  1: {
+    text: '𓆣',
+  },
+  2: {
+    text: '🏺'
+  },
+  3: {
+    text: '🌕'
+  },
+  4: {
+    text: '🐚',
+  },
+  5: {
+    text: '❦.'
+  },
+  6: {
+    text: '🦂'
+  },
+  7: {
+    text: '🌚'
+  },
+  8: {
+    text: '𖤓♾'
   }
 };
 
@@ -514,7 +618,7 @@ export const SYMBOLS_DIVINATION = {
     text: '🕷️',
   },
   empty: {
-    text: '🩻😵',
+    text: '🩻😵🀚',
   },
   0: {
     text: () => getWeightedSymbol(SYMBOLS_OCCULT),
@@ -532,52 +636,52 @@ export const SYMBOLS_DIVINATION = {
     text: '🐍'
   },
   5: {
-    text: '⬜'
+    text: '🌹'
   },
   6: {
-    text: '⬜'
+    text: '🕯'
   },
   7: {
-    text: '⬜'
+    text: '🧿'
   },
   8: {
-    text: '⬜'
+    text: '🪲'
   }
 };
 
-export const SYMBOLS_DREAMS = {
+export const ARMS_RACE = {
   mine: {
-    text: '☀️',
+    text: '☠️',
   },
   empty: {
-    text: '💭',
+    text: '',
   },
   0: {
-    text: '☁️',
+    text: '💪',
   },
   1: {
-    text: '🌊'
+    text: '🔫'
   },
   2: {
-    text: '🫧'
+    text: '💣'
   },
   3: {
-    text: '🎈'
+    text: '🧨'
   },
   4: {
-    text: '❤️'
+    text: '☢️'
   },
   5: {
-    text: '⬜'
+    text: '💥'
   },
   6: {
-    text: '⬜'
+    text: '🧯'
   },
   7: {
-    text: '⬜'
+    text: '🪖'
   },
   8: {
-    text: '⬜'
+    text: '☁️'
   }
 };
 
@@ -798,12 +902,33 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     symbols: SYMBOLS_SADNESS
   },
+  'thinking': {
+    id: 'thinking',
+    text: '🧠',
+    endgame: [
+      'the devil was walking down the street with a friend, and they saw a man pick something up, look at it carefully and put it in his pocket. the friend said to the devil, "what\'s that?" the devil said, "he has found a bit of the truth." the friend said, "isn\'t that bad for business?" the devil said, "no, i am going to arrange to have him organize it."',
+      'there is a lot of disconnected research that points toward possible purposes for the posterior cingulate cortex. it may be one of the components of verbal and auditory memory, multisensory perception, visuospatial cognition and/or evaluation of emotional behavior. the right hemisphere posterior cingulate is activated in comprehension of metaphors, and the left in associative learning. story comprehension seems to use the posterior cingulate. it is activated during anxiety and OCD, and may be overactive in bipolar disorder.',
+      'i took a deep breath and listened to the old brag of my heart. i am, i am, i am.',
+      'is there no way out of the mind?',
+      'nothing happened today. and if anything did, i\'d rather not talk about it, because i didn\'t understand it.',
+      'memory conforms to what we think we remember',
+      'if you\'re too open-minded, your brain will fall out.',
+      'those who do not remember the past are condemned to repeat it',
+      'call my therapist, tell him he\'s a rich man',
+      'what is real? because unceasingly we are bombarded with pseudo-realities manufactured by very sophisticated people using very sophisticated electronic mechanisms.',
+    ],
+    wingame: [
+      'it wasn\'t a punishment but a new wrinkle. it gave us a glimpse of ourselves in our common humanity. it wasn\'t proof of our idle guilt but a sign of our miraculous and pointless innocence.',
+    ],
+    symbols: SYMBOLS_REGEX
+  },
   'signal_loss': {
     id: 'signal_loss',
     text: 'signal loss',
     cursor: '◼',
     endgameLabel: 'c:\\ >_ ',
     endgame: [
+      'ths files are corrupted',
       'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',
       'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
       'entropy is a bitch',
@@ -814,7 +939,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     wingame: [
     ],
-    symbols: SYMBOLS_COMPILER
+    symbols: SIGNAL_LOSS
   },
   'compiler': {
     id: 'compiler',
@@ -883,27 +1008,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i do not fear computers. i fear the lack of them.',
       'before creation there must be destruction'
     ],
-    symbols: SYMBOLS_COMPILER
-  },
-  'thinking': {
-    id: 'thinking',
-    text: 'information is control',
-    endgame: [
-      'the devil was walking down the street with a friend, and they saw a man pick something up, look at it carefully and put it in his pocket. the friend said to the devil, "what\'s that?" the devil said, "he has found a bit of the truth." the friend said, "isn\'t that bad for business?" the devil said, "no, i am going to arrange to have him organize it."',
-      'there is a lot of disconnected research that points toward possible purposes for the posterior cingulate cortex. it may be one of the components of verbal and auditory memory, multisensory perception, visuospatial cognition and/or evaluation of emotional behavior. the right hemisphere posterior cingulate is activated in comprehension of metaphors, and the left in associative learning. story comprehension seems to use the posterior cingulate. it is activated during anxiety and OCD, and may be overactive in bipolar disorder.',
-      'i took a deep breath and listened to the old brag of my heart. i am, i am, i am.',
-      'is there no way out of the mind?',
-      'nothing happened today. and if anything did, i\'d rather not talk about it, because i didn\'t understand it.',
-      'memory conforms to what we think we remember',
-      'if you\'re too open-minded, your brain will fall out.',
-      'those who do not remember the past are condemned to repeat it',
-      'call my therapist, tell him he\'s a rich man',
-      'what is real? because unceasingly we are bombarded with pseudo-realities manufactured by very sophisticated people using very sophisticated electronic mechanisms.',
-    ],
-    wingame: [
-      'it wasn\'t a punishment but a new wrinkle. it gave us a glimpse of ourselves in our common humanity. it wasn\'t proof of our idle guilt but a sign of our miraculous and pointless innocence.',
-    ],
-    symbols: SYMBOLS_REGEX
+    symbols: COMPILER
   },
   // 'crown of roses': {},
   'war': {
@@ -924,7 +1029,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'human beings can\'t see anything without wanting to destroy it. that\'s original sin. and i\'m going to destroy it. death is going to die.',
       'to defeat evil, i must become a greater evil',
     ],
-    symbols: SYMBOLS_COMPILER
+    symbols: COMPILER
   },
   'what': {
     id: 'what',
@@ -963,7 +1068,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   },
   'power': {
     id: 'power',
-    text: 'v',
+    text: 'arms race',
     endgame: [
       'in some lost fold of the past, we wanted to be lions and we\'re no more than castrated cats',
       'if strength is justice, then is powerlessness a crime?',
@@ -980,18 +1085,17 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     wingame: [
     ],
-    symbols: SYMBOLS_POWER
+    symbols: ARMS_RACE
   },
-  'philosophy': {
-    id: 'philosophy',
+  'entroy': {
+    id: 'entroy',
     text: 'entropy and eternal return',
     endgame: [
-      'it takes all kinds, especially in this business.',
       'the eternal recurrence of my stupid feelings',
       'a human being should be able to change a diaper, plan an invasion, butcher a hog, conn a ship, design a building, write a sonnet, balance accounts, build a wall, set a bone, comfort the dying, take orders, give orders, cooperate, act alone, solve equations, analyse a new problem, pitch manure, program a computer, cook a tasty meal, fight efficiently, die gallantly. specialization is for insects.',
     ],
     wingame: [],
-    symbols: SYMBOLS_COMPILER
+    symbols: ENTROPY
   },
   'drugs': {
     id: 'drugs',
@@ -1042,14 +1146,14 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     wingame: [
       'the female body plan is our default condition. take that, adam and eve.',
     ],
-    symbols: SYMBOLS_FEMININITY
+    symbols: GIRLS
   },
   letter: {
     id: 'letter',
     text: 'this is a love letter',
     endgame: '',
     wingame: '',
-    symbols: SYMBOLS_DREAMS
+    symbols: LETTERS
   },
 };
 

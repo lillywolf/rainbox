@@ -112,16 +112,6 @@
   @apply lg:block;
 }
 
-/* .configurationButton.selected {
-  @apply border-[#ffc2fc];
-  @apply bg-[#fee3ff];
-} */
-
-/* .difficultyButton.selected {
-  @apply border-[#ffc2fc];
-  @apply bg-[#fee3ff];
-} */
-
 .button {
   @apply bg-[#e5f2ff];
   @apply border-[#add6ff];
@@ -270,23 +260,23 @@
   @apply sm:text-base;
 
   &.dark {
-    @apply bg-[#a1a1a1];
-    @apply border-black;
+    @apply bg-[#9eaab3];
+    @apply border-[#515960];
   }
 
   &.green {
     @apply bg-[#d9ffbf];
-    @apply border-[#74d964];
+    @apply border-[#89df7c];
   }
 
   &.pink {
-    @apply bg-[#ffe0f5];
-    @apply border-[#ffa3fa];
+    @apply bg-[#fee3ff];
+    @apply border-[#ffb8fb];
   }
 
   &.dreamlike {
     @apply bg-[#d0f0fe];
-    @apply border-[#9bcee3];
+    @apply border-[#88c5dd];
   }
 
   &.simple {
@@ -295,7 +285,7 @@
   }
 
   &.classic {
-    @apply bg-white;
+    @apply bg-[#ededed];
     @apply border-[#a1a1a1];
   }
 
@@ -594,6 +584,18 @@
   }
   .4 {
     @apply text-[#080854];
+  }
+  .5 {
+    @apply text-[#770606];
+  }
+  .6 {
+    @apply text-[#066f78];
+  }
+  .7 {
+    @apply text-[#780675];
+  }
+  .8 {
+    @apply text-[#838082];
   }
   .mine {
     @apply text-black;

@@ -36,16 +36,16 @@ export const MINESWEEPER = [{
     text: '🧞‍♂️',
   },
   5: {
-    text: '⬜'
+    text: '🧚‍♀️'
   },
   6: {
-    text: '⬜'
+    text: '🫧'
   },
   7: {
-    text: '⬜'
+    text: '💫'
   },
   8: {
-    text: '⬜'
+    text: '🌟'
   },
   mine: {
     text: '🌞'

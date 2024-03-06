@@ -1,0 +1,221 @@
+export const CORRUPTED = [{
+  text: '❑',
+  weight: 5,
+}, {
+  text: '𖤣.',
+  weight: 2,
+}, {
+  text: '⊻',
+  weight: 4,
+}, {
+  text: '∿',
+  weight: 4,
+}, {
+  text: '0⃣',
+  weight: 2,
+}, {
+  text: '☹',
+  weight: 3,
+}, {
+  text: '!',
+  weight: 10,
+}, {
+  text: '--',
+  weight: 2,
+}, {
+  text: '⊗',
+  weight: 20,
+}, {
+  text: '✕',
+  weight: 10,
+}, {
+  text: '☶',
+  weight: 3,
+}, {
+  text: '⑉',
+  weight: 2,
+}, {
+  text: '﹌',
+  weight: 2,
+}, {
+  text: '⑀',
+  weight: 3,
+}, {
+  text: '︶',
+  weight: 3,
+}, {
+  text: '╺',
+  weight: 5,
+}, {
+  text: '╴',
+  weight: 5,
+}, {
+  text: '╏',
+  weight: 2,
+}, {
+  text: '⊞',
+  weight: 2,
+}, {
+  text: '⌇',
+  weight: 3,
+}, {
+  text: '⌖',
+  weight: 2,
+}, {
+  text: '﹡',
+  weight: 8,
+}, {
+  text: '⌕',
+  weight: 2,
+}, {
+  text: '≋',
+  weight: 2,
+}, {
+  text: '≛',
+  weight: 2,
+}];
+
+export const SYMBOLS = [{
+    text: '❑',
+    weight: 10,
+  }, {
+    text: '␛',
+    weight: 4,
+  }, {
+    text: '☒',
+    weight: 10,
+  }, {
+    text: '﹟',
+    weight: 5,
+  }, {
+    text: '',
+    weight: 4,
+  }, {
+    text: '⚛',
+    weight: 2,
+  }, {
+    text: '#',
+    weight: 20,
+  }, {
+    text: '$',
+    weight: 10,
+  }, {
+    text: '∷',
+    weight: 3,
+  }, {
+    text: '✇',
+    weight: 1,
+  }, {
+    text: '⋙',
+    weight: 3,
+  }, {
+    text: '±',
+    weight: 2,
+  }, {
+    text: '\\',
+    weight: 8,
+  }, {
+    text: '%',
+    weight: 6,
+  }, {
+    text: '*(',
+    weight: 4
+  }, {
+    text: '!',
+    weight: 15,
+  }, {
+    text: '!!',
+    weight: 8,
+  }, {
+    text: 'π',
+    weight: 1,
+  }, {
+    text: '≤',
+    weight: 10,
+  }, {
+    text: '₊',
+    weight: 3,
+  }, {
+    text: 'ⁿ',
+    weight: 4
+  }, {
+    text: '=',
+    weight: 20,
+  }, {
+    text: '?',
+    weight: 8,
+  }, {
+    text: '??',
+    weight: 10, 
+  }, {
+    text: ':',
+    weight: 10,
+  }, {
+    text: '@',
+    weight: 7
+  }, {
+    text: '==',
+    weight: 20,
+  }, {
+    text: '/',
+    weight: 8,
+  }, {
+    text: '^',
+    weight: 5, 
+  }, {
+    text: '[]',
+    weight: 20, 
+  }, {
+    text: '~',
+    weight: 6,
+  }, {
+    text: '>',
+    weight: 16,
+  }, {
+    text: '⍞',
+    weight: 4, 
+  }, {
+    text: '⍁',
+    weight: 8,
+  }, {
+    text: '⌭',
+    weight: 3, 
+  }, {
+    text: '⌗',
+    weight: 5, 
+  }, {
+    text: '⌦',
+    weight: 7,
+  }, {
+    text: '␜',
+    weight: 5,
+  }, {
+    text: '␀',
+    weight: 10, 
+  }, {
+    text: '␣',
+    weight: 4, 
+  }, {
+    text: '⍇',
+    weight: 2,
+  }, {
+    text: '⌽',
+    weight: 2, 
+  }, {
+    text: '⌘',
+    weight: 3, 
+  }, {
+    text: '⍟',
+    weight: 2,
+  }, {
+    text: '⊛',
+    weight: 2,
+  }, {
+    text: '❍',
+    weight: 1, 
+  }, {
+    text: '"',
+    weight: 12, 
+  }
+];
+  

@@ -1104,7 +1104,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     endgameLabel: '💊 🅿️ 🆚 ❎',
     endgame: [
       'will you be able to get off H? possibly. but will life have any novelty left after you do? I wouldn\'t bet on it. you\'ve played your own song too many times.',
-      'my reasons for doing ketamine were to quiet the crying voices and to blunt the sharpness of the pain. i wanted to think Of things maybe but not About things, i\'d been thinking About things my whole life. the pain was always immediate and fresh, as if i\'d never been wounded before. it always took me by surprise.',
+      'my reasons for doing ketamine were to quiet the crying voices and to blunt the sharpness of the pain. i wanted to think Of things maybe but not About things, i\'d been thinking About things my whole life.',
       'the acute withdrawal phase is often followed by a protracted phase of depression and insomnia that can last for months.',
       'the dream ended when olney et al demonstrated that animals given high doses of dizocilpine showed curious vacuoles (essentially, tiny holes) in their brains. specifically, the vacuoles showed up in the posterior cingulate cortex and retrosplenial cortex. further research showed that other indicators of damage were present, such as proliferation of microglia, secretion of a protein called HSP70 (heat-shock protein 70), and expression of certain genes.',
       '"take the best orgasm you\'ve ever had, multiply by 1000, and you\'re still nowhere near it."',

@@ -159,9 +159,6 @@
     @apply border border-[#74ff6a];
     @apply bg-black;
     @apply text-[#74ff6a];
-    /* @apply bg-[#ef96dd];
-    @apply border-[#cf60b9];
-    @apply text-black; */
   }
 
   .tile {
@@ -687,6 +684,7 @@
       border-width: 3px;
       border-color: black;
       border-style: outset;
+      border-shadow: none;
     }
   
     .clicked {

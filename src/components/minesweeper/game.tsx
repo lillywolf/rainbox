@@ -360,7 +360,7 @@ const MobileDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean,
   return (
     <div className={styles.switchTheme}>
       <button className={classnames([styles.button, styles.darkThemeButton, styles.mobile])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
-        {isDarkTheme ? 'light theme' : 'dark theme'}
+        {isDarkTheme ? 'light' : 'dark'}
       </button>
     </div>
   );

@@ -76,7 +76,8 @@
 
 .timerAndRefresh.desktop {
   .reload svg {
-    @apply w-[20px] h-[20px];
+    @apply ml-[-1px];
+    @apply w-[21px] h-[21px];
   }
 }
 

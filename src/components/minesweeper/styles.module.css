@@ -6,7 +6,7 @@
 }
 
 .container.isDarkTheme {
-  @apply bg-[#202020];
+  @apply bg-[#0f0f0f];
 }
 
 .configurationAndGame {
@@ -141,8 +141,8 @@
 .isDarkTheme {
   .button {
     @apply bg-transparent;
-    @apply border-[#7e7e7e];
-    @apply border rounded-sm;
+    @apply border-0;
+    @apply bg-[#202020];
     @apply text-[#dedede];
   }
 
@@ -283,12 +283,11 @@
 .theme.mobile {
   @apply border rounded-sm;
   @apply bg-white;
-  @apply py-[4px];
   @apply w-[36px];
   @apply sm:py-[6px];
   @apply sm:w-[40px];
   @apply text-center;
-  @apply text-sm;
+  @apply text-base;
   @apply sm:text-base;
 
   &.dark {
@@ -326,10 +325,12 @@
   }
 
   .themes {
+    @apply py-2;
     @apply flex flex-col-reverse gap-y-1 items-center;
   }
 
   .currentTheme {
+    @apply py-[5px] pb-[3px];
     @apply rounded-sm;
     @apply text-base;
     @apply sm:text-lg;
@@ -338,20 +339,20 @@
 
 .isDarkTheme {
   .theme.mobile {
-    @apply bg-transparent;
-    @apply border-[#7e7e7e];
+    @apply bg-[#202020];
+    @apply border-0;
     @apply text-white;
 
     .currentTheme {
-      @apply bg-transparent;
-      @apply border-[#7e7e7e];
+      @apply bg-[#202020];
+      @apply border-0;
       @apply text-white;
     }
   }
 }
 
 .legend.mobile {
-  @apply grid grid-flow-col grid-rows-4 gap-x-1;
+  @apply grid grid-flow-col grid-rows-4 gap-x-2;
   @apply border rounded-sm border-[#add6ff];
   @apply bg-white;
   @apply px-2 py-1;
@@ -387,7 +388,7 @@
 .isDarkTheme {
   .legend {
     @apply bg-[#202020];
-    @apply border-[#7e7e7e];
+    @apply border-0;
     @apply text-[#dedede];
   }
 
@@ -605,18 +606,15 @@
 }
 
 .dreamlike {
-  /* @apply border border-[#e6f9ff]; */
   @apply border border-[#add6ff];
 
   .unclicked {
-    /* @apply bg-[#e6f9ff]; */
     @apply bg-[#e5f2ff];
     box-shadow: 0 0 0 1px #cff3ff;
   }
 
   .clicked {
     @apply text-[#291322];
-    /* @apply bg-[#cff3ff]; */
     @apply bg-[#ffe2fa];
     outline: solid 1px #e6f9ff;
   }

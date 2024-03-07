@@ -147,9 +147,12 @@
   }
 
   .button.selected {
-    @apply bg-[#ef96dd];
+    @apply border border-[#74ff6a];
+    @apply bg-black;
+    @apply text-[#74ff6a];
+    /* @apply bg-[#ef96dd];
     @apply border-[#cf60b9];
-    @apply text-black;
+    @apply text-black; */
   }  
 }
 
@@ -211,6 +214,12 @@
     @apply py-[4px];
     @apply sm:py-[6px];
   }
+/* 
+  .button.selected {
+    @apply border border-[#74ff6a];
+    @apply bg-transparent;
+    @apply text-[#74ff6a];
+  } */
 }
 
 .difficulty.desktop {
@@ -275,7 +284,7 @@
 }
 
 .switchTheme {
-  @apply fixed left-4 bottom-20;
+  @apply fixed left-4 top-24;
 }
 
 .darkThemeButton.mobile {
@@ -284,6 +293,12 @@
   @apply px-2 py-[3px];
   @apply sm:text-sm;
   @apply sm:py-[4px];
+}
+
+.isDarkTheme {
+  .darkThemeButton {
+    @apply text-[#ecff6a];
+  }
 }
 
 .themeAndLegend.mobile {
@@ -557,6 +572,22 @@
   }
 }
 
+.isDarkTheme {
+  .classic {
+    .unclicked {
+      @apply border-[3px] border-white;
+      @apply bg-[#ededed];
+      border-style: outset;
+    }
+  
+    .clicked {
+      @apply border-0 outline-[1px] outline-[#c1c1c1];
+      @apply bg-[#f0f0f0];
+      outline-style: solid;
+    }
+  }
+}
+
 .unclicked {
   line-height: 24px;
 }
@@ -595,6 +626,16 @@
 .isDarkTheme {
   .simple {
     @apply outline-2 outline-black;
+
+    .unclicked {
+      box-shadow: 0 0 0 1px #262626;
+      @apply bg-[#333333];
+    }
+  
+    .clicked {
+      @apply bg-[#262626];
+      outline: solid 1px #1a1a1a;
+    }
   }
 }
 
@@ -616,6 +657,27 @@
     outline-width: 1px;
     outline-style: solid;
     outline-offset: 0;
+  }
+}
+
+.isDarkTheme {
+  .dark {
+    .unclicked {
+      @apply bg-[#222222];
+      @apply border-black;
+      @apply border-[3px];
+      border-style: outset;
+    }
+  
+    .clicked {
+      @apply text-black;
+      @apply bg-[#525252];
+      @apply border-0;
+      @apply outline outline-[#303030];
+      outline-width: 1px;
+      outline-style: solid;
+      outline-offset: 0;
+    }
   }
 }
 
@@ -670,6 +732,21 @@
   }
 }
 
+.isDarkTheme {
+  .dreamlike {
+    .unclicked {
+      @apply bg-[#93ddff];
+      box-shadow: 0 0 0 1px #ade5ff;
+    }
+  
+    .clicked {
+      @apply text-[#291322];
+      @apply bg-[#ff94f1];
+      outline: solid 1px #ff7aed;
+    }
+  }
+}
+
 .compiler.dark {
   .clicked {
     @apply text-black;
@@ -698,11 +775,9 @@
 }
 
 .pink {
-  /* @apply border border-[#fab4ee]; */
   @apply border border-[#ffb8fb];
 
   .unclicked {
-    /* @apply bg-[#ffe6fb]; */
     @apply bg-[#fee3ff];
     box-shadow: 0 0 0 1px #fcf2fb;
   }
@@ -711,6 +786,21 @@
     @apply text-[#181924];
     @apply bg-[#ffc9f6];
     outline: solid 1px #fab4ee;
+  }
+}
+
+.isDarkTheme {
+  .pink {  
+    .unclicked {
+      @apply bg-[#fcadff];
+      box-shadow: 0 0 0 1px #fdccff;
+    }
+  
+    .clicked {
+      @apply text-[#181924];
+      @apply bg-[#fcc9ff];
+      outline: solid 1px #fab4ee;
+    }
   }
 }
 
@@ -762,6 +852,21 @@
 
   .clicked.mine {
     @apply bg-[#91ff52];
+  }
+}
+
+.isDarkTheme {
+  .green {
+    .unclicked {
+      @apply bg-[#292929];
+      box-shadow: 0 0 0 1px #74ff6a;
+    }
+  
+    .clicked {
+      @apply text-black;
+      @apply bg-[#74ff6a];
+      outline: solid 1px black;
+    }
   }
 }
 

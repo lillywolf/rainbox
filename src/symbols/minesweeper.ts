@@ -700,7 +700,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     endgame: [
       'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
       'isn\'t love just obsession that takes longer?',
-      'kiss me, and you will see how important i am.',
+      // 'kiss me, and you will see how important i am.',
       'the razor-sharp edges of companionship and love',
       'every love story is a ghost story',
       'disruption of pair bonding induces plastic changes in the hypothalamic CRF system, and these changes are associated with individuals returning to their former partner.',

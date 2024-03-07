@@ -684,8 +684,8 @@
   .dark {
     .unclicked {
       @apply bg-[#222222];
-      @apply border-black;
-      @apply border-[3px];
+      border-width: 3px;
+      border-color: black;
       border-style: outset;
     }
   

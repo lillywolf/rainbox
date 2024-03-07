@@ -265,16 +265,16 @@ export default function Game({
     setTheme(value);
   };
 
-  // useEffect(() => {
-  //   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  //     setIsDarkTheme(true);
-  //   }
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setIsDarkTheme(true);
+    }
 
-  //   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-  //     const darkTheme = event.matches ? true : false;
-  //     setIsDarkTheme(darkTheme);
-  //   });
-  // }, []);
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      const darkTheme = event.matches ? true : false;
+      setIsDarkTheme(darkTheme);
+    });
+  }, []);
 
   const cx = classnames([ styles.configurationAndGame, {
     [styles.easy]: (difficulty as number) === 1,
@@ -346,6 +346,11 @@ export default function Game({
         <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} />
       </div>
       <DesktopFooter />
+      <style jsx global>{`
+        body {
+          background: ${isDarkTheme ? '#202020' : '#f5faff'};
+        }
+      `}</style>
     </div>
   );
 }

@@ -778,7 +778,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       '🍑 🥝 🍉 🥥 🍋 🍐 🍋',
       'you\'re cute',
       ':)',
-      'let\'s meet in another life',
       'let\'s meet in air, me and you',
       'let\'s never come here again because it would never be as much fun',
       'stay here with me. we\'ll start a jazz band',

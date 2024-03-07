@@ -204,16 +204,16 @@ export const SYMBOLS_COSMOS = {
     text: '☄️'
   },
   3: {
-    text: '🌕'
+    text: '🚀'
   },
   4: {
-    text: '🚀'
+    text: '🛰️'
   },
   5: {
     text: '✨'
   },
   6: {
-    text: '🛰️'
+    text: '🌕'
   },
   7: {
     text: '🌒'

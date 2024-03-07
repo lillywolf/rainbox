@@ -316,6 +316,7 @@ export default function Game({
           />
         )}
         <div className={classnames([styles.themeAndLegend, styles.mobile])}>
+          <MobileDarkTheme isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
           <MobileTheme theme={theme} selectTheme={selectTheme} />
           <MobileLegend configuration={configuration} isGameOver={isGameOver} isGameWon={isGameWon} />
         </div>
@@ -354,6 +355,14 @@ export default function Game({
     </div>
   );
 }
+
+const MobileDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean, setIsDarkTheme: (theme: boolean) => void}) => {
+  return (
+    <button className={classnames([styles.button, styles.darkThemeButton, styles.mobile])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
+      {isDarkTheme ? 'light' : 'dark'}
+    </button>
+  );
+};
 
 const MobileFooter = () => {
   return (

@@ -141,7 +141,7 @@
 .isDarkTheme {
   .button {
     @apply bg-transparent;
-    @apply border-0;
+    @apply border-[#202020];
     @apply bg-[#202020];
     @apply text-[#dedede];
   }
@@ -274,6 +274,14 @@
   }
 }
 
+.darkThemeButton.mobile {
+  @apply text-sm;
+  @apply leading-6;
+  @apply px-2 py-[4px];
+  @apply sm:text-base;
+  @apply sm:py-[6px];
+}
+
 .themeAndLegend.mobile {
   @apply fixed bottom-4 right-4;
   @apply flex gap-x-2 items-end;
@@ -340,12 +348,12 @@
 .isDarkTheme {
   .theme.mobile {
     @apply bg-[#202020];
-    @apply border-0;
+    @apply border-[#202020];
     @apply text-white;
 
     .currentTheme {
       @apply bg-[#202020];
-      @apply border-0;
+      @apply border-[#202020];
       @apply text-white;
     }
   }
@@ -388,7 +396,7 @@
 .isDarkTheme {
   .legend {
     @apply bg-[#202020];
-    @apply border-0;
+    @apply border-[#202020];
     @apply text-[#dedede];
   }
 

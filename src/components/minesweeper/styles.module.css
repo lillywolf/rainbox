@@ -5,12 +5,16 @@
   @apply lg:bg-white;
 }
 
+.container.isDarkTheme {
+  @apply bg-[#202020];
+}
+
 .configurationAndGame {
   @apply w-full;
   @apply relative mx-auto gap-x-6;
   @apply pt-12;
   @apply flex flex-col justify-center;
-  @apply lg:mt-16;
+  @apply lg:pt-16;
   @apply lg:flex-row;
   @apply lg:pl-[90px]; /* this is to account for the space taken up by the controls */
   @apply lg:w-[1080px];
@@ -42,6 +46,12 @@
   @apply lg:block;
 }
 
+.isDarkTheme {
+  .footer {
+    @apply text-[#dedede];
+  }
+}
+
 .tile {
   @apply text-[16px];
 }
@@ -56,6 +66,16 @@
   @apply relative;
   @apply mx-auto mt-6;
   @apply lg:hidden;
+
+  .reload svg {
+    @apply w-[18px] h-[18px];
+  }
+}
+
+.isDarkTheme {
+  .timerAndRefresh {
+    @apply text-[#dedede];
+  }
 }
 
 .timer {
@@ -70,16 +90,11 @@
 }
 
 .reload {
-  @apply h-[24px] w-[24px];
   @apply flex items-center;
   @apply text-xl;
-  @apply lg:mt-4;
-}
-
-.reloadIcon {
   @apply mx-auto;
   @apply mt-[-2px] ml-[-2px];
-  @apply lg:mt-0;
+  @apply lg:mt-4 lg:ml-0;
 }
 
 .timer {
@@ -109,13 +124,10 @@
 .button {
   @apply bg-[#e5f2ff];
   @apply border-[#add6ff];
-  /* @apply border-black; */
   @apply border rounded-sm;
 }
 
 .button.standard, .button.dark, .button.classic {
-  /* @apply bg-white; */
-  /* @apply border-black; */
 }
 
 .button.selected {
@@ -124,7 +136,21 @@
 }
 
 .button.standard.selected, .button.dark.selected, .button.classic.selected {
-  /* @apply border-black; */
+}
+
+.isDarkTheme {
+  .button {
+    @apply bg-transparent;
+    @apply border-[#7e7e7e];
+    @apply border rounded-sm;
+    @apply text-[#dedede];
+  }
+
+  .button.selected {
+    @apply bg-[#cf72bc];
+    @apply border-[#d446b7];
+    @apply text-black;
+  }  
 }
 
 .presets.mobile {
@@ -147,10 +173,13 @@
   }
 
   .arrowLeft, .arrowRight {
-    @apply w-[24px] h-[24px];
     @apply flex-auto;
     @apply cursor-pointer;
     @apply sm:hidden;
+
+    svg {
+      @apply w-[20px] h-[20px];
+    }
   }
 
   .arrowLeft.isDisabled,
@@ -227,6 +256,12 @@
   @apply md:text-sm;
 }
 
+.isDarkTheme {
+  .configurationLabel {
+    @apply text-white;
+  }
+}
+
 .desktop {
   .configurationLabel {
     @apply mb-2;
@@ -272,8 +307,8 @@
   }
 
   &.dreamlike {
-    @apply bg-[#d0f0fe];
-    @apply border-[#88c5dd];
+    @apply bg-[#e5f2ff];
+    @apply border-[#add6ff];
   }
 
   &.simple {
@@ -302,9 +337,23 @@
   }
 }
 
+.isDarkTheme {
+  .theme.mobile {
+    @apply bg-transparent;
+    @apply border-[#7e7e7e];
+    @apply text-white;
+
+    .currentTheme {
+      @apply bg-transparent;
+      @apply border-[#7e7e7e];
+      @apply text-white;
+    }
+  }
+}
+
 .legend.mobile {
   @apply grid grid-flow-col grid-rows-4 gap-x-1;
-  @apply border rounded-sm border-black;
+  @apply border rounded-sm border-[#add6ff];
   @apply bg-white;
   @apply px-2 py-1;
   @apply sm:px-3 sm:py-2;
@@ -331,26 +380,40 @@
 
   .button {
     @apply text-xs;
-    @apply border border-black rounded-sm;
+    @apply border border-[#add6ff] rounded-sm;
     @apply px-2 py-[4px];
+  }
+}
+
+.isDarkTheme {
+  .legend {
+    @apply bg-transparent;
+    @apply border-[#7e7e7e];
+    @apply text-[#dedede];
+  }
+
+  .legend.desktop {
+    .button {
+      @apply border-[#7e7e7e];
+    }
   }
 }
 
 .gameOverContainer.mobile,
 .gameWonContainer.mobile {
-    @apply text-sm text-center;
-    @apply md:hidden;
-    @apply w-full;
-    @apply pt-4 px-8 pb-32;
+  @apply text-sm text-center;
+  @apply md:hidden;
+  @apply w-full;
+  @apply pt-4 px-8 pb-32;
 
-    .stats {
-      @apply mb-2;
-    }
-  
-    .gameOver,
-    .gameWon {
-      @apply text-sm;
-    }  
+  .stats {
+    @apply mb-2;
+  }
+
+  .gameOver,
+  .gameWon {
+    @apply text-sm;
+  }  
 }
 
 .gameOverContainer.desktop,
@@ -396,6 +459,40 @@
   .gameOver.extraLong,
   .gameWon.extraLong {
     @apply w-[360px];
+  }
+}
+
+.isDarkTheme {
+  .gameOverContainer.mobile,
+  .gameWonContainer.mobile {
+    @apply text-[#dedede];
+
+    .stats {
+      @apply bg-transparent;
+    }
+  
+    .gameOver,
+    .gameWon {
+      @apply bg-transparent;
+      @apply text-[#dedede];
+    }
+  }
+
+  .gameOverContainer.desktop,
+  .gameWonContainer.desktop {
+    @apply text-[#dedede];
+
+    .stats {
+      @apply bg-transparent;
+      @apply border-[#7e7e7e];
+    }
+  
+    .gameOver,
+    .gameWon {
+      @apply border-[#7e7e7e];
+      @apply bg-transparent;
+      @apply text-[#dedede];
+    }
   }
 }
 
@@ -470,11 +567,6 @@
 }
 
 .simple {
-  /* box-shadow: 0 0 0 1px #a13f4e; */
-  /* @apply outline outline-[#031c12];
-  outline-offset: 0;
-  outline-width: 1px; */
-
   .unclicked {
     box-shadow: 0 0 0 1px #d6d6d6;
     @apply bg-white;
@@ -483,7 +575,13 @@
   .clicked {
     @apply bg-[#f0f0f0];
     outline: solid 1px #d1d1d1;
-  }  
+  }
+}
+
+.isDarkTheme {
+  .simple {
+    @apply border border-black;
+  }
 }
 
 .dark {
@@ -508,17 +606,56 @@
 }
 
 .dreamlike {
-  @apply border border-[#e6f9ff];
+  /* @apply border border-[#e6f9ff]; */
+  @apply border border-[#add6ff];
 
   .unclicked {
-    @apply bg-[#e6f9ff];
+    /* @apply bg-[#e6f9ff]; */
+    @apply bg-[#e5f2ff];
     box-shadow: 0 0 0 1px #cff3ff;
   }
 
   .clicked {
     @apply text-[#291322];
-    @apply bg-[#cff3ff];
+    /* @apply bg-[#cff3ff]; */
+    @apply bg-[#ffe2fa];
     outline: solid 1px #e6f9ff;
+  }
+
+  .clicked.1 {
+    @apply bg-[#ffe2fa];
+  }
+
+  .clicked.2 {
+    @apply bg-[#ffccf6];
+  }
+
+  .clicked.3 {
+    @apply bg-[#ffb3f2];
+  }
+
+  .clicked.4 {
+    @apply bg-[#ff99ee];
+  }
+
+  .clicked.5 {
+    @apply bg-[#ff66e5];
+  }
+
+  .clicked.6 {
+    @apply bg-[#ff33dd];
+  }
+
+  .clicked.7 {
+    @apply bg-[#ff00d4];
+  }
+
+  .clicked.8 {
+    @apply bg-[#cc00aa];
+  }
+
+  .clicked.mine {
+    @apply bg-[#c0dfff];
   }
 }
 
@@ -550,10 +687,12 @@
 }
 
 .pink {
-  @apply border border-[#fab4ee];
+  /* @apply border border-[#fab4ee]; */
+  @apply border border-[#ffb8fb];
 
   .unclicked {
-    @apply bg-[#ffe6fb];
+    /* @apply bg-[#ffe6fb]; */
+    @apply bg-[#fee3ff];
     box-shadow: 0 0 0 1px #fcf2fb;
   }
 
@@ -569,13 +708,49 @@
 
   .unclicked {
     @apply bg-[#dfffcc];
-    box-shadow: 0 0 0 1px #d4f5bf;
+    box-shadow: 0 0 0 1px #c1e9af;
   }
 
   .clicked {
     @apply text-[#525c4a];
     @apply bg-[#beff99];
     outline: solid 1px #c9f2ae;
+  }
+
+  .clicked.1 {
+    @apply bg-[#beff99];
+  }
+
+  .clicked.2 {
+    @apply bg-[#beff99];
+  }
+
+  .clicked.3 {
+    @apply bg-[#abff7a];
+  }
+
+  .clicked.4 {
+    @apply bg-[#abff7a];
+  }
+
+  .clicked.5 {
+    @apply bg-[#98ff5c];
+  }
+
+  .clicked.6 {
+    @apply bg-[#98ff5c];
+  }
+
+  .clicked.7 {
+    @apply bg-[#7eff33];
+  }
+
+  .clicked.8 {
+    @apply bg-[#7eff33];
+  }
+
+  .clicked.mine {
+    @apply bg-[#91ff52];
   }
 }
 

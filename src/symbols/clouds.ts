@@ -48,7 +48,7 @@ export const MINESWEEPER = [{
     text: '🌟'
   },
   mine: {
-    text: '🌞'
+    text: '☼'
   }
 }, {
   0: {

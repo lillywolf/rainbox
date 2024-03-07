@@ -12,6 +12,9 @@ import Timer from '../timer';
 import { type Tile, SquareGrid } from 'src/classes/SquareGrid';
 
 import styles from './styles.module.css';
+import Reload from '../svg/reload';
+import ArrowLeft from '../svg/arrowLeft';
+import ArrowRight from '../svg/arrowRight';
 
 type GridProps = {
   grid: SquareGrid;
@@ -187,6 +190,7 @@ export default function Game({
   const [difficulty, setDifficulty] = useState<DifficultyConfig>(difficultyDefault);
   const [theme, setTheme] = useState<ThemeConfig>(themeDefault);
   const [playCount, setPlayCount] = useState(0);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isGameReset, setIsGameReset] = useState(true);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -261,6 +265,17 @@ export default function Game({
     setTheme(value);
   };
 
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setIsDarkTheme(true);
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      const darkTheme = event.matches ? true : false;
+      setIsDarkTheme(darkTheme);
+    });
+  }, []);
+
   const cx = classnames([ styles.configurationAndGame, {
     [styles.easy]: (difficulty as number) === 1,
     [styles.intermediate]: (difficulty as number) === 2,
@@ -272,10 +287,11 @@ export default function Game({
       styles.container,
       styles[configuration.id],
       {[styles.isGameOver]: isGameOver},
-      {[styles.isGameWon]: isGameWon}
+      {[styles.isGameWon]: isGameWon},
+      {[styles.isDarkTheme]: isDarkTheme},
     ])}>
       <div className={cx}>
-        <MobilePresets configuration={configuration} selectConfiguration={selectConfiguration} />
+        <MobilePresets configuration={configuration} selectConfiguration={selectConfiguration} isDarkTheme={isDarkTheme} />
         <DesktopControls
           configuration={configuration}
           difficulty={difficulty}
@@ -284,7 +300,7 @@ export default function Game({
           selectDifficulty={selectDifficulty}
           selectTheme={selectTheme}
         />
-        <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={mobiletimerRef} />
+        <MobileTimerAndRefresh configuration={configuration} selectConfiguration={selectConfiguration} timerRef={mobiletimerRef} isDarkTheme={isDarkTheme}/>
         {gridRef.current && (
           <Grid
             grid={gridRef.current}
@@ -321,6 +337,7 @@ export default function Game({
             configuration={configuration}
             selectConfiguration={selectConfiguration}
             timerRef={desktoptimerRef}
+            isDarkTheme={isDarkTheme}
           />
           {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
           {isGameWon ? <GameWonDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
@@ -741,10 +758,12 @@ const MobileTheme = ({
 
 const MobilePresets = ({
   configuration,
-  selectConfiguration
+  selectConfiguration,
+  isDarkTheme
 }: {
   configuration: MinesweeperConfig,
-  selectConfiguration: (configuration: string) => void
+  selectConfiguration: (configuration: string) => void,
+  isDarkTheme: boolean
 }) => {
   const [currentScrollXPosition, setCurrentScrollXPosition] = useState(0);
   const presetButtonsRef = useRef<HTMLDivElement>(null);
@@ -778,7 +797,7 @@ const MobilePresets = ({
 
   return (
     <div className={classnames([styles.configuration, styles.presets, styles.mobile])}>
-      <Image 
+      {/* <Image 
         className={classnames([
           styles.arrowLeft,
           {[styles.isDisabled]: currentScrollXPosition === 0}
@@ -788,7 +807,16 @@ const MobilePresets = ({
         height={20}
         alt='scroll left'
         onClick={() => scrollLeft()}
-      />
+      /> */}
+      <div
+        onClick={() => scrollLeft()}
+        className={classnames([
+          styles.arrowLeft,
+          {[styles.isDisabled]: currentScrollXPosition === 0}
+        ])}
+      >
+        <ArrowLeft color={isDarkTheme ? 'white' : 'black'} />
+      </div>
       <div className={styles.presetButtons} ref={presetButtonsRef}>
         {Object.entries(CONFIGURATION_OPTIONS).filter(([_, value]) => value.text).map(([ key, value ], i) => (
           <button
@@ -806,7 +834,7 @@ const MobilePresets = ({
           </button>
         ))}
       </div>
-      <Image
+      {/* <Image
         className={classnames([
           styles.arrowRight,
           {[styles.isDisabled]: currentScrollXPosition >= Number(presetButtonsRef.current?.scrollWidth)}
@@ -816,7 +844,16 @@ const MobilePresets = ({
         height={20}
         alt='scroll right'
         onClick={() => scrollRight()}
-      />
+      /> */}
+      <div
+        onClick={() => scrollRight()}
+        className={classnames([
+          styles.arrowRight,
+          {[styles.isDisabled]: currentScrollXPosition >= Number(presetButtonsRef.current?.scrollWidth)}
+        ])}
+      >
+        <ArrowRight color={isDarkTheme ? 'white' : 'black'} />
+      </div>
     </div>
   );
 };
@@ -918,15 +955,20 @@ const MobileTimerAndRefresh = ({
   configuration,
   selectConfiguration,
   timerRef,
+  isDarkTheme,
 }: {
   configuration: MinesweeperConfig,
   selectConfiguration: (configuration: string) => void,
   timerRef: TimerRef,
+  isDarkTheme: boolean,
 }) => {
   return (
     <div className={classnames([styles.mobile, styles.timerAndRefresh])}>
-      <button className={classnames([styles.reload])} onClick={() => selectConfiguration(configuration.id)}>
-        <Image className={styles.reloadIcon} src='/reload.svg' alt='reload game' width={24} height={24} />
+      <button
+        className={styles.reload}
+        onClick={() => selectConfiguration(configuration.id)}
+      >
+        <Reload color={isDarkTheme ? 'white' : 'black'} />
       </button>
       <div className={classnames([styles.timer])}>
         <span className={styles.timeIcon}>⏰</span>
@@ -942,15 +984,20 @@ const DesktopTimerAndRefresh = ({
   configuration,
   selectConfiguration,
   timerRef,
+  isDarkTheme,
 }: {
   configuration: MinesweeperConfig,
   selectConfiguration: (configuration: string) => void,
   timerRef: TimerRef,
+  isDarkTheme: boolean,
 }) => {
   return (
     <div className={classnames([styles.desktop, styles.timerAndRefresh])}>
-      <button className={classnames([styles.reload])} onClick={() => selectConfiguration(configuration.id)}>
-        <Image className={styles.reloadIcon} src='/reload.svg' alt='reload game' width={24} height={24} />
+      <button
+        className={styles.reload}
+        onClick={() => selectConfiguration(configuration.id)}
+      >
+        <Reload color={isDarkTheme ? 'white' : 'black'} />
       </button>
       <div className={classnames([styles.timer])}>
         <span className={styles.timeIcon}>⏱</span>

@@ -419,13 +419,13 @@ export const SYMBOLS_SADNESS = {
     text: '💌'
   },
   2: {
-    text: '✂️'
+    text: '☔︎︎'
   },
   3: {
-    text: '🤍'
+    text: '✂️'
   },
   4: {
-    text: '☔︎︎'
+    text: '🤍'
   },
   5: {
     text: '💔'
@@ -719,7 +719,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'love is by definition an unmerited gift; being loved without meriting it is the very proof of real love',
       'nothing good ever comes of love. what comes of love is always something better',
       'for a moment the two of them looked at each other, wordless, as if they were asleep and their dreams had converged on common ground, a place where sound was alien.',
-      // 'i simply regard romantic comedies as a subgenre of sci-fi, in which the world created therein has different rules than my regular human world.',
     ],
     wingame: [
       'two people in love, alone, isolated from the world, that\'s beautiful',
@@ -806,11 +805,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'in the beginning there was nothing, which exploded.',
       'space is big. you just won\'t believe how vastly, hugely, mind-bogglingly big it is. i mean, you may think it\'s a long way down the road to the chemist\'s, but that\'s just peanuts to space.',
       'left index finger to right index finger straight across your heart, that\'s the history of the earth. you know what human history is? human history is the nail on your right-hand index finger. not even the whole nail. just that little white part. the part you clip off when it gets too long. that\'s the discovery of fire and the invention of writing and galileo and newton and the moon landing and 9/11 and last week and this morning. compared to evolution we\'re newborns. compared to geology, we barely exist.',
-      // 'looking at these stars suddenly dwarfed my own troubles and all the gravities of terrestrial life',
       'how inappropriate to call this planet "earth," when it is clearly "ocean"',
       'i want to stand as close to the edge as I can without going over. out on the edge you see all kinds of things you can\'t see from the center.',
       'the universe is a big place, perhaps the biggest.',
-      // 'we all know interspecies romance is weird',
       'we are an impossibility in an impossible universe.',
       // 'two possibilities exist: either we are alone in the Universe or we are not. both are equally terrifying.',
       'the dinosaurs became extinct because they didn\'t have a space program. and if we become extinct because we don\'t have a space program, it\'ll serve us right!',
@@ -827,7 +824,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     endgameLabel: '☁️',
     endgame: [
       'our dreams prove that to imagine -- to dream about things that have not happened -- is among mankind\'s deepest needs. herein lies the danger. if dreams were not beautiful, they would quickly be forgotten.',
-      // 'for in that sleep of death what dreams may come, when we have shuffled off this mortal coil, must give us pause',
       'nothing happened today. and if anything did, i\'d rather not talk about it, because i didn\'t understand it.',
       'gn gn gn gn',
       // 'the stars go waltzing out in blue and red, and arbitrary blackness gallops in: i shut my eyes and all the world drops dead.',
@@ -835,9 +831,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'we\'re artists too, but we do a good job hiding it, don\'t we?',
       'only in chaos are we conceivable',
       'would it save you a lot of time if i just gave up and went mad now?',
-      // 'in science fiction, we dream. in order to colonize in space, to rebuild our cities, which are so far out of whack, to tackle any number of problems, we must imagine the future, including the new technologies that are required.',
       'i don\'t just make random things up. i consider the world around me. i live in it. i experience it. i love it. i hate it. i worry about it. then i imagine what\'s to come.',
-      // 'science fiction is any idea that occurs in the head and doesn\'t exist yet, but soon will, and will change everything for everybody, and nothing will ever be the same again.',
       'every hundred feet the world changes',
     ],
     wingame: [
@@ -854,7 +848,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     // endgameLabel: '𓇢𓆸',
     endgame: [
       'sometimes human beings have to just sit in one place and, like, hurt',
-      'i think you guys are going to have to come up with a lot of wonderful new lies, or people just aren\'t going to want to go on living.',
       'of all the words of mice and men, the saddest are, "it might have been."',
       'cry all you want, i won\'t tell anybody',
       'we\'ve always been terrible at doing the things we\'re supposed to do',
@@ -873,7 +866,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'the greek word for "return" is nostos. algos means "suffering." so nostalgia is the suffering caused by an unappeased yearning to return.',
       'therein lies the whole of man\'s plight. human time does not turn in a circle; it runs ahead in a straight line. that is why man cannot be happy: happiness is the longing for repetition.',
       'we all need someone to look at us',
-      // 'who did they think i was? how did i turn out to be different?',
       'everything that starts as a comedy ends as a tragicomedy',
       'everything i\'ve ever let go of has claw marks on it',
       'i cried at night and i had an iron will',
@@ -889,7 +881,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'there is nothing like puking with somebody to make you into old friends',
       'i must get my soul back from you; i am killing my flesh without it.',
       'i didn\'t want my picture taken because i was going to cry. i didn’t know why i was going to cry, but i knew that if anybody spoke to me or looked at me too closely the tears would fly out of my eyes and the sobs would fly out of my throat and i\'d cry for a week.',
-      // 'i don’t care about anyone, and the feeling is quite obviously mutual.',
       'so many people are shut up tight inside themselves like boxes',
       'i didn’t want any flowers, i only wanted / to lie with my hands turned up and be utterly empty. / how free it is, you have no idea how free.',
 
@@ -1034,7 +1025,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'your spiritual guide has left the building',
       'you are dead, but you can try manifesting aliveness',
       'no one wants your healing services',
-      // 'now that you have reflected, perhaps you can see that death is the right choice for you',
       'mercury is in retrograde',
       'this proves two things: firstly, that god moves in extremely mysterious, not to say, circuitous ways. god does not play dice with the universe; he plays an ineffable game of His own devising, which might be compared, from the perspective of any of the other players, [ie., everybody.] to being involved in an obscure and complex version of poker in a pitch-dark room, with blank cards, for infinite stakes, with a Dealer who won\'t tell you the rules, and who smiles all the time.\n secondly, the earth\'s a libra.',
       'i just did some calculations, and i\'ve been able to determine that you\'re full of shit',

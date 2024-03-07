@@ -3,9 +3,11 @@
   @apply w-full min-h-[100vh];
   @apply bg-[#f5faff];
   @apply lg:bg-white;
+  @apply font-medium;
 }
 
 .container.isDarkTheme {
+  @apply font-normal;
   @apply bg-[#0f0f0f];
 }
 

@@ -306,6 +306,8 @@
 .isDarkTheme {
   .darkThemeButton {
     @apply text-[#f660fe];
+    @apply border-[#323232];
+    @apply bg-black;
   }
 }
 
@@ -320,8 +322,9 @@
   @apply w-[36px];
   @apply sm:py-[6px];
   @apply text-center;
-  @apply text-lg;
+  @apply text-base;
   @apply leading-6;
+  @apply md:text-lg;
 
   &.dark {
     @apply bg-[#9eaab3];
@@ -375,6 +378,7 @@
     @apply bg-transparent;
     @apply border-[#434343];
     @apply text-white;
+    @apply mb-[-1px];
 
     .currentTheme {
       @apply text-white;
@@ -802,13 +806,13 @@
   .pink {  
     .unclicked {
       @apply bg-[#fcadff];
-      box-shadow: 0 0 0 1px #fdccff;
+      box-shadow: 0 0 0 1px #ed83dc;
     }
   
     .clicked {
       @apply text-[#181924];
       @apply bg-[#fcc9ff];
-      outline: solid 1px #fab4ee;
+      outline: solid 1px #e66fc2;
     }
   }
 }
@@ -879,7 +883,8 @@
   }
 }
 
-.standard {
+.standard,
+.isDarkTheme.standard {
   .1 {
     @apply text-[#4759fc];
   }

@@ -697,10 +697,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'love': {
     id: 'love',
     text: '♥︎',
-    // endgameLabel: '❤️‍🩹',
     endgame: [
       'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
-      'are you happy i\'m here?',
       'isn\'t love just obsession that takes longer?',
       'kiss me, and you will see how important i am.',
       'the razor-sharp edges of companionship and love',
@@ -783,6 +781,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'stay here with me. we\'ll start a jazz band',
       'if you remember me, then i don\'t care if everyone else forgets',
       'i might just text you',
+      'are you happy i\'m here?',
     ],
     wingame: [
       'your world is beautiful and i want to be in it with you',

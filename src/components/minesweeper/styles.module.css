@@ -308,14 +308,12 @@
   @apply text-left;
   @apply leading-4;
   @apply px-2 py-[3px];
-  @apply sm:text-xs;
   @apply sm:py-[4px];
 }
 
 .isDarkTheme {
   .darkThemeButton {
     @apply text-[#dedede];
-    /* @apply text-[#ff99d0]; */
     @apply bg-[#202020];
   }
 }

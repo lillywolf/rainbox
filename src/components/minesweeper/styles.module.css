@@ -66,7 +66,7 @@
 .timerAndRefresh.mobile {
   @apply flex items-center gap-x-1;
   @apply relative;
-  @apply mx-auto mt-[30px];
+  @apply mx-auto mt-[34px];
   @apply lg:hidden;
 
   .reload svg {
@@ -290,7 +290,7 @@
 }
 
 .switchTheme {
-  @apply fixed left-[14px] top-[110px];
+  @apply fixed left-[14px] top-[114px];
   @apply sm:left-4 sm:bottom-20 sm:top-auto;
   @apply lg:hidden;
 }

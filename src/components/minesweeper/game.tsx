@@ -349,7 +349,7 @@ export default function Game({
       <DesktopFooter />
       <style jsx global>{`
         body {
-          background: ${isDarkTheme ? '#202020' : '#f5faff'};
+          background: ${isDarkTheme ? '#0f0f0f' : '#f5faff'};
         }
       `}</style>
     </div>

@@ -74,6 +74,12 @@
   }
 }
 
+.timerAndRefresh.desktop {
+  .reload svg {
+    @apply w-[24px] h-[24px];
+  }
+}
+
 .isDarkTheme {
   .timerAndRefresh {
     @apply text-[#dedede];

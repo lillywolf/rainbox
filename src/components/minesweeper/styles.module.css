@@ -27,7 +27,7 @@
   @apply grid-rows-[repeat(auto-fill,minmax(24px,1fr))]; /* 26px? */
   @apply grid-cols-[repeat(auto-fill,minmax(24px,1fr))]; /* 26px? */
   @apply mx-auto;
-  @apply mt-[14px];
+  @apply mt-[18px];
   @apply lg:mx-0;
   @apply lg:mt-4;
 }

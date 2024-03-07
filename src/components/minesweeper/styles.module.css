@@ -665,7 +665,7 @@
 
   .unclicked {
     @apply bg-[#222222];
-    @apply border-[#303030];
+    @apply border-black;
     @apply border-[3px];
     border-style: outset;
   }

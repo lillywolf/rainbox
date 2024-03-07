@@ -147,8 +147,8 @@
   }
 
   .button.selected {
-    @apply bg-[#cf72bc];
-    @apply border-[#d446b7];
+    @apply bg-[#ef96dd];
+    @apply border-[#cf60b9];
     @apply text-black;
   }  
 }
@@ -323,7 +323,6 @@
 
   &.open {
     @apply bg-white;
-    @apply border-black;
   }
 
   .themes {
@@ -387,7 +386,7 @@
 
 .isDarkTheme {
   .legend {
-    @apply bg-transparent;
+    @apply bg-[#202020];
     @apply border-[#7e7e7e];
     @apply text-[#dedede];
   }
@@ -580,7 +579,7 @@
 
 .isDarkTheme {
   .simple {
-    @apply border border-black;
+    @apply outline-2 outline-black;
   }
 }
 

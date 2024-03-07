@@ -33,3 +33,10 @@
   @apply hidden;
   @apply md:inline;
 }
+
+/* @media (prefers-color-scheme: dark) {
+  .header {
+    @apply bg-[#74ff6a];
+    @apply text-[#202020];
+  }
+} */

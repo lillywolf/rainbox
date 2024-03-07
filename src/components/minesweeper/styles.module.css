@@ -158,7 +158,7 @@
   }
 
   .tile {
-    @apply text-[#737373];
+    @apply text-[#7a7a7a];
   }
 }
 
@@ -291,12 +291,14 @@
 
 .switchTheme {
   @apply fixed left-[14px] top-[114px];
+  @apply font-sans;
   @apply sm:left-4 sm:bottom-20 sm:top-auto;
   @apply lg:hidden;
 }
 
 .darkThemeButton.mobile {
-  @apply text-xs;
+  @apply text-[10px];
+  @apply text-left;
   @apply leading-4;
   @apply px-2 py-[3px];
   @apply sm:text-sm;
@@ -305,9 +307,9 @@
 
 .isDarkTheme {
   .darkThemeButton {
-    @apply text-[#f660fe];
-    @apply border-[#323232];
-    @apply bg-black;
+    /* @apply text-[#fc6dce]; */
+    @apply text-[#ff99d0];
+    @apply bg-[#202020];
   }
 }
 
@@ -375,7 +377,7 @@
 
 .isDarkTheme {
   .theme.mobile {
-    @apply bg-transparent;
+    @apply bg-[#0f0f0f];
     @apply border-[#434343];
     @apply text-white;
     @apply mb-[-1px];
@@ -428,7 +430,9 @@
 .isDarkTheme {
   .legend {
     @apply bg-[#202020];
-    @apply border-[#f660fe];
+    /* @apply border-[#f54dfe]; */
+    /* @apply border-[#555555]; */
+    @apply border-[#202020];
     @apply text-[#dedede];
   }
 
@@ -748,14 +752,23 @@
 .isDarkTheme {
   .dreamlike {
     .unclicked {
-      @apply bg-[#93ddff];
+      @apply bg-[#bad2ff];
       box-shadow: 0 0 0 1px #ade5ff;
     }
   
-    .clicked {
+    .clicked.0,
+    .clicked.1,
+    .clicked.2,
+    .clicked.3,
+    .clicked.4, 
+    .clicked.5, 
+    .clicked.6,
+    .clicked.7,
+    .clicked.8,
+    .clicked.mine {
       @apply text-[#291322];
-      @apply bg-[#ff94f1];
-      outline: solid 1px #ff7aed;
+      @apply bg-[#d5bfff];
+      outline: solid 1px #bca0f3;
     }
   }
 }
@@ -766,7 +779,7 @@
   }
 }
 
-.fruits.dreamlike,
+/* .fruits.dreamlike,
 .compiler.dreamlike {
   .clicked {
     @apply text-[#291322];
@@ -778,7 +791,7 @@
   .clicked {
     @apply text-[#181924];
   }
-}
+} */
 
 .fruits.green,
 .compiler.green {
@@ -805,14 +818,14 @@
 .isDarkTheme {
   .pink {  
     .unclicked {
-      @apply bg-[#fcadff];
-      box-shadow: 0 0 0 1px #ed83dc;
+      @apply bg-[#ffbff0];
+      box-shadow: 0 0 0 1px #ffdbf7;
     }
   
     .clicked {
       @apply text-[#181924];
-      @apply bg-[#fcc9ff];
-      outline: solid 1px #e66fc2;
+      @apply bg-[#fbadff];
+      outline: solid 1px #ec93d1;
     }
   }
 }

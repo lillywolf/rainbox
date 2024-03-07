@@ -20,6 +20,13 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    fontFamily: {
+      'sans': ['Helvetica'],
+    },
+    fontSize: {
+      ...defaultTheme.fontSize,
+      'sm': ['0.8125rem', {lineHeight: '1.125rem'}],
+    }
   },
   plugins: [],
 };

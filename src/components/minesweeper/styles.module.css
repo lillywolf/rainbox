@@ -307,7 +307,7 @@
   @apply text-left;
   @apply leading-4;
   @apply px-2 py-[3px];
-  @apply sm:text-sm;
+  @apply sm:text-xs;
   @apply sm:py-[4px];
 }
 
@@ -328,7 +328,6 @@
 .theme.mobile {
   @apply border rounded-md border-[#add6ff];
   @apply w-[36px];
-  @apply sm:py-[6px];
   @apply text-center;
   @apply text-base;
   @apply leading-6;
@@ -377,7 +376,6 @@
   .currentTheme {
     @apply w-full;
     @apply py-[5px] pb-[3px];
-    @apply sm:py-[6px];
   }
 }
 

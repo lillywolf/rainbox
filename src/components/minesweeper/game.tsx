@@ -265,16 +265,16 @@ export default function Game({
     setTheme(value);
   };
 
-  useEffect(() => {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDarkTheme(true);
-    }
+  // useEffect(() => {
+  //   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  //     setIsDarkTheme(true);
+  //   }
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-      const darkTheme = event.matches ? true : false;
-      setIsDarkTheme(darkTheme);
-    });
-  }, []);
+  //   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  //     const darkTheme = event.matches ? true : false;
+  //     setIsDarkTheme(darkTheme);
+  //   });
+  // }, []);
 
   const cx = classnames([ styles.configurationAndGame, {
     [styles.easy]: (difficulty as number) === 1,
@@ -797,17 +797,6 @@ const MobilePresets = ({
 
   return (
     <div className={classnames([styles.configuration, styles.presets, styles.mobile])}>
-      {/* <Image 
-        className={classnames([
-          styles.arrowLeft,
-          {[styles.isDisabled]: currentScrollXPosition === 0}
-        ])}
-        src='/arrow-circle-left.svg'
-        width={20}
-        height={20}
-        alt='scroll left'
-        onClick={() => scrollLeft()}
-      /> */}
       <div
         onClick={() => scrollLeft()}
         className={classnames([
@@ -834,17 +823,6 @@ const MobilePresets = ({
           </button>
         ))}
       </div>
-      {/* <Image
-        className={classnames([
-          styles.arrowRight,
-          {[styles.isDisabled]: currentScrollXPosition >= Number(presetButtonsRef.current?.scrollWidth)}
-        ])}
-        src='/arrow-circle-right.svg'
-        width={20}
-        height={20}
-        alt='scroll right'
-        onClick={() => scrollRight()}
-      /> */}
       <div
         onClick={() => scrollRight()}
         className={classnames([

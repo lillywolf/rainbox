@@ -485,6 +485,7 @@
 
   .gameOver,
   .gameWon {
+    @apply inline-block;
     @apply bg-white;
     @apply text-[14px];
     @apply border border-black;

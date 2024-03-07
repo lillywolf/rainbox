@@ -274,12 +274,16 @@
   }
 }
 
+.switchTheme {
+  @apply fixed left-4 bottom-20;
+}
+
 .darkThemeButton.mobile {
-  @apply text-sm;
-  @apply leading-6;
-  @apply px-2 py-[4px];
-  @apply sm:text-base;
-  @apply sm:py-[6px];
+  @apply text-xs;
+  @apply leading-4;
+  @apply px-2 py-[3px];
+  @apply sm:text-sm;
+  @apply sm:py-[4px];
 }
 
 .themeAndLegend.mobile {
@@ -289,14 +293,10 @@
 }
 
 .theme.mobile {
-  @apply border rounded-sm;
-  @apply bg-white;
-  @apply w-[36px];
+  @apply border rounded-sm border-[#add6ff];
+  @apply w-[40px];
   @apply sm:py-[6px];
-  @apply sm:w-[40px];
   @apply text-center;
-  @apply text-base;
-  @apply sm:text-base;
 
   &.dark {
     @apply bg-[#9eaab3];
@@ -329,7 +329,8 @@
   }
 
   &.open {
-    @apply bg-white;
+    @apply bg-[#e5f2ff];
+    @apply border-[#add6ff];
   }
 
   .themes {
@@ -338,10 +339,12 @@
   }
 
   .currentTheme {
-    @apply py-[5px] pb-[3px];
-    @apply rounded-sm;
+    @apply w-full;
     @apply text-base;
+    @apply leading-6;
+    @apply py-[5px] pb-[3px];
     @apply sm:text-lg;
+    @apply sm:py-[6px];
   }
 }
 
@@ -352,10 +355,13 @@
     @apply text-white;
 
     .currentTheme {
-      @apply bg-[#202020];
-      @apply border-[#202020];
       @apply text-white;
     }
+  }
+
+  .theme.mobile.open {
+    @apply bg-[#202020];
+    @apply border-[#202020];
   }
 }
 

@@ -316,7 +316,6 @@ export default function Game({
           />
         )}
         <div className={classnames([styles.themeAndLegend, styles.mobile])}>
-          <MobileDarkTheme isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
           <MobileTheme theme={theme} selectTheme={selectTheme} />
           <MobileLegend configuration={configuration} isGameOver={isGameOver} isGameWon={isGameWon} />
         </div>
@@ -343,6 +342,7 @@ export default function Game({
           {isGameOver ? <GameOverDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
           {isGameWon ? <GameWonDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
         </div>
+        <MobileDarkTheme isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
         <DesktopLegend configuration={configuration} />
         <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} />
       </div>
@@ -358,9 +358,11 @@ export default function Game({
 
 const MobileDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean, setIsDarkTheme: (theme: boolean) => void}) => {
   return (
-    <button className={classnames([styles.button, styles.darkThemeButton, styles.mobile])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
-      {isDarkTheme ? 'light' : 'dark'}
-    </button>
+    <div className={styles.switchTheme}>
+      <button className={classnames([styles.button, styles.darkThemeButton, styles.mobile])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
+        {isDarkTheme ? 'light' : 'dark'}
+      </button>
+    </div>
   );
 };
 
@@ -756,7 +758,7 @@ const MobileTheme = ({
 
             return (
               <button className={styles.themeButton} key={key} onClick={() => _selectTheme(THEME_CONFIGS[key].id)}>
-                <span className={styles.themeIcon}>{THEME_CONFIGS[key].icon}</span>
+                {THEME_CONFIGS[key].icon}
               </button>
             );
           })}
@@ -764,7 +766,7 @@ const MobileTheme = ({
       )
     }
     <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
-      <span className={styles.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
+      {THEME_CONFIGS[theme].icon}
     </button>
   </div>
   );
@@ -960,7 +962,7 @@ const MobileTimerAndRefresh = ({
         className={styles.reload}
         onClick={() => selectConfiguration(configuration.id)}
       >
-        <Reload color={isDarkTheme ? 'white' : 'black'} />
+        <Reload color={isDarkTheme ? '#ecff6a' : 'black'} />
       </button>
       <div className={classnames([styles.timer])}>
         <span className={styles.timeIcon}>⏰</span>

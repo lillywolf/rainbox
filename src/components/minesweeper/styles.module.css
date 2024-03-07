@@ -307,8 +307,8 @@
 
 .isDarkTheme {
   .darkThemeButton {
-    /* @apply text-[#fc6dce]; */
-    @apply text-[#ff99d0];
+    @apply text-[#dedede];
+    /* @apply text-[#ff99d0]; */
     @apply bg-[#202020];
   }
 }
@@ -380,7 +380,6 @@
     @apply bg-[#0f0f0f];
     @apply border-[#434343];
     @apply text-white;
-    @apply mb-[-1px];
 
     .currentTheme {
       @apply text-white;

@@ -546,7 +546,7 @@ export const SIGNAL_LOSS = {
 
 export const COMPILER = {
   mine: {
-    text: '⛔',
+    text: '❌',
   },
   empty: {
     text: '',
@@ -555,28 +555,28 @@ export const COMPILER = {
     text: () => getWeightedSymbol(SYMBOLS_COMPILER),
   },
   1: {
-    text: '#️⃣'
+    text: '⚙️'
   },
   2: {
-    text: '*️⃣'
+    text: '✳️'
   },
   3: {
-    text: '🔁'
+    text: '➡️'
   },
   4: {
-    text: '➡️'
+    text: '📳'
   },
   5: {
     text: '⚠️'
   },
   6: {
-    text: '📳'
+    text: '*️⃣'
   },
   7: {
-    text: '✳️'
+    text: '🔁'
   },
   8: {
-    text: '⚙️'
+    text: '#️⃣'
   }
 };
 

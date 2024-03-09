@@ -4,7 +4,8 @@ export enum THEME_CONFIG {
   'dark' = 'dark',
   'dreamlike' = 'dreamlike',
   'green' = 'green',
-  'pink' = 'pink'
+  'pink' = 'pink',
+  'green_machine' = 'green_machine'
 }
 
 export enum DIFFICULTY_CONFIG {
@@ -14,7 +15,14 @@ export enum DIFFICULTY_CONFIG {
   'expert' = 4,
 };
 
-export type ThemeConfig = THEME_CONFIG.classic | THEME_CONFIG.simple | THEME_CONFIG.dark | THEME_CONFIG.dreamlike | THEME_CONFIG.green | THEME_CONFIG.pink;
+export type ThemeConfig = 
+  THEME_CONFIG.classic
+  | THEME_CONFIG.simple
+  | THEME_CONFIG.dark
+  | THEME_CONFIG.dreamlike
+  | THEME_CONFIG.green
+  | THEME_CONFIG.pink
+  | THEME_CONFIG.green_machine;
 
 export type DifficultyConfig = DIFFICULTY_CONFIG.easy | DIFFICULTY_CONFIG.intermediate | DIFFICULTY_CONFIG.advanced | DIFFICULTY_CONFIG.expert;
 
@@ -42,7 +50,7 @@ export const THEME_CONFIGS: Record<string, {id: ThemeConfig, icon?: string, text
   [THEME_CONFIG.pink]: {
     id: THEME_CONFIG.pink,
     icon: '🩷',
-  }
+  },
 };
 
 export const DIFFICULTY_CONFIGS: Record<string, {id: string, difficulty: DifficultyConfig, dimension: number, name: string}> = {

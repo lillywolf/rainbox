@@ -202,6 +202,7 @@ export default function Game({
   const gridComponentRef = useRef<{ isGameOver: () => boolean }>(null);
 
   const onGameOver = () => {
+    console.log(">>> game is over")
     mobiletimerRef.current?.stop();
     desktoptimerRef.current?.stop();
     setIsGameOver(true);
@@ -223,10 +224,13 @@ export default function Game({
 
     setIsGameReset(false);
     placeMines({ grid: gridRef.current, difficulty, startingTile: tile });
+    console.log(">>>> mines placed")
     setMineCounts({ grid: gridRef.current });
+    console.log(">>>> mine counts set")
     mobiletimerRef.current?.start();
     desktoptimerRef.current?.start();
     setIsGameStarted(true);
+    console.log(">>>> game is started")
   };
 
   useEffect(() => {

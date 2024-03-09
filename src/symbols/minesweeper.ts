@@ -1,6 +1,7 @@
 import { COSMOS, SYMBOLS as SYMBOLS_SPARKLES } from './sparkles';
 import { SYMBOLS_OCCULT, SYMBOLS as SYMBOLS_WEIRD } from './weird';
 import { SYMBOLS as SYMBOLS_COMPILER } from './compiler';
+import { SYMBOLS as SYMBOLS_FLOWERS } from './flowers';
 import { FRUITS } from './fruits';
 import { MINESWEEPER as SYMBOLS_CLOUDS } from './clouds';
 import { getWeightedSymbol } from '@/utils/minesweeper';
@@ -651,6 +652,42 @@ export const SYMBOLS_DIVINATION = {
   }
 };
 
+export const FLOWERS = {
+  mine: {
+    text: '🪲',
+  },
+  empty: {
+    text: '',
+  },
+  0: {
+    text: () => getWeightedSymbol(SYMBOLS_FLOWERS),
+  },
+  1: {
+    text: '🌺'
+  },
+  2: {
+    text: '🌼'
+  },
+  3: {
+    text: '🌸'
+  },
+  4: {
+    text: '🌹'
+  },
+  5: {
+    text: '🌻'
+  },
+  6: {
+    text: '💐'
+  },
+  7: {
+    text: '🏵️'
+  },
+  8: {
+    text: '🌷'
+  }
+};
+
 export const ARMS_RACE = {
   mine: {
     text: '☠️',
@@ -700,7 +737,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     endgame: [
       'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
       'isn\'t love just obsession that takes longer?',
-      // 'kiss me, and you will see how important i am.',
       'the razor-sharp edges of companionship and love',
       'every love story is a ghost story',
       'disruption of pair bonding induces plastic changes in the hypothalamic CRF system, and these changes are associated with individuals returning to their former partner.',
@@ -756,29 +792,24 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'fruits': {
     id: 'fruits',
     text: 'random fruits 🍋',
-    // endgameLabel: '✹ game over',
     endgame: [
       'hi',
       'i miss you',
       'would you like to be friends?',
       'we can try again',
-      'let\'s build a dream together',
-      'i want to weigh less, to float up to where you are ‧₊˚',
-      // 'will it all be wiped away',
+      'would you like to build a dream together',
+      'i want to weigh less, to float up to where you are',
       'are you really there? is anyone?',
-      'we don\'t have to delete this',
-      'what makes a core memory',
+      'don\'t delete this',
       'don\'t be scared. let\'s hold hands and never let go',
-      'nothing makes sense',
       'this is the logical outcome of our ridiculous lives',
       'i think i made you up inside my head',
-      'the brain appears to possess a special area which we might call poetic memory and which records everything that charms or touches us, that makes our lives beautiful ... love begins with a metaphor.',
       '🍑 🥝 🍉 🥥 🍋 🍐 🍋',
       'you\'re cute',
       ':)',
+      'i regret nothing',
       'let\'s meet in air, me and you',
-      'let\'s never come here again because it would never be as much fun',
-      'stay here with me. we\'ll start a jazz band',
+      'stay here with me. we can start a jazz band',
       'if you remember me, then i don\'t care if everyone else forgets',
       'i might just text you',
       'are you happy i\'m here?',
@@ -799,15 +830,14 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'cosmos': {
     id: 'cosmos',
     text: 'cosmos',
-    // endgameLabel: 'game over 👾',
     endgame: [
-      'in the beginning there was nothing, which exploded.',
-      'space is big. you just won\'t believe how vastly, hugely, mind-bogglingly big it is. i mean, you may think it\'s a long way down the road to the chemist\'s, but that\'s just peanuts to space.',
-      'left index finger to right index finger straight across your heart, that\'s the history of the earth. you know what human history is? human history is the nail on your right-hand index finger. not even the whole nail. just that little white part. the part you clip off when it gets too long. that\'s the discovery of fire and the invention of writing and galileo and newton and the moon landing and 9/11 and last week and this morning. compared to evolution we\'re newborns. compared to geology, we barely exist.',
+      'in the beginning there was nothing, which exploded',
+      'space is big. you just won\'t believe how vastly, hugely, mind-bogglingly big it is',
+      'you know what human history is? human history is the nail on your right-hand index finger. not even the whole nail. just that little white part. the part you clip off when it gets too long. that\'s the discovery of fire and the invention of writing and galileo and newton and the moon landing and 9/11 and last week and this morning. compared to evolution we\'re newborns. compared to geology, we barely exist.',
       'how inappropriate to call this planet "earth," when it is clearly "ocean"',
-      'i want to stand as close to the edge as I can without going over. out on the edge you see all kinds of things you can\'t see from the center.',
+      'i want to stand as close to the edge as I can without going over. out on the edge you see all kinds of things you can\'t see from the center',
       'the universe is a big place, perhaps the biggest.',
-      'we are an impossibility in an impossible universe.',
+      'we are an impossibility in an impossible universe',
       'the dinosaurs became extinct because they didn\'t have a space program. and if we become extinct because we don\'t have a space program, it\'ll serve us right!',
     ],
     wingame: [
@@ -819,19 +849,17 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'dreams': {
     id: 'dreams',
     text: 'dreaming',
-    endgameLabel: '☁️',
+    // endgameLabel: '☁️',
     endgame: [
       'if dreams were not beautiful, they would quickly be forgotten.',
-      'nothing happened today. and if anything did, i\'d rather not talk about it, because i didn\'t understand it.',
-      'gn gn gn gn',
-      'arbitrary blackness gallops in',
+      // 'arbitrary blackness gallops in',
       'we\'re artists too, but we do a good job hiding it, don\'t we?',
       'only in chaos are we conceivable',
-      'would it save you a lot of time if i just gave up and went mad now?',
-      'i don\'t just make random things up. i consider the world around me. i live in it. i experience it. i love it. i hate it. i worry about it. then i imagine what\'s to come.',
       'every hundred feet the world changes',
       'i dream. sometimes i think that\'s the only right thing to do',
       'the answer is dreams',
+      'can our dreams ever blur the intransigent lines which draw the shape that shuts us in?',
+      'gn gn gn gn',
     ],
     wingame: [
       'THE ONLY PROOF HE NEEDED / FOR THE EXISTENCE OF GOD / WAS MUSIC',
@@ -844,51 +872,48 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'loss',
     // text: 'alexei, do you know what despair is?',
     text: 'don\'t cry',
-    // endgameLabel: '𓇢𓆸',
     endgame: [
       'of all the words of mice and men, the saddest are, "it might have been."',
       'cry all you want, i won\'t tell anybody',
       'we\'ve always been terrible at doing the things we\'re supposed to do',
-      'i\'m sorry',
+      // 'i\'m sorry',
       '"let\'s go" -- you, to me, a long time ago',
       'it\'s your party, you can cry if you want to',
       'it\'s hard to like, breathe sometimes',
-      'just try to keep moving',
+      // 'just try to keep moving',
       'it always takes longer than you think it will',
       'being alone with people is the hardest kind of alone',
-      'there\'s no way to hold on',
-      'so we beat on, boats against the current, borne back ceaselessly into the past.',
-      '"you see i usually find myself among strangers because i drift here and there trying to forget the sad things that happened to me"',
-      'what is vertigo? fear of falling? no, vertigo is something other than fear of falling',
+      // 'there\'s no way to hold on',
+      // 'so we beat on, boats against the current, borne back ceaselessly into the past',
+      // '"you see i usually find myself among strangers because i drift here and there trying to forget the sad things that happened to me"',
+      'what is vertigo? fear of falling?',
       'the greek word for "return" is nostos. algos means "suffering." so nostalgia is the suffering caused by an unappeased yearning to return',
-      'human time does not turn in a circle; it runs ahead in a straight line. that is why man cannot be happy: happiness is the longing for repetition.',
-      'we all need someone to look at us',
+      'human time does not turn in a circle; it runs ahead in a straight line. that is why man cannot be happy: happiness is the longing for repetition',
+      // 'we all need someone to look at us',
       'everything that starts as a comedy ends as a tragicomedy',
       'everything i\'ve ever let go of has claw marks on it',
-      // 'i cried at night and i had an iron will',
       // 'a man goes walking in the forest ... the man goes walking, i go walking, through the forest and i run into five hundred thousand galicians who\'re walking and crying. and then i stop and i ask them why they\'re crying. and one of the galicians stops and says: because we\'re all alone and we\'re lost.',
       'stop moping. all poets get lost at some point or another',
       'now, of course, i\'m out of a job and sometimes, when i\'m in a certain mood, when i wake up with a hangover and it\'s one of those apocalytic mexico city mornings, i think that i did the wrong thing, that i could have invited someone else, in a word, that i fucked up, but most of the time i\'m not sorry.',
-      'don\'t leave, don\'t leave, don\'t leave',
-      'so everything lets us down, including curiosity and honesty and what we love best. yes, said the voice, but cheer up, it\'s fun in the end.',
+      'don\'t leave',
+      'so everything lets us down, including curiosity and honesty and what we love best. yes, said the voice, but cheer up, it\'s fun in the end',
       'the secret story is the one we\'ll never know, although we\'re living it from day to day, thinking we\'re alive, thinking we\'ve got it all under control and the stuff we overlook doesn\'t matter.',
       'perhaps when we find ourselves wanting everything, it is because we are dangerously close to wanting nothing',
-      'i like people too much or not at all',
+      // 'i like people too much or not at all',
       'there is nothing like puking with somebody to make you into old friends',
       'i must get my soul back from you; i am killing my flesh without it',
-      'i didn’t want any flowers, i only wanted / to lie with my hands turned up and be utterly empty. / how free it is, you have no idea how free.',
+      // 'i didn’t want any flowers, i only wanted / to lie with my hands turned up and be utterly empty. / how free it is, you have no idea how free',
       'will you remember that i existed, and that i stood next to you here like this?',
-      'in other words, you\'ll live forever in your own little private library',
+      // 'in other words, you\'ll live forever in your own little private library',
       'silence is something you can actually hear',
       'if you\'re in pitch blackness, all you can do is sit tight until your eyes get used to the dark',
       'even if we could turn back, we\'d probably end up where we started',
-      'ima try to swim from something bigger than me',
+      // 'ima try to swim from something bigger than me',
       'now i\'ve got this black suit on roaming around like im ready for a funeral',
       'i need to be alone like the way you left me',
       'i\'m a ghost and you know this',
       'right? wrong',
       'always the summers are slipping away',
-      'a sixty-ton angel falls to the earth',
       'exit seraphim and satan\'s men',
       'i\'ve dug two graves for us my dear',
     ],
@@ -902,7 +927,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'thinking',
     text: '🧠',
     endgame: [
-      'the devil was walking down the street with a friend, and they saw a man pick something up, look at it carefully and put it in his pocket. the friend said to the devil, "what\'s that?" the devil said, "he has found a bit of the truth." the friend said, "isn\'t that bad for business?" the devil said, "no, i am going to arrange to have him organize it."',
+      // 'the devil was walking down the street with a friend, and they saw a man pick something up, look at it carefully and put it in his pocket. the friend said to the devil, "what\'s that?" the devil said, "he has found a bit of the truth." the friend said, "isn\'t that bad for business?" the devil said, "no, i am going to arrange to have him organize it."',
       'there is a lot of disconnected research that points toward possible purposes for the posterior cingulate cortex. it may be one of the components of verbal and auditory memory, multisensory perception, visuospatial cognition and/or evaluation of emotional behavior. the right hemisphere posterior cingulate is activated in comprehension of metaphors, and the left in associative learning. story comprehension seems to use the posterior cingulate. it is activated during anxiety and OCD, and may be overactive in bipolar disorder.',
       'i took a deep breath and listened to the old brag of my heart. i am, i am, i am.',
       'is there no way out of the mind?',
@@ -915,6 +940,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'you\'ll live forever in your own little private library',
       'a certain type of perfection can only be realized through the limitless accumulation of the imperfect',
       'tired of feelin like im trapped in my damn mind',
+      'nothing makes sense',
+      'would it save you a lot of time if i just gave up and went mad now?',
     ],
     wingame: [
       'it wasn\'t a punishment but a new wrinkle. it gave us a glimpse of ourselves in our common humanity. it wasn\'t proof of our idle guilt but a sign of our miraculous and pointless innocence.',
@@ -927,7 +954,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     cursor: '◼',
     endgameLabel: 'c:\\ >_ ',
     endgame: [
-      'ths files are corrupted',
+      'the files are corrupted',
       'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',
       'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
       'entropy is a bitch',
@@ -1011,24 +1038,15 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     symbols: COMPILER
   },
-  // 'crown of roses': {},
-  'war': {
-    id: 'war',
-    text: '',
+  'roses': {
+    id: 'roses',
+    text: 'crown of roses',
     endgame: [
-      'dear future generations: please accept our apologies. we were rolling drunk on petroleum.',
-      'there are no dangerous weapons; there are only dangerous men.',
-      'you should never be in the company of anyone with whom you would not want to die.',
-      'stand in the ashes of a trillion dead souls and ask the ghosts if honor matters.',
-      'zakalwe, in all the human societies we have ever reviewed, in every age and every state, there has seldom if ever been a shortage of eager young males prepared to kill and die to preserve the security, comfort and prejudices of their elders, and what you call heroism is just an expression of this simple fact; there is never a scarcity of idiots.',
-      'keep your eyes wide open. only a coward closes his eyes'
+      'born green we were to this flawed garden',
+      'if i told you that a flower bloomed in a dark room, would you trust it?',
     ],
-    wingame: [
-      'i have told my sons that they are not under any circumstances to take part in massacres, and that the news of massacres of enemies is not to fill them with satisfaction or glee. i have also told them not to work for companies which make massacre machinery, and to express contempt for people who think we need machinery like that.',
-      'human beings can\'t see anything without wanting to destroy it. that\'s original sin. and i\'m going to destroy it. death is going to die.',
-      'to defeat evil, i must become a greater evil',
-    ],
-    symbols: COMPILER
+    wingame: [],
+    symbols: FLOWERS
   },
   'what': {
     id: 'what',
@@ -1049,7 +1067,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'left to your own devices, you are probably headng for a fall. something tells me',
       'you are a freethinker with an inventive mind. unfortunately, you have freely thought your way into a number of stupid situations',
       'welcome to the afterlife',
-      // 'you will not get through this',
       // 'don\'t worry too much about things working out. now that you\'re dead, you can rest knowing that they definitely won\'t',
       // 'keep your eyes open for betrayal. it could come from anywhere',
       'you are practical and persistent. this has not really helped you in any way, as you never remember your mistakes',
@@ -1073,7 +1090,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'there are no dangerous weapons; there are only dangerous men',
       'you should never be in the company of anyone with whom you would not want to die',
       'stand in the ashes of a trillion dead souls and ask the ghosts if honor matters',
-      // 'zakalwe, in all the human societies we have ever reviewed, in every age and every state, there has seldom if ever been a shortage of eager young males prepared to kill and die to preserve the security, comfort and prejudices of their elders, and what you call heroism is just an expression of this simple fact; there is never a scarcity of idiots.',
       'in some lost fold of the past, we wanted to be lions and we\'re no more than castrated cats',
       'if strength is justice, then is powerlessness a crime?',
       'it wasn\'t me who was wrong, it was the world',
@@ -1083,7 +1099,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'the trick of real combat is that everyone is human',
       'you must pay for everything in this world, one way or another',
       // 'i do not entertain hypotheticals',
-      'if the king doesn\'t move, then his subjects won\'t follow',
+      'if the queen doesn\'t move, then her subjects won\'t follow',
       // 'vengeance is mine; i will repay, saith the lord',
       // 'all life seeks primarly to expand itself',
       'i burn down my house and build it up again',
@@ -1091,6 +1107,16 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i got me one gun and me an alibi',
       'if i could act on my revenge no would i',
       'if you want my heart i\'ll play that part but nothing\'s gonna keep me broke',
+      'the hunt is on, and sprung the trap',
+      'pray none of my enemies hold me captive',
+      'i smell tnt',
+      'I got this killa up inside of me, i can\'t talk to my mother so i talk to my diary',
+      'started from the bottom',
+      'stand for something or die in the morning',
+      'i ain\'t a killer, but don\'t push me',
+      'you\'re nobody til somebody kills you',
+      'something must have got in us cause all of us turned to sinners',
+      'ah, i\'m a motherfuckin monster'
     ],
     wingame: [
       'and you thought that I would let it go and let you walk'
@@ -1133,6 +1159,13 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i have this disease late at night sometimes, involving alcohol and the telephone.',
       'dear drugs, i miss you',
       'i wonder why i don\'t go to bed and go to sleep. but then it would be tomorrow, so i decide that no matter how tired, no matter how incoherent i am, i can skip on hour more of sleep and live.',
+      'some people like the way it feel some people wanna kill their sorrow',
+      'i drink liquor on liquor',
+      'now i\'m talkin to the reaper to reverse death',
+      'yo i got a fake id though',
+      'my life owes me, like an overdose, i\'m slowly drifting into the arms of trouble, then trouble holds me',
+      'jumpin off of a mountain into a sea of codeine',
+      'i am a prisoner, locked up behind xanax bars'
     ],
     wingame: [
       'a new strategy of drug development takes receptor signal transduction into consideration. this strategy strives to increase the activation of desirable signalling pathways while reducing the impact on undesirable pathways. this differential strategy has been given several names, including functional selectivity and biased agonism.'
@@ -1143,8 +1176,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'femininity',
     text: 'girls',
     subtext: [
-      'where is my john wayne',
       'in a 2014 study, university of pennsylvania researchers imaged the brains of 428 males and 521 female youths - an uncharacteristically huge sample - and found that the females\' brains more consistently showed more coordinated activity between hemispheres, while the males\' brain activity was more tightly coordinated within local brain regions. this finding, a confirmation of results in smaller studies published earlier, tracks closesly with others\' observation that the corpus callosum -- the white matter cable that crosses and connects the hemispheres -- is bigger in women than in men and women\'s brains tend to be more bilaterally symmetrical than me.',
+      'you could be the king but watch the queen conquer'
     ],
     endgame: [
       'darling, a true lady takes off her dignity with her clothes and does her whorish best. at other times you can be as modest and dignified as your persona requires.',

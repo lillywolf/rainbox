@@ -802,7 +802,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'would you like to build a dream together',
       'i want to weigh less, to float up to where you are',
       'are you really there? is anyone?',
-      'don\'t delete this',
       'don\'t be scared. let\'s hold hands and never let go',
       'this is the logical outcome of our ridiculous lives',
       'i think i made you up inside my head',
@@ -960,6 +959,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     cursor: '◼',
     endgameLabel: 'c:\\ >_ ',
     endgame: [
+      'don\'t delete this',
       'how can a signal come from everywhere?',
       'compared to forgetting, does living really stand a chance?',
       'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',

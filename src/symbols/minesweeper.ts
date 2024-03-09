@@ -733,7 +733,7 @@ export const initializeConfiguration = (configuration: MinesweeperConfig) => {
 export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'love': {
     id: 'love',
-    text: '♥︎',
+    text: '♥︎♥︎♥︎',
     endgame: [
       'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
       'isn\'t love just obsession that takes longer?',

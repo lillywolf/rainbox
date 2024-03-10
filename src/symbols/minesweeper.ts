@@ -135,7 +135,7 @@ export const SYMBOLS_LOVE = {
     text: '💘'
   },
   6: {
-    text: '🩵'
+    text: '💜'
   },
   7: {
     text: '💙'

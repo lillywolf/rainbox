@@ -738,7 +738,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     endgame: [
       'have you ever been in love? horrible isnt it?',
       // 'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
-      // 'disruption of pair bonding induces plastic changes in the hypothalamic CRF system, and these changes are associated with individuals returning to their former partner',
+      'disruption of pair bonding induces plastic changes in the hypothalamic CRF system, and these changes are associated with individuals returning to their former partner',
+      'these studies suggest that the subjective state (or states) of “being in love” is intimately tied to characteristic biochemical reactions occurring within the brain. these reactions involve such compounds as dopamine, oxytocin, vasopressin, and serotonin and recruit brain regions known to play a role in the development of trust, the creation of feelings of pleasure, and the signalling of reward',
+      'some scientists have suggested that this dopaminergic overlap may explain why experiencing love ... can feel like a cocaine rush',
       'isn\'t love just obsession that takes longer?',
       'love is a drug, like the strongest stuff ever',
       'the razor-sharp edges of companionship and love',

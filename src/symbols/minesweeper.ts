@@ -746,7 +746,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'the razor-sharp edges of companionship and love',
       'every love story is a ghost story',
       // 'be of love a little more careful than of anything',
-      // 'love is blind',
+      'love is blind',
       // 'i should have loved a thunderbird instead',
       'yes, i was infatuated with you: i am still',
       'it\'s weird to feel like you miss someone you\'re not even sure you know',

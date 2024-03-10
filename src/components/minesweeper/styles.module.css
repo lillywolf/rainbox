@@ -222,6 +222,7 @@
 
 .difficulty.mobile {
   @apply border rounded-md border-[#add6ff];
+  @apply bg-[#0f0f0f];
   @apply text-left;
   @apply text-sm;
   @apply leading-6;
@@ -354,11 +355,18 @@
   }
 }
 
-.switchTheme {
+.switchTheme.mobile {
   @apply fixed left-[14px] top-[114px];
   @apply font-sans;
   @apply sm:left-4 sm:bottom-20 sm:top-auto;
   @apply lg:hidden;
+}
+
+.switchTheme.desktop {
+  @apply hidden;
+  @apply fixed left-4 bottom-4;
+  @apply py-[6px];
+  @apply lg:block;
 }
 
 .darkThemeButton.mobile {
@@ -382,7 +390,6 @@
   @apply leading-6;
   @apply ml-2;
   @apply inline-block;
-  @apply sm:text-base;
 
   &.dark {
     @apply bg-[#9eaab3];
@@ -506,21 +513,24 @@
     }
 
     &.open {
+      @apply bg-[#202020];
       @apply border-[#74ff6a];
     }
   }
 }
 
 .legend.mobile {
+  @apply fixed bottom-4 right-4;
+  @apply flex gap-x-2 items-end;
   @apply grid grid-flow-col grid-rows-4 gap-x-2;
   @apply border rounded-sm border-[#add6ff];
   @apply bg-white;
   @apply px-2 py-1;
-  @apply sm:px-3 sm:py-2;
-  @apply text-sm;
-  @apply sm:text-base;
   @apply leading-5;
+  @apply text-sm;
+  @apply sm:px-3 sm:py-2;
   @apply sm:leading-[1.35rem];
+  @apply lg:hidden;
 }
 
 .legend.mobile.hide {

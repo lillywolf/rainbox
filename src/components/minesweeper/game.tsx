@@ -2,7 +2,6 @@
 
 import { RefObject, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import Image from 'next/image';
 import classnames from 'classnames';
 
 import { DIFFICULTY_CONFIG, DIFFICULTY_CONFIGS, DifficultyConfig, THEME_CONFIG, THEME_CONFIGS, ThemeConfig } from '@/constants/minesweeper';
@@ -227,6 +226,11 @@ export default function Game({
     setMineCounts({ grid: gridRef.current });
     mobiletimerRef.current?.start();
     desktoptimerRef.current?.start();
+
+    // gridRef.current.oneDimensionalArray().forEach((t) => {
+    //   t.metadata.clicked = true;
+    // });
+
     setIsGameStarted(true);
   };
 
@@ -316,9 +320,7 @@ export default function Game({
             onGameStarted={onGameStarted}
           />
         )}
-        <div className={classnames([styles.themeAndLegend, styles.mobile])}>
-          <MobileLegend configuration={configuration} isGameOver={isGameOver} isGameWon={isGameWon} />
-        </div>
+        <MobileLegend configuration={configuration} isGameOver={isGameOver} isGameWon={isGameWon} />
         {isGameOver ? (
           <GameOverMobile
             configuration={configuration}
@@ -343,6 +345,7 @@ export default function Game({
           {isGameWon ? <GameWonDesktop configuration={configuration} playCount={playCount} timerRef={desktoptimerRef} /> : '' }
         </div>
         <MobileDarkTheme isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
+        <DesktopDarkTheme isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
         <DesktopLegend configuration={configuration} />
         <div className={classnames([styles.difficultyAndTheme, styles.mobile])}>
           <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} isDarkTheme={isDarkTheme} />
@@ -361,8 +364,18 @@ export default function Game({
 
 const MobileDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean, setIsDarkTheme: (theme: boolean) => void}) => {
   return (
-    <div className={styles.switchTheme}>
+    <div className={classnames([styles.switchTheme, styles.mobile])}>
       <button className={classnames([styles.button, styles.darkThemeButton, styles.mobile])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
+        {isDarkTheme ? 'light mode' : 'dark mode'}
+      </button>
+    </div>
+  );
+};
+
+const DesktopDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean, setIsDarkTheme: (theme: boolean) => void}) => {
+  return (
+    <div className={classnames([styles.button, styles.configurationButton, styles.switchTheme, styles.desktop])}>
+      <button className={classnames([styles.desktop])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
         {isDarkTheme ? 'light mode' : 'dark mode'}
       </button>
     </div>

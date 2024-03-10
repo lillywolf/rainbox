@@ -135,10 +135,10 @@ export const SYMBOLS_LOVE = {
     text: '💘'
   },
   6: {
-    text: '💜'
+    text: '🩵'
   },
   7: {
-    text: '🩵'
+    text: '🤍'
   },
   8: {
     text: '💔'
@@ -415,28 +415,28 @@ export const SYMBOLS_SADNESS = {
     text: '❤︎💭🤎🧸🍂',
   },
   0: {
-    text: '␡',
+    text: '⛆',
   },
   1: {
-    text: '💌'
+    text: '❤️‍🩹'
   },
   2: {
-    text: '☔︎︎'
-  },
-  3: {
     text: '✂️'
   },
+  3: {
+    text: '☔︎︎'
+  },
   4: {
-    text: '🤍'
+    text: '🥀'
   },
   5: {
-    text: '💔'
+    text: '🕊️'
   },
   6: {
-    text: '🪞'
+    text: '😞'
   },
   7: {
-    text: '🕊️'
+    text: '🖤'
   },
   8: {
     text: '⌛'
@@ -499,16 +499,16 @@ export const SYMBOLS_REGEX = {
     text: '🫀'
   },
   5: {
-    text: '⬜'
+    text: '🧿'
   },
   6: {
-    text: '⬜'
+    text: '⚗️'
   },
   7: {
-    text: '⬜'
+    text: '📚'
   },
   8: {
-    text: '⬜'
+    text: '🔎'
   }
 }
 
@@ -550,34 +550,34 @@ export const COMPILER = {
     text: '❌',
   },
   empty: {
-    text: '',
+    text: '✳️➡️',
   },
   0: {
     text: () => getWeightedSymbol(SYMBOLS_COMPILER),
   },
   1: {
-    text: '⚙️'
+    text: '💻'
   },
   2: {
-    text: '✳️'
-  },
-  3: {
-    text: '➡️'
-  },
-  4: {
-    text: '📳'
-  },
-  5: {
     text: '⚠️'
   },
-  6: {
+  3: {
+    text: '📛'
+  },
+  4: {
+    text: '🔐'
+  },
+  5: {
     text: '*️⃣'
   },
+  6: {
+    text: '⛔'
+  },
   7: {
-    text: '🔁'
+    text: '🔥'
   },
   8: {
-    text: '#️⃣'
+    text: '🧯'
   }
 };
 
@@ -763,7 +763,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       // 'love is being stupid together',
       // 'love is a rare thing, easily confused with a million other things',
       // 'i steal into their dreams ... i scan their irrational impulses, their unspeakable emotions, i sleep in their lungs during the summer and their muscles during the winter, and all of this i do without the least effort, without intending to, without asking or seeking it out, without constraints, driven only by love and devotion'
-
     ],
     wingame: [
       'love is a friendship set to music',
@@ -796,13 +795,13 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     symbols: SYMBOLS_STANDARD,
   },
-  'retro': {
-    id: 'retro',
-    text: '',
-    endgame: [],
-    wingame: [],
-    symbols: SYMBOLS_RETRO,
-  },
+  // 'retro': {
+  //   id: 'retro',
+  //   text: '',
+  //   endgame: [],
+  //   wingame: [],
+  //   symbols: SYMBOLS_RETRO,
+  // },
   'fruits': {
     id: 'fruits',
     text: 'random fruits 🍋',
@@ -848,7 +847,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'it\'s a very sobering feeling to be up in space and realize that one\'s safety factor was determined by the lowest bidder on a government contract',
       'in the beginning there was nothing, which exploded',
       'space is big. you just won\'t believe how vastly, hugely, mind-bogglingly big it is',
-      'you know what human history is? human history is the nail on your right-hand index finger. not even the whole nail. just that little white part. the part you clip off when it gets too long. that\'s the discovery of fire and the invention of writing and galileo and newton and the moon landing and 9/11 and last week and this morning. compared to evolution we\'re newborns. compared to geology, we barely exist.',
+      // 'you know what human history is? human history is the nail on your right-hand index finger. not even the whole nail. just that little white part. the part you clip off when it gets too long. that\'s the discovery of fire and the invention of writing and galileo and newton and the moon landing and 9/11 and last week and this morning. compared to evolution we\'re newborns. compared to geology, we barely exist.',
       'how inappropriate to call this planet "earth," when it is clearly "ocean"',
       'i want to stand as close to the edge as I can without going over. out on the edge you see all kinds of things you can\'t see from the center',
       'the universe is a big place, perhaps the biggest',
@@ -875,10 +874,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i dream. sometimes i think that\'s the only right thing to do',
       'the answer is dreams',
       'gn gn gn gn',
-      'a poet\'s work ... to shape the world and stop it from going to sleep',
-      'the truth leaks out in our dreams',
+      // 'a poet\'s work ... to shape the world and stop it from going to sleep',
+      'the truth comes out in our dreams',
       'we were asleep and our dreams had converged on common ground, a place where sound was alien',
-      'the town told you to come read old dreams',
     ],
     wingame: [
       // 'the only proof he needed for the existence of god was music',
@@ -973,9 +971,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'some glittering memory',
       'this is it. it\'s going to be gone soon',
       'compared to forgetting, does living really stand a chance?',
-      'the secret story is the one we\'ll never know, although we\'re living it from day to day, thinking we\'re alive, thinking we\'ve got it all under control and the stuff we overlook doesn\'t matter',
-      'stop moping. all poets get lost at some point or another',
-      'have you ever driven in the desert? it looks easy, but there\'s nothing simple about it',
+      'the secret story is the one we\'ll never know, although we\'re living it from day to day',
+      // 'stop moping. all poets get lost at some point or another',
+      // 'have you ever driven in the desert? it looks easy, but there\'s nothing simple about it',
       'sunsets in the desert seem like they\'ll never end, until suddenly, before you know it, they\'re done',
       'it\'s like someone turned out the lights',
       'i\'m a fan of disappearing. it has a romantic element',
@@ -989,11 +987,16 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'travel light',
       'the forces of chance and nature that wipe away shallow prints',
       'now i know what a ghost is',
-      'the eraser measures, takes note, follows in the pencil\'s footsteps, leaving only blankness in its wake ... finally there is only white',
+      'the eraser measures, takes note, follows in the pencil\'s footsteps, leaving only blankness in its wake',
       'how can a signal come from everywhere?',
       'entropy is a bitch',
+      'it\'s helpful to establish a crucial fact about information itself: the informative value of a communicated message depends on the degree to which its content is surprising',
+      'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
+      'machines are your friend. machines don\'t lie. a mysterious machine is just a machine that hasn\'t been decoded yet',
+      'the iron machines still exist, but they obey the orders of weightless bits',
     ],
     wingame: [
+      'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead',
       'it is normally supposed that something always gets lost in translation; i cling, obstinately, to the notion that something can also be gained'
     ],
     symbols: SIGNAL_LOSS
@@ -1004,12 +1007,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     cursor: '◼',
     endgameLabel: 'c:\\ >_ ',
     endgame: [
-      'it\'s helpful to establish a crucial fact about information itself: the informative value of a communicated message depends on the degree to which its content is surprising',
-      'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
-      'machines are your friend. machines don\'t lie. a mysterious machine is just a machine that hasn\'t been decoded yet',
-      'the iron machines still exist, but they obey the orders of weightless bits',
-      'one morning, just as i\'d been hoping, the numbers came back. the sequences didn\'t make any sense at first, but it didn\'t take me long to see the logic in them. the secret was to follow their lead.',
-      'the files are corrupted',
+     'the files are corrupted',
       'filesystem error: "brain.exe" not found',
       'missing keys in emotional hashmap',
       'collision detection failed, aborting',
@@ -1197,14 +1195,14 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     text: 'euphoria',
     endgameLabel: '💊 🅿️ 🆚 ❎',
     endgame: [
-      'will you be able to get off H? possibly. but will life have any novelty left after you do? I wouldn\'t bet on it. you\'ve played your own song too many times.',
+      'will you be able to get off H? possibly. but will life have any novelty left after you do? I wouldn\'t bet on it. you\'ve played your own song too many times',
       'my reasons for doing ketamine were to quiet the crying voices and to blunt the sharpness of the pain. i wanted to think Of things maybe but not About things, i\'d been thinking About things my whole life.',
-      'the acute withdrawal phase is often followed by a protracted phase of depression and insomnia that can last for months.',
+      'the acute withdrawal phase is often followed by a protracted phase of depression and insomnia that can last for months',
       'the dream ended when olney et al demonstrated that animals given high doses of dizocilpine showed curious vacuoles (essentially, tiny holes) in their brains. specifically, the vacuoles showed up in the posterior cingulate cortex and retrosplenial cortex. further research showed that other indicators of damage were present, such as proliferation of microglia, secretion of a protein called HSP70 (heat-shock protein 70), and expression of certain genes.',
-      '"take the best orgasm you\'ve ever had, multiply by 1000, and you\'re still nowhere near it."',
+      '"take the best orgasm you\'ve ever had, multiply by 1000, and you\'re still nowhere near it"',
       'i love that there are some things that are so awesome that people will do them again and again until they totally fuck themselves up or die. it\'s like some kind of mythical danger, like the sirens. they will kill you but you cannot steer away!',
       'opioids are a class of drugs that derive from, or mimic, natural substances found in the opium poppy plant. as a class of substances, they act on opioid receptors to produce morphine-like effects.',
-      'narcotic, derived from words meaning "numbness" or "sleep", as an american legal term, refers to cocaine and opioids and their source materials.',
+      'narcotic, derived from words meaning "numbness" or "sleep", as an american legal term, refers to cocaine and opioids and their source materials',
       'sedare dolorem opus divinum est',
       'in england charles romney alder wright developed hundreds of opiate compounds in his search for a nonaddictive opium derivative. in 1874 he became the first person to synthesize diamorphine (heroin), using a process called acetylation, which involved boiling morphine with acetic anhydride for several hours.',
       'euphoria: the experience (or affect) of pleasure or excitement and intense feelings of well-being and happiness. euphoria is also a symptom of certain neurological or neuropsychiatric disorders, such as mania.',
@@ -1213,7 +1211,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i used to do oxycontin with him. it\'d probably make people who\'d never done it really sick. the feeling of euphoria you get from these things is so surreal',
       'is this the famous stone that turneth all to gold?',
       'ketamine is called "dissociative" in action, which means that the mind is "separated" from the body. in many cases, this separation results in profound hallucinations and the sensation of entering another reality.',
-      'many people who really like dissociatives have told me that they find them so attractive because they help take away a near-constant self-consciousness, an almost self-absorbing embarrassment or "inner critic".',
+      'many people who really like dissociatives have told me that they find them so attractive because they help take away a near-constant self-consciousness, an almost self-absorbing embarrassment or "inner critic"',
       'i desire the things that will destroy me in the end',
       'i have this disease late at night sometimes, involving alcohol and the telephone',
       'dear drugs, i miss you',
@@ -1223,11 +1221,10 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'jumpin off of a mountain into a sea of codeine',
       'i am a prisoner, locked up behind xanax bars',
       'there\'s a thin line in the sand and once you cross it people who don\'t know what\'s going on will want to call an ambulance',
-      'ketamine hydrochloride - also known by the trade names ketalar, ketaset, ketavet and by the street names vitamin k, agent k, special k, or just k -- was not discovered in the darkest jungles of south america, nor does it have a long history of traditional use among indigenous tribes. ketamine is a purely human creation, first synthesized by the belgian chemist cl stevens in 1963, and patented by parke davis in 1966 (us patent #3.254.124\')',
+      'ketamine hydrochloride - also known by the trade names ketalar, ketaset, ketavet and by the street names vitamin k, agent k, special k, or just k -- was not discovered in the darkest jungles of south america, nor does it have a long history of traditional use among indigenous tribes. ketamine is a purely human creation, first synthesized by the belgian chemist cl stevens in 1963, and patented by parke davis in 1966 (us patent #3.254.124)',
       'although ketamine was an effective anesthetic it soon became clear that it did have one unusual side effect - twenty percent of all patients anesthetized with ketamine reported having waking dreams, out of body experiences, and other odd mind phenomena while under the influence',
       'during normal waking activity, your thalamus acts as a routing center for all sense data which comes up the spinal cord from the body. by shutting this central router down, you can effectively cut off all the sense data that\'s coming in from the rest of your body. this is primarily what makes ketamine a perfect anesthetic',
       'some people i know think they have stopped breathing, but you won\'t, so don\'t worry',
-      'time begins to slow to a shuddering, thugging crawl - each moment stretches out into a sea of infinity and rolls sluggishly into the next. seconds become minutes, minutes become hours, and eventually, in the peak, time ceases to have any meaning whatsoever',
       'more than nine million vials of injectable ketamine have disappeared from china\'s pharmaceutical distribution network. following an audit in june, the food and drug bureau in china\'s central hunan province discovered that 3,092 cases (9.3 million vials) of the product had vanished from the official paper trail over the preceding year', 
       'i did it all, and everything crashed around me',
       'the hole I told you about ... speed filled it, and i didn\'t want to go back to it being empty',
@@ -1236,15 +1233,14 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'you might say to yourself, i\'m bigger than this little pile on the mirror',
       'it\'s so easy to get back up there. it\'s just one little line',
       'it just made me better at everything. then it wore off',
-      '&%*$ the dishes, %&$ the vacuum, i\'d rather sit there and stare at the back of my eyelids',
+      '&%*$ the dishes, %&$ the vacuum, i\'d rather sit here and stare at the back of my eyelids',
       'i\ll kiss you again, between the bars',
       'drink up baby stay up all night / with the things you could do, you won\'t but you might',
       'now i understand what truly longing for a drug is ... how you think about how good it was, and how much better you would feel, if you just got a little more',
-      'i\'m going on a date with a rich white lady, ain\'t life great',
+      // 'i\'m going on a date with a rich white lady',
       'this is the place where time reverses',
       'the game looks easy, that\'s why it sells',
-      'alcohol will turn you into the same asshole your father was',
-      'one tequila, two tequila, three tequila, floor',
+      // 'alcohol will turn you into the same asshole your father was',
       'this is what you call a flip, ten keys from a quarter brick',
     ],
     wingame: [

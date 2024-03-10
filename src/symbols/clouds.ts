@@ -21,10 +21,11 @@ export const SYMBOLS = {
 
 export const MINESWEEPER = [{
   0: {
-    text: () => getWeightedSymbol(DREAMS)
+    // text: () => getWeightedSymbol(DREAMS),
+    text: '☁️',
   },
   1: {
-    text: '☁️',
+    text: '🌀',
   },
   2: {
     text: '🦄',
@@ -36,13 +37,13 @@ export const MINESWEEPER = [{
     text: '🧞‍♂️',
   },
   5: {
-    text: '🧚‍♀️'
+    text: '˚🍓',
   },
   6: {
     text: '🫧'
   },
   7: {
-    text: '💫'
+    text: '🧚‍♀️'
   },
   8: {
     text: '🌟'
@@ -52,31 +53,32 @@ export const MINESWEEPER = [{
   }
 }, {
   0: {
-    text: () => getWeightedSymbol(DREAMS)
+    // text: () => getWeightedSymbol(DREAMS)
+    text: '💭',
   },
   1: {
-    text: '☁️',
+    text: '🌜',
   },
   2: {
-    text: '♡',
+    text: '🦋',
   },
   3: {
-    text: '⁂',
+    text: '𓍢ִ໋🌷͙֒',
   },
   4: {
-    text: '☏'
+    text: '🐇'
   },
   5: {
-    text: '⬜'
+    text: '💗'
   },
   6: {
-    text: '⬜'
+    text: '🎐'
   },
   7: {
-    text: '⬜'
+    text: '🪷'
   },
   8: {
-    text: '⬜'
+    text: '🧸'
   },
   mine: {
     text: '☀'

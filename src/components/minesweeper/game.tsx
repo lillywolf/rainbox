@@ -434,7 +434,7 @@ const GameWonMobile = ({
   }, [configuration, playCount]);
 
   useEffect(() => {
-    if (configuration.id !== 'signal_loss') return;
+    if (configuration.id !== 'compiler') return;
 
     cursorRef.current = setInterval(() => {
       setCursor(!cursor);
@@ -486,7 +486,7 @@ const GameOverMobile = ({
   }, [configuration, playCount]);
 
   useEffect(() => {
-    if (configuration.id !== 'signal_loss') return;
+    if (configuration.id !== 'compiler') return;
 
     cursorRef.current = setInterval(() => {
       setCursor(!cursor);

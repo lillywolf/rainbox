@@ -76,6 +76,9 @@ export const CORRUPTED = [{
 }];
 
 export const SYMBOLS = [{
+    text: '</>',
+    weight: 10,
+  }, {
     text: '❑',
     weight: 10,
   }, {

@@ -138,7 +138,7 @@ export const SYMBOLS_LOVE = {
     text: '💜'
   },
   7: {
-    text: '💙'
+    text: '🩵'
   },
   8: {
     text: '💔'
@@ -736,7 +736,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'love',
     text: '♥︎♥︎♥︎',
     endgame: [
-      'have you ever been in love? horrible isnt it?',
       // 'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
       'disruption of pair bonding induces plastic changes in the hypothalamic CRF system, and these changes are associated with individuals returning to their former partner',
       // 'these studies suggest that the subjective state (or states) of “being in love” is intimately tied to characteristic biochemical reactions occurring within the brain. these reactions involve such compounds as dopamine, oxytocin, vasopressin, and serotonin and recruit brain regions known to play a role in the development of trust, the creation of feelings of pleasure, and the signalling of reward',
@@ -749,10 +748,17 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'yes, i was infatuated with you: i am still',
       'it\'s weird to feel like you miss someone you\'re not even sure you know',
       'what did my arms do before they held you?',
-      // 'to love is to suffer',
-      // 'for you, a thousand times over',
+      'you are a song a dream a whisper',
+      'you have been in every line i have ever read',
+      'i am half agony half hope',
+      'against reason against promise against peace against hope against happiness against all discouragement',
+      'i\'m never not thinking of you',
+      'i fell in love with your courage your sincerity and your flaming self respect',
+      'you are one of the lights the lights of all lights',
+      'you know you\'re in love when you cant fall asleep because reality is finally better than your dreams',
+      'for you, a thousand times over',
       'it takes two to make an accident',
-      // 'you don\'t know how happy i am to be with you',
+      'you don\'t know how happy i am to be with you',
       'wise men say only fools rush in',
       // 'love is being stupid together',
       // 'love is a rare thing, easily confused with a million other things',
@@ -808,7 +814,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'would you like to build a dream together',
       'i want to weigh less, to float up to where you are',
       'don\'t be scared. let\'s hold hands and never let go',
-      'this is the logical outcome of our ridiculous lives',
+      // 'this is the logical outcome of our ridiculous lives',
       'i think i made you up inside my head',
       '🍑 🥝 🍉 🥥 🍋 🍐 🍋',
       'you\'re cute',

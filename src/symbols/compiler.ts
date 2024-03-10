@@ -76,11 +76,14 @@ export const CORRUPTED = [{
 }];
 
 export const SYMBOLS = [{
-    text: '</>',
-    weight: 10,
+    text: '⋰',
+    weight: 5,
+  }, {
+    text: '␡',
+    weight: 4,
   }, {
     text: '❑',
-    weight: 10,
+    weight: 2,
   }, {
     text: '␛',
     weight: 4,
@@ -179,7 +182,7 @@ export const SYMBOLS = [{
     weight: 4, 
   }, {
     text: '⍁',
-    weight: 8,
+    weight: 2,
   }, {
     text: '⌭',
     weight: 3, 

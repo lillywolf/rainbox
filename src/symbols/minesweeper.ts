@@ -514,34 +514,34 @@ export const SYMBOLS_REGEX = {
 
 export const SIGNAL_LOSS = {
   mine: {
-    text: '☠',
+    text: '🧱',
   },
   0: {
     text: () => getWeightedSymbol(SYMBOLS_COMPILER)
   },
   1: {
-    text: '⋰',
+    text: '💎',
   },
   2: {
-    text: '🔙',
+    text: '⚡️',
   },
   3: {
-    text: '📴',
+    text: '🚦',
   },
   4: {
-    text: '☢️',
+    text: '🔌',
   },
   5: {
-    text: '⏰',
+    text: '📡',
   },
   6: {
-    text: '📵',
+    text: '🆘',
   },
   7: {
-    text: '🚫',
+    text: '🚨',
   },
   8: {
-    text: '❌',
+    text: '🚫',
   },
 };
 
@@ -755,7 +755,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i\'m never not thinking of you',
       'i fell in love with your courage your sincerity and your flaming self respect',
       'you are one of the lights the lights of all lights',
-      'you know you\'re in love when you cant fall asleep because reality is finally better than your dreams',
+      'you know you\'re in love when you can\'t fall asleep because reality is finally better than your dreams',
       'for you, a thousand times over',
       'it takes two to make an accident',
       'you don\'t know how happy i am to be with you',
@@ -795,13 +795,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     symbols: SYMBOLS_STANDARD,
   },
-  // 'retro': {
-  //   id: 'retro',
-  //   text: '',
-  //   endgame: [],
-  //   wingame: [],
-  //   symbols: SYMBOLS_RETRO,
-  // },
   'fruits': {
     id: 'fruits',
     text: 'random fruits 🍋',
@@ -866,7 +859,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'dreams',
     text: 'dreaming',
     endgame: [
-      'people say, "i\'m going to sleep now," as if it were nothing. but it\'s really a bizarre activity',
+      'people say, "i\'m going to sleep now," as if it were nothing',
       'if dreams were not beautiful, they would quickly be forgotten.',
       'we\'re artists too, but we do a good job hiding it, don\'t we?',
       'only in chaos are we conceivable',
@@ -900,10 +893,10 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'just walk it off',
       'it always takes longer than you think it will',
       'what is vertigo? fear of falling?',
-      'the greek word for "return" is nostos. algos means "suffering." so nostalgia is the suffering caused by an unappeased yearning to return',
-      'everything that starts as a comedy ends as a tragicomedy',
+      'the greek word for "return" is nostos. algos means "suffering." so nostalgia is the suffering caused by an unappeased yearning to return.',
+      'everything that starts as a comedy ends as a tragedy',
       'everything i\'ve ever let go of has claw marks on it',
-      'now, of course, i\'m out of a job and sometimes, when i\'m in a certain mood, when i wake up with a hangover and it\'s one of those apocalytic mexico city mornings, i think that i did the wrong thing, that i could have invited someone else, in a word, that i fucked up, but most of the time i\'m not sorry.',
+      'now, of course, i\'m out of a job and sometimes, when i\'m in a certain mood, when i wake up with a hangover and it\'s one of those apocalytic mexico city mornings, i think that i did the wrong thing, that i could have invited someone else, in a word, that i fucked up.\\nbut most of the time i\'m not sorry.',
       'don\'t leave',
       'so everything lets us down, including curiosity and honesty and what we love best. yes, said the voice, but cheer up, it\'s fun in the end',
       'perhaps when we find ourselves wanting everything, it is because we are dangerously close to wanting nothing',
@@ -1185,7 +1178,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'what is a game? it\'s tomorrow, and tomorrow, and tomorrow',
       'it\'s the possibility of infinite rebirth, infinite redemption. the idea that if you keep playing, you could win',
       'the eternal recurrence of my stupid feelings',
-      // 'a human being should be able to change a diaper, plan an invasion, butcher a hog, conn a ship, design a building, write a sonnet, balance accounts, build a wall, set a bone, comfort the dying, take orders, give orders, cooperate, act alone, solve equations, analyse a new problem, pitch manure, program a computer, cook a tasty meal, fight efficiently, die gallantly. specialization is for insects.',
     ],
     wingame: [],
     symbols: ENTROPY

@@ -215,21 +215,81 @@
   }
 }
 
-.difficulty.mobile {
+.difficultyAndTheme.mobile {
   @apply fixed left-4 bottom-4;
-  @apply flex gap-x-2;
+}
+
+.difficulty.mobile {
+  @apply border rounded-md border-[#add6ff];
+  @apply text-left;
+  @apply text-sm;
+  @apply leading-6;
+  @apply inline-block;
+  @apply md:text-base;
   @apply lg:hidden;
 
   .button {
     @apply py-[4px];
     @apply sm:py-[6px];
   }
-/* 
-  .button.selected {
-    @apply border border-[#74ff6a];
-    @apply bg-transparent;
-    @apply text-[#74ff6a];
-  } */
+
+  .difficulties {
+    @apply px-2 pt-2;
+    @apply flex flex-col-reverse gap-y-1;
+  }
+
+  .currentDifficulty {
+    @apply px-2 py-[4px];
+    @apply sm:px-[6px];
+    @apply flex items-center;
+  }
+
+  .triangleUp {
+    @apply pl-1;
+  }
+
+  .triangleUp svg {
+    @apply mt-[2px];
+    @apply w-[8px] h-[8px];
+  }
+
+  .difficultyOption {
+    @apply text-left;
+  }
+
+  .difficultyOption:hover {
+    @apply text-[#add6ff];
+  }
+
+  &.open {
+    @apply bg-[#e5f2ff];
+    @apply border-[#add6ff];
+
+    .triangleUp {
+      @apply pr-1 pl-0;
+      @apply rotate-180;
+    }
+  }
+}
+
+.isDarkTheme {
+  .difficulty.mobile {
+    @apply border border-[#74ff6a] rounded-sm;
+    @apply text-white;
+
+    .currentDifficulty {
+      @apply text-[#74ff6a];
+    }
+  
+    .difficultyOption:hover {
+      @apply text-[#74ff6a];
+    }
+  }
+
+  .difficulty.mobile.open {
+    @apply bg-black;
+    @apply text-white;
+  }
 }
 
 .difficulty.desktop {
@@ -323,11 +383,11 @@
 
 .theme.mobile {
   @apply border rounded-md border-[#add6ff];
-  @apply w-[36px];
-  @apply text-center;
-  @apply text-base;
+  @apply text-sm;
   @apply leading-6;
-  @apply md:text-lg;
+  @apply ml-2;
+  @apply inline-block;
+  @apply sm:text-base;
 
   &.dark {
     @apply bg-[#9eaab3];
@@ -362,33 +422,97 @@
   &.open {
     @apply bg-[#e5f2ff];
     @apply border-[#add6ff];
+
+    .triangleUp {
+      @apply pr-1 pl-0;
+      @apply rotate-180;
+    }
+  }
+
+  .themeButton {
+    @apply text-left;
+    @apply flex items-center;
+  }
+
+  .themeIcon {
+    @apply pr-[6px];
   }
 
   .themes {
-    @apply py-2;
-    @apply flex flex-col-reverse gap-y-1 items-center;
+    @apply px-2 py-2;
+    @apply flex flex-col-reverse gap-y-1;
   }
 
   .currentTheme {
     @apply w-full;
-    @apply py-[5px] pb-[3px];
+    @apply px-2 py-1;
+  }
+
+  .triangleUp {
+    @apply pl-1;
+  }
+
+  .triangleUp svg {
+    @apply mt-[2px];
+    @apply w-[8px] h-[8px];
   }
 }
 
 .isDarkTheme {
   .theme.mobile {
-    @apply bg-[#0f0f0f];
-    @apply border-[#434343];
+    @apply border rounded-sm;
+    @apply border-[#202020];
+    @apply bg-black;
     @apply text-white;
 
     .currentTheme {
-      @apply text-white;
+      @apply text-[#74ff6a];
+      @apply bg-[#202020];
     }
-  }
 
-  .theme.mobile.open {
-    @apply bg-[#202020];
-    @apply border-[#202020];
+    .themeOption:hover {
+      @apply text-[#74ff6a];
+    }
+
+    &.dark {
+      .currentTheme {
+        @apply text-[#a1a1a1];
+      }
+    }
+  
+    &.green {
+      .currentTheme {
+        @apply text-[#74ff6a];
+      }
+    }
+  
+    &.pink {
+      .currentTheme {
+        @apply text-[#ffb8fb];
+      }
+    }
+  
+    &.dreamlike {
+      .currentTheme {
+        @apply text-[#add6ff];
+      }
+    }
+  
+    &.simple {
+      .currentTheme {
+        @apply text-[#a1a1a1];
+      }
+    }
+  
+    &.classic {
+      .currentTheme {
+        @apply text-[#a1a1a1];
+      }
+    }
+
+    &.open {
+      @apply border-[#74ff6a];
+    }
   }
 }
 

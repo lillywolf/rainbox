@@ -29,26 +29,32 @@ export type DifficultyConfig = DIFFICULTY_CONFIG.easy | DIFFICULTY_CONFIG.interm
 export const THEME_CONFIGS: Record<string, {id: ThemeConfig, icon?: string, text?: string}> = {
   [THEME_CONFIG.classic]: {
     id: THEME_CONFIG.classic,
+    text: 'classic',
     icon: '📦',
   },
   [THEME_CONFIG.simple]: {
     id: THEME_CONFIG.simple,
-    icon: '🔢',
+    text: 'simple',
+    icon: '💠',
   },
   [THEME_CONFIG.dark]: {
     id: THEME_CONFIG.dark,
+    text: 'dark',
     icon: '🌚',
   },
   [THEME_CONFIG.dreamlike]: {
     id: THEME_CONFIG.dreamlike,
+    text: 'dreamlike',
     icon: '☁️',
   },
   [THEME_CONFIG.green]: {
     id: THEME_CONFIG.green,
+    text: 'green',
     icon: '🟢',
   },
   [THEME_CONFIG.pink]: {
     id: THEME_CONFIG.pink,
+    text: 'pink',
     icon: '🩷',
   },
 };

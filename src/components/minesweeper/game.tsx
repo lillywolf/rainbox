@@ -15,6 +15,7 @@ import styles from './styles.module.css';
 import Reload from '../svg/reload';
 import ArrowLeft from '../svg/arrowLeft';
 import ArrowRight from '../svg/arrowRight';
+import TriangleUp from '../svg/triangleUp';
 
 type GridProps = {
   grid: SquareGrid;
@@ -192,7 +193,7 @@ export default function Game({
   const [playCount, setPlayCount] = useState(0);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isGameReset, setIsGameReset] = useState(true);
-  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [_, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
 
@@ -202,7 +203,6 @@ export default function Game({
   const gridComponentRef = useRef<{ isGameOver: () => boolean }>(null);
 
   const onGameOver = () => {
-    console.log(">>> game is over")
     mobiletimerRef.current?.stop();
     desktoptimerRef.current?.stop();
     setIsGameOver(true);
@@ -224,13 +224,10 @@ export default function Game({
 
     setIsGameReset(false);
     placeMines({ grid: gridRef.current, difficulty, startingTile: tile });
-    console.log(">>>> mines placed")
     setMineCounts({ grid: gridRef.current });
-    console.log(">>>> mine counts set")
     mobiletimerRef.current?.start();
     desktoptimerRef.current?.start();
     setIsGameStarted(true);
-    console.log(">>>> game is started")
   };
 
   useEffect(() => {
@@ -320,7 +317,6 @@ export default function Game({
           />
         )}
         <div className={classnames([styles.themeAndLegend, styles.mobile])}>
-          <MobileTheme theme={theme} selectTheme={selectTheme} />
           <MobileLegend configuration={configuration} isGameOver={isGameOver} isGameWon={isGameWon} />
         </div>
         {isGameOver ? (
@@ -348,7 +344,10 @@ export default function Game({
         </div>
         <MobileDarkTheme isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
         <DesktopLegend configuration={configuration} />
-        <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} />
+        <div className={classnames([styles.difficultyAndTheme, styles.mobile])}>
+          <MobileDifficulty difficulty={difficulty} selectDifficulty={selectDifficulty} isDarkTheme={isDarkTheme} />
+          <MobileTheme theme={theme} selectTheme={selectTheme} isDarkTheme={isDarkTheme} />
+        </div>
       </div>
       <DesktopFooter />
       <style jsx global>{`
@@ -364,7 +363,7 @@ const MobileDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean,
   return (
     <div className={styles.switchTheme}>
       <button className={classnames([styles.button, styles.darkThemeButton, styles.mobile])} onClick={() => setIsDarkTheme(!isDarkTheme)}>
-        {isDarkTheme ? 'light theme' : 'dark theme'}
+        {isDarkTheme ? 'light mode' : 'dark mode'}
       </button>
     </div>
   );
@@ -373,7 +372,6 @@ const MobileDarkTheme = ({ isDarkTheme, setIsDarkTheme }: {isDarkTheme: boolean,
 const MobileFooter = () => {
   return (
     <div className={classnames([styles.footer, styles.mobile])}>
-      {/* <p className={styles.tagline}>realtime processing of a chaotic existence</p> */}
       <p>created by <a className={styles.link} href='http://lillywolf.com'>lilly wolf 💖</a></p>
     </div>
   );
@@ -707,36 +705,68 @@ const DesktopLegend = ({ configuration }: { configuration: MinesweeperConfig }) 
 const MobileDifficulty = ({
   difficulty,
   selectDifficulty,
+  isDarkTheme,
 }: {
-  difficulty: DifficultyConfig,
-  selectDifficulty: (difficulty: DifficultyConfig) => void,
+  difficulty: DifficultyConfig;
+  selectDifficulty: (difficulty: DifficultyConfig) => void;
+  isDarkTheme: boolean;
 }) => {
+  const [showDifficulties, setShowDifficulties] = useState(false);
+
+  const _selectDifficulty = (difficulty: DifficultyConfig) => {
+    selectDifficulty(difficulty);
+    setShowDifficulties(false);
+  };
+
   return (
-    <div className={classnames([styles.configuration, styles.difficulty, styles.mobile])}>
-      {Object.keys(DIFFICULTY_CONFIGS).map((key) => (
-        <button
-          className={classnames([
-            styles.button,
-            styles.difficultyButton,
-            styles.configurationButton,
-            styles[DIFFICULTY_CONFIGS[key].id],
-            {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[key].id}])}
-          key={key}
-          onClick={() => selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
-        >
-          {DIFFICULTY_CONFIGS[key].name}
-        </button>
-      ))}
+    <div className={classnames([styles.configuration, styles.difficulty, styles.mobile, {[styles.open]: showDifficulties}])}>
+      {!showDifficulties
+        ? null
+        : (
+            <div className={styles.difficulties}>
+              {Object.keys(DIFFICULTY_CONFIGS).map((key) => {
+                if (DIFFICULTY_CONFIGS[key].id === 'advanced' || DIFFICULTY_CONFIGS[key].difficulty === difficulty) return null;
+
+                return (
+                  <button
+                    className={classnames([
+                      styles.difficultyOption,
+                      styles[DIFFICULTY_CONFIGS[key].id],
+                    ])}
+                    key={key}
+                    onClick={() => _selectDifficulty(DIFFICULTY_CONFIGS[key].difficulty)}
+                  >
+                    {DIFFICULTY_CONFIGS[key].name}
+                  </button>
+                )
+              })}
+            </div>
+          )
+    }
+    <button
+      className={classnames([
+        styles.currentDifficulty,
+        styles[DIFFICULTY_CONFIGS[difficulty].id],
+        {[styles.selected]: DIFFICULTY_CONFIGS[difficulty].id === DIFFICULTY_CONFIGS[difficulty].id}
+      ])} 
+      onClick={() => setShowDifficulties(!showDifficulties)}>
+        {DIFFICULTY_CONFIGS[difficulty].name}
+        <span className={styles.triangleUp}>
+          <TriangleUp color={isDarkTheme ? '#74ff6a' : 'black'} />
+        </span>
+    </button>
     </div>
   );
 }
 
 const MobileTheme = ({
   theme,
-  selectTheme
+  selectTheme,
+  isDarkTheme,
 }: {
-  theme: string,
-  selectTheme: (theme: ThemeConfig) => void
+  theme: string;
+  selectTheme: (theme: ThemeConfig) => void;
+  isDarkTheme: boolean;
 }) => {
   const [showThemes, setShowThemes] = useState(false);
 
@@ -761,16 +791,29 @@ const MobileTheme = ({
             if (key === theme) return null;
 
             return (
-              <button className={styles.themeButton} key={key} onClick={() => _selectTheme(THEME_CONFIGS[key].id)}>
-                {THEME_CONFIGS[key].icon}
+              <button className={classnames([styles.themeButton, styles.themeOption])} key={key} onClick={() => _selectTheme(THEME_CONFIGS[key].id)}>
+                <span className={styles.themeIcon}>
+                  {THEME_CONFIGS[key].icon}
+                </span>
+                <span className={styles.themeText}>
+                  {THEME_CONFIGS[key].text}
+                </span>
               </button>
             );
           })}
         </div>
       )
     }
-    <button className={styles.currentTheme} onClick={() => setShowThemes(!showThemes)}>
-      {THEME_CONFIGS[theme].icon}
+    <button className={classnames([styles.currentTheme, styles.themeButton])} onClick={() => setShowThemes(!showThemes)}>
+      <span className={styles.themeIcon}>
+        {THEME_CONFIGS[theme].icon}
+      </span>
+      <span className={styles.themeText}>
+        {THEME_CONFIGS[theme].text}
+      </span>
+      <span className={styles.triangleUp}>
+        <TriangleUp color={isDarkTheme ? '#74ff6a' : 'black'} />
+      </span>
     </button>
   </div>
   );

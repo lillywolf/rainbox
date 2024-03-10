@@ -217,6 +217,7 @@
 
 .difficultyAndTheme.mobile {
   @apply fixed left-4 bottom-4;
+  @apply lg:hidden;
 }
 
 .difficulty.mobile {
@@ -373,12 +374,6 @@
     @apply text-[#dedede];
     @apply bg-[#202020];
   }
-}
-
-.themeAndLegend.mobile {
-  @apply fixed bottom-4 right-4;
-  @apply flex gap-x-2 items-end;
-  @apply lg:hidden;
 }
 
 .theme.mobile {

@@ -1016,7 +1016,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'entropy is a bitch',
       'it\'s helpful to establish a crucial fact about information itself: the informative value of a communicated message depends on the degree to which its content is surprising',
       'people aren\'t rational. we\'re not thinking machines, we\'re - we\'re feeling machines that happen to think.',
-      'machines are your friend. machines don\'t lie. a mysterious machine is just a machine that hasn\'t been decoded yet',
+      // 'machines are your friend. machines don\'t lie. a mysterious machine is just a machine that hasn\'t been decoded yet',
       'the iron machines still exist, but they obey the orders of weightless bits',
     ],
     wingame: [

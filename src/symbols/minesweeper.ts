@@ -1134,7 +1134,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'roses': {
     id: 'roses',
     text: 'crown of flowers',
-    endgameLabel: '',
+    endgameLabel: 'your game has returned to the earth',
     endgame: [
       'i like it when a flower or a little tuft of grass grows through a crack in the concrete',
       'had she never been hungry enough to eat a flower? did she not know that you could eat daisies, daylilies, pansies, and marigolds? that hungry enough, a person could consume the bright faces of violas, even the stems of dandelions and the bitter hips of roses?',

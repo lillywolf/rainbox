@@ -623,7 +623,7 @@ export const NONSENSE = {
     text: '🗿',
   },
   empty: {
-    text: '🦤🙀',
+    text: '🦤🙀🧢🐩',
   },
   0: {
     text: '𓃰',
@@ -1146,7 +1146,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'nonsense': {
     id: 'nonsense',
     text: 'nonsense',
-    endgameLabel: '',
+    endgameLabel: '🚬🐖',
     endgame: [
       'there\'s an infinite number of monkeys outside who want to talk to us about this script for Hamlet they\'ve worked out',
       'the answer to the great question ... of life, the universe and everything ... is ... forty-two',

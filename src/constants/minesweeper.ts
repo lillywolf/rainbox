@@ -34,7 +34,7 @@ export const THEME_CONFIGS: Record<string, {id: ThemeConfig, icon?: string, text
   },
   [THEME_CONFIG.simple]: {
     id: THEME_CONFIG.simple,
-    text: 'simple',
+    text: 'grid',
     icon: '💠',
   },
   [THEME_CONFIG.dark]: {

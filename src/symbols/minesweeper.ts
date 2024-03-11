@@ -868,10 +868,10 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'dreams': {
     id: 'dreams',
     text: 'dreaming',
-    endgameLabel: 'dream over 🌞',
+    endgameLabel: 'dream ended 🌞',
     endgame: [
-      'the soft outline of a dream',
-      'life in the clouds',
+      'goodbye to the soft outline of a dream',
+      'i miss life in the clouds',
       'people say, "i\'m going to sleep now," as if it were nothing',
       'if dreams were not beautiful, they would quickly be forgotten',
       'we\'re artists too, but we do a good job hiding it, don\'t we?',

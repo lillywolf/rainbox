@@ -808,8 +808,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     wingame: [
       'love is a friendship set to music',
       'know that in this world there\'s somebody who will always love you',
-      'with love everything is bought, everything is saved',
-      'others feel and think much as you do, care about many of the things you care about ... you are not alone',
+      // 'with love everything is bought, everything is saved',
+      // 'others feel and think much as you do, care about many of the things you care about ... you are not alone',
     ],
     symbols: SYMBOLS_LOVE,
   },
@@ -862,7 +862,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'it\'s just fun to be with you'
     ],
     wingame: [
-      'your world is beautiful and i want to be in it with you',
+      'know that in this world there\'s somebody who will always love you',
+      // 'your world is beautiful and i want to be in it with you',
     ],
     symbols: symbolsFruit(),
     symbolsFn: () => symbolsFruit(),

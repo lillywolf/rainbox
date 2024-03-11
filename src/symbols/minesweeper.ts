@@ -1322,6 +1322,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     subtext: [
       'in a 2014 study, university of pennsylvania researchers imaged the brains of 428 males and 521 female youths - an uncharacteristically huge sample - and found that the females\' brains more consistently showed more coordinated activity between hemispheres, while the males\' brain activity was more tightly coordinated within local brain regions. this finding, a confirmation of results in smaller studies published earlier, tracks closesly with others\' observation that the corpus callosum -- the white matter cable that crosses and connects the hemispheres -- is bigger in women than in men and women\'s brains tend to be more bilaterally symmetrical than me.',
     ],
+    endgameLabel: '🌸☠️',
     endgame: [
       'does the heat of a girl matter?',
       'men are from earth, women are from earth. deal with it',

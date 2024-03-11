@@ -618,6 +618,42 @@ export const ENTROPY = {
   }
 };
 
+export const NONSENSE = {
+  mine: {
+    text: '🗿',
+  },
+  empty: {
+    text: '🦤🙀',
+  },
+  0: {
+    text: '𓃰',
+  },
+  1: {
+    text: '🦹🏾',
+  },
+  2: {
+    text: '🤡'
+  },
+  3: {
+    text: '🥒'
+  },
+  4: {
+    text: '👹',
+  },
+  5: {
+    text: '🦚'
+  },
+  6: {
+    text: '🎳'
+  },
+  7: {
+    text: '🪰'
+  },
+  8: {
+    text: '🫥'
+  }
+};
+
 export const SYMBOLS_DIVINATION = {
   mine: {
     text: '🕷️',
@@ -1120,7 +1156,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i find a duck\'s opinion of me is very much influenced by whether or not i have bread',
     ],
     wingame: [],
-    symbols: COMPILER
+    symbols: NONSENSE
   },
   'what': {
     id: 'what',

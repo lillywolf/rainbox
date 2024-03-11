@@ -578,7 +578,7 @@
   @apply text-sm text-center;
   @apply md:hidden;
   @apply w-full;
-  @apply pt-4 px-8 pb-32;
+  @apply pt-3 px-8 pb-32;
 
   .stats {
     @apply mb-2;
@@ -586,7 +586,7 @@
 
   .gameOver,
   .gameWon {
-    @apply text-sm;
+    @apply text-xs;
   }  
 }
 

@@ -78,7 +78,7 @@ export const SYMBOLS_DRUGS = {
     text: '💀',
   },
   empty: {
-    text: '💠🚌⚡,🌨️, ⛄, 💎,🎱',
+    text: '💠🚌⚡🌨️⛄💎🎱',
   },
   0: {
     text: '💊'
@@ -150,7 +150,7 @@ export const symbolsFruit = () => {
 
   return {
     mine: {
-      text: '✹',
+      text: '☀︎',
     },
     empty: {
       text: '',
@@ -263,7 +263,7 @@ export const SYMBOLS_RETRO = {
 
 export const SYMBOLS_STANDARD = {
   mine: {
-    text: '✖',
+    text: '☀︎',
   },
   empty: {
     text: '⬜',
@@ -517,31 +517,32 @@ export const SIGNAL_LOSS = {
     text: '🧱',
   },
   0: {
-    text: () => getWeightedSymbol(SYMBOLS_COMPILER)
+    // text: () => getWeightedSymbol(SYMBOLS_COMPILER)
+    text: '💬',
   },
   1: {
-    text: '💎',
+    text: '🛰️',
   },
   2: {
-    text: '⚡️',
+    text: '💎',
   },
   3: {
-    text: '🚦',
+    text: '🔌',
   },
   4: {
-    text: '🔌',
+    text: '📲',
   },
   5: {
     text: '📡',
   },
   6: {
-    text: '🆘',
+    text: '🔊',
   },
   7: {
-    text: '🚨',
+    text: '📟',
   },
   8: {
-    text: '🚫',
+    text: '☎️',
   },
 };
 
@@ -559,16 +560,16 @@ export const COMPILER = {
     text: '💻'
   },
   2: {
-    text: '⚠️'
+    text: '✳️'
   },
   3: {
-    text: '📛'
+    text: '⚠️'
   },
   4: {
-    text: '🔐'
+    text: '📛'
   },
   5: {
-    text: '*️⃣'
+    text: '☢️'
   },
   6: {
     text: '⛔'
@@ -735,6 +736,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'love': {
     id: 'love',
     text: '♥︎♥︎♥︎',
+    endgameLabel: 'game over! your love has died',
     endgame: [
       // 'when viewing picture of their partner, lovers show significant activation in some brain regions which include the ventral tegmental area (VTA), nucleus accumbens (NAC), caudate, insula, dorsal anterior cingulate cortex (dACC), dorsolateral prefrontal cortex (dlPFC), hippocampus, posterior cingulate cortex (PCC), precuneus, temporo-parietal junction (TPJ), and hypothamalus.',
       'disruption of pair bonding induces plastic changes in the hypothalamic CRF system, and these changes are associated with individuals returning to their former partner',
@@ -751,6 +753,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'you are a song a dream a whisper',
       'you have been in every line i have ever read',
       'i am half agony half hope',
+      'well, when you think you love somebody, you love them. that\'s what love is. thoughts',
       'against reason against promise against peace against hope against happiness against all discouragement',
       'i\'m never not thinking of you',
       'i fell in love with your courage your sincerity and your flaming self respect',
@@ -760,6 +763,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'it takes two to make an accident',
       'you don\'t know how happy i am to be with you',
       'wise men say only fools rush in',
+      'love is a trick the DNA plays to replicate itself',
+      'what if every relationship you\'re in is just someone slowly figuring out they don\'t like you as much as they\'d hoped they would?'
       // 'love is being stupid together',
       // 'love is a rare thing, easily confused with a million other things',
       // 'i steal into their dreams ... i scan their irrational impulses, their unspeakable emotions, i sleep in their lungs during the summer and their muscles during the winter, and all of this i do without the least effort, without intending to, without asking or seeking it out, without constraints, driven only by love and devotion'
@@ -803,10 +808,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i miss you',
       'would you like to be friends?',
       'we can try again',
-      'would you like to build a dream together',
+      'do you want to build a dream together?',
       'i want to weigh less, to float up to where you are',
       'don\'t be scared. let\'s hold hands and never let go',
-      // 'this is the logical outcome of our ridiculous lives',
       'i think i made you up inside my head',
       '🍑 🥝 🍉 🥥 🍋 🍐 🍋',
       'you\'re cute',
@@ -818,6 +822,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i might just text you',
       'are you happy i\'m here?',
       'it was real wasn\'t it?',
+      'let\'s go',
+      'it\'s just fun to be with you'
     ],
     wingame: [
       'your world is beautiful and i want to be in it with you',
@@ -835,6 +841,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'cosmos': {
     id: 'cosmos',
     text: 'cosmos',
+    endgameLabel: 'game over 🛸',
     endgame: [
       'the planet is fine. the people are fucked',
       'it\'s a very sobering feeling to be up in space and realize that one\'s safety factor was determined by the lowest bidder on a government contract',
@@ -846,8 +853,8 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'the universe is a big place, perhaps the biggest',
       'we are an impossibility in an impossible universe',
       'don\'t forget about stars',
-      // 'the dinosaurs became extinct because they didn\'t have a space program. and if we become extinct because we don\'t have a space program, it\'ll serve us right!',
-      // 'do i dare disturb the universe?',
+      'the dinosaurs became extinct because they didn\'t have a space program. and if we become extinct because we don\'t have a space program, it\'ll serve us right',
+      // 'do i dare disturb the universe',
     ],
     wingame: [
       'we\'d stared into the face of Death, and Death blinked first.',
@@ -858,9 +865,12 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'dreams': {
     id: 'dreams',
     text: 'dreaming',
+    endgameLabel: 'dream over 🌞',
     endgame: [
+      'the soft outline of a dream',
+      'life in the clouds',
       'people say, "i\'m going to sleep now," as if it were nothing',
-      'if dreams were not beautiful, they would quickly be forgotten.',
+      'if dreams were not beautiful, they would quickly be forgotten',
       'we\'re artists too, but we do a good job hiding it, don\'t we?',
       'only in chaos are we conceivable',
       'every hundred feet the world changes',
@@ -881,19 +891,19 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'loss': {
     id: 'loss',
     text: 'don\'t cry',
+    endgameLabel: 'game over 🌧️',
     endgame: [
-      'are you really there? is anyone?',
+      'now that all hope is gone, a deep relief has taken its place, and i allow myself to enjoy it before the despair sets in',
       'ghosts are made up only of the living ... people you know are out there but are forever out of range',
       'of all the words of mice and men, the saddest are, "it might have been."',
       'cry all you want, i won\'t tell anybody',
       'we\'ve always been terrible at doing the things we\'re supposed to do',
-      '"let\'s go" -- you, to me, a long time ago',
       'it\'s your party, you can cry if you want to',
       'it\'s hard to like, breathe sometimes',
       'just walk it off',
       'it always takes longer than you think it will',
       'what is vertigo? fear of falling?',
-      'the greek word for "return" is nostos. algos means "suffering." so nostalgia is the suffering caused by an unappeased yearning to return.',
+      'the desire to fall, against which, terrified, we defend ourselves',
       'everything that starts as a comedy ends as a tragedy',
       'everything i\'ve ever let go of has claw marks on it',
       'now, of course, i\'m out of a job and sometimes, when i\'m in a certain mood, when i wake up with a hangover and it\'s one of those apocalytic mexico city mornings, i think that i did the wrong thing, that i could have invited someone else, in a word, that i fucked up.\\nbut most of the time i\'m not sorry.',
@@ -907,7 +917,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'if you\'re in pitch blackness, all you can do is sit tight until your eyes get used to the dark',
       'even if we could turn back, we\'d probably end up where we started',
       'now i\'m drivin round on the boulevard trunk bleedin',
-      'i need to be alone like the way you left me',
       'i\'m a ghost and you know this',
       'right? wrong',
       'i\'ve dug two graves for us my dear',
@@ -923,8 +932,13 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'thinking',
     text: '🧠',
     description: 'the nature of reality',
+    endgameLabel: 'game over',
     endgame: [
+      'it takes a powerful imagination to see a thing for what it really is',
+      'you got to be crazy, it\'s too late to be sane',
+      'you\'re only given a little spark of madness. you lose that, you\'re nothin',
       'i do this real moron thing, and it\'s called thinking',
+      'it wasn\'t a punishment but a new wrinkle',
       'it takes something more than intelligence to act intelligently',
       'what\'s real and what\'s true aren\'t necessarily the same',
       'there is a lot of disconnected research that points toward possible purposes for the posterior cingulate cortex. it may be one of the components of verbal and auditory memory, multisensory perception, visuospatial cognition and/or evaluation of emotional behavior. the right hemisphere posterior cingulate is activated in comprehension of metaphors, and the left in associative learning. story comprehension seems to use the posterior cingulate. it is activated during anxiety and OCD, and may be overactive in bipolar disorder.',
@@ -932,6 +946,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'is there no way out of the mind?',
       'nothing happened today. and if anything did, i\'d rather not talk about it, because i didn\'t understand it',
       'memory conforms to what we think we remember',
+      'it turns out your memory isn\'t the precise court stenographer you think it is, getting every word down just so. it\'s more like the sketch artist way at the back of the courtroom who is doing his level best to capture images that no longer are',
       'if you\'re too open-minded, your brain will fall out',
       'those who do not remember the past are condemned to repeat it',
       'call my therapist, tell him he\'s a rich man',
@@ -939,9 +954,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'tired of feelin like im trapped in my damn mind',
       'nothing makes sense',
       'i think i am, therefore, i am ... i think',
+      'i remember a psychiatrist once telling me that i gamble in order to escape the reality of life, and i told him that\'s why everyone does everything',
       'would it save you a lot of time if i just gave up and went mad now?',
       'the same equation applies to everything, more or less',
-      // 'language is courage',
       'reality is a question of perspective',
       'the darkness inside your head is something your imagination fills with stories that have nothing to do with the real darkness around you',
       'the only people who see the whole picture are the ones who step out of the frame',
@@ -949,6 +964,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'there is nothing either good or bad but thinking makes it so',
       'if someone with multiple personalities threatens to kill himself, is it considered a hostage situation?',
       'not only do i not know what\'s going on, i wouldn\'t know what to do about it if i did',
+      'all our dignity consists then in thought. by it we must elevate ourselves, and not by space and time which we cannot fill',
     ],
     wingame: [
       'it wasn\'t a punishment but a new wrinkle. it gave us a glimpse of ourselves in our common humanity. it wasn\'t proof of our idle guilt but a sign of our miraculous and pointless innocence.',
@@ -960,14 +976,17 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'signal_loss',
     text: 'signal loss',
     description: 'the loss of information',
+    endgameLabel: 'you are lost',
     endgame: [
-      'some glittering memory',
+      'are you really there? is anyone?',
+      'a blessed act of oblivion',
+      'looking for some glittering memory',
       'this is it. it\'s going to be gone soon',
       'compared to forgetting, does living really stand a chance?',
       'the secret story is the one we\'ll never know, although we\'re living it from day to day',
       // 'stop moping. all poets get lost at some point or another',
       // 'have you ever driven in the desert? it looks easy, but there\'s nothing simple about it',
-      'sunsets in the desert seem like they\'ll never end, until suddenly, before you know it, they\'re done',
+      // 'sunsets in the desert seem like they\'ll never end, until suddenly, before you know it, they\'re done',
       'it\'s like someone turned out the lights',
       'i\'m a fan of disappearing. it has a romantic element',
       'nothing is permanent, ever',
@@ -1065,15 +1084,27 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   },
   'roses': {
     id: 'roses',
-    text: 'crown of roses',
+    text: 'crown of flowers',
+    endgameLabel: '',
     endgame: [
-      'i like it when a flower or a little tuft of grass grows through a crack in the concrete. it\'s so fuckin heroic',
+      'i like it when a flower or a little tuft of grass grows through a crack in the concrete',
       'had she never been hungry enough to eat a flower? did she not know that you could eat daisies, daylilies, pansies, and marigolds? that hungry enough, a person could consume the bright faces of violas, even the stems of dandelions and the bitter hips of roses?',
       'born green we were to this flawed garden',
       'if i told you that a flower bloomed in a dark room, would you trust it?',
     ],
     wingame: [],
     symbols: FLOWERS
+  },
+  'nonsense': {
+    id: 'nonsense',
+    text: 'nonsense',
+    endgameLabel: '',
+    endgame: [
+      'life is great man, you can eat at denny\'s or wear a hat, whatever you want',
+      'i find a duck\'s opinion of me is very much influenced by whether or not i have bread',
+    ],
+    wingame: [],
+    symbols: COMPILER
   },
   'what': {
     id: 'what',
@@ -1124,7 +1155,9 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'power': {
     id: 'power',
     text: 'arms race',
+    endgameLabel: 'you have died',
     endgame: [
+      'it says here in this history book that, luckily, the good guys have won every single time. what are the odds?',
       'pistol in your hand don\'t make you real',
       'if you die, i\'m dying too. cheers',
       'you know what you are? you’re a survivor who has nothing to live for',
@@ -1171,13 +1204,37 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     symbols: ARMS_RACE
   },
-  'entroy': {
-    id: 'entroy',
+  'entropy': {
+    id: 'entropy',
     text: 'entropy and eternal return',
+    endgameLabel: 'you have died again',
     endgame: [
-      'what is a game? it\'s tomorrow, and tomorrow, and tomorrow',
+      'what is a game?',
+      'are we ephemera?',
+      'a brief flash of light',
+      'are not all things firmly knotted together in such a way that this moment draws after it all things to come?',
+      'do you want this again and innumerable times again?',
+      'the eternal hourglass of existence is turned over again and again, and you with it, speck of dust',
+      'when you can\'t remember your lives, you can\'t change your lives',
+      'you\'re trapped by that nightmare you keep waking up into',
+      'it will surely happen again',
+      'there is nothing new under the sun',
+      'what has been will be again',
+      'time is not a river running inexorably to the sea, but the sea itself',
+      'the story is not history alone, it is also prophecy',
+      'in the sunset of dissolution, everything is illuminated by the aura of nostalgia',
+      'the greek word for "return" is nostos. algos means "suffering." so nostalgia is the suffering caused by an unappeased yearning to return.',
+      'tomorrow, and tomorrow, and tomorrow',
       'it\'s the possibility of infinite rebirth, infinite redemption. the idea that if you keep playing, you could win',
       'the eternal recurrence of my stupid feelings',
+      'something which does not forever recur has its brief existence, and, once it is complete, the universe goes on existing, utterly indifferent to the completed phenomenon',
+      'whether it was horrible, beautiful, or sublime, it means nothing',
+      'lightness is the flexible; the weightless; the mobile; the connective; vectors as distinct from structures',
+      'it is true that software cannot exercise its powers of lightness except through the weight of hardware',
+      'only chance can speak to us',
+      'everything that occurs out of necessity, everything expected, repeated day in and day out, is mute',
+      'if you\'re looking for infinity, just close your eyes',
+      'in infinite time, in infinite matter, in infinite space, is formed a bubble-organism, and that bubble lasts a while and bursts, and that bubble is me',
     ],
     wingame: [],
     symbols: ENTROPY
@@ -1187,6 +1244,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     text: 'euphoria',
     endgameLabel: '💊 🅿️ 🆚 ❎',
     endgame: [
+      'cocaine is god\'s way of saying you make too much money',
       'will you be able to get off H? possibly. but will life have any novelty left after you do? I wouldn\'t bet on it. you\'ve played your own song too many times',
       'my reasons for doing ketamine were to quiet the crying voices and to blunt the sharpness of the pain. i wanted to think Of things maybe but not About things, i\'d been thinking About things my whole life.',
       'the acute withdrawal phase is often followed by a protracted phase of depression and insomnia that can last for months',
@@ -1234,6 +1292,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'the game looks easy, that\'s why it sells',
       // 'alcohol will turn you into the same asshole your father was',
       'this is what you call a flip, ten keys from a quarter brick',
+      'an addiction is a deep hook',
     ],
     wingame: [
       'a new strategy of drug development takes receptor signal transduction into consideration. this strategy strives to increase the activation of desirable signalling pathways while reducing the impact on undesirable pathways. this differential strategy has been given several names, including functional selectivity and biased agonism.'
@@ -1247,7 +1306,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'in a 2014 study, university of pennsylvania researchers imaged the brains of 428 males and 521 female youths - an uncharacteristically huge sample - and found that the females\' brains more consistently showed more coordinated activity between hemispheres, while the males\' brain activity was more tightly coordinated within local brain regions. this finding, a confirmation of results in smaller studies published earlier, tracks closesly with others\' observation that the corpus callosum -- the white matter cable that crosses and connects the hemispheres -- is bigger in women than in men and women\'s brains tend to be more bilaterally symmetrical than me.',
     ],
     endgame: [
-      'if there is a god, i am convinced he is a he, because no woman could or would ever fuck things up this badly',
+      'does the heat of a girl matter?',
       'men are from earth, women are from earth. deal with it',
       'i want to be important. by being different',
       'that’s one of the reasons i never wanted to get married. the last thing i wanted was infinite security and to be the place an arrow shoots off from',

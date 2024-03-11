@@ -514,7 +514,7 @@
 
     &.open {
       @apply bg-[#202020];
-      @apply border-[#74ff6a];
+      @apply border-[#202020];
     }
   }
 }

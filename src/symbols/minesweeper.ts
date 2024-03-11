@@ -803,6 +803,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'fruits': {
     id: 'fruits',
     text: 'random fruits 🍋',
+    endgameLabel: '🍑 🥝 🍉 🥥 🍋 🍐 🍋',
     endgame: [
       'hi',
       'i miss you',
@@ -812,7 +813,6 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i want to weigh less, to float up to where you are',
       'don\'t be scared. let\'s hold hands and never let go',
       'i think i made you up inside my head',
-      '🍑 🥝 🍉 🥥 🍋 🍐 🍋',
       'you\'re cute',
       ':)',
       'i regret nothing',

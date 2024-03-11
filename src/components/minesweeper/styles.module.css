@@ -222,7 +222,6 @@
 
 .difficulty.mobile {
   @apply border rounded-md border-[#add6ff];
-  @apply bg-[#0f0f0f];
   @apply text-left;
   @apply text-sm;
   @apply leading-6;
@@ -277,6 +276,7 @@
 .isDarkTheme {
   .difficulty.mobile {
     @apply border border-[#74ff6a] rounded-sm;
+    @apply bg-[#0f0f0f];
     @apply text-white;
 
     .currentDifficulty {

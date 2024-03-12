@@ -799,14 +799,13 @@
   }
 
   .clicked {
-    /* banana */
     @apply text-black;
     @apply bg-[#525252];
-    @apply border-0;
-    @apply outline outline-[#303030];
-    outline-width: 1px;
+    @apply border-solid border-[1px] border-[#303030];
+    /* @apply outline outline-[#303030]; */
+    /* outline-width: 1px;
     outline-style: solid;
-    outline-offset: 0;
+    outline-offset: 0; */
   }
 }
 

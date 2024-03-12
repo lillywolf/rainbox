@@ -792,7 +792,10 @@
     @apply bg-[#222222];
     @apply border-black;
     @apply border-[3px];
-    border-style: outset;
+    border-left-style: inset;
+    border-top-style: inset;
+    border-bottom-style: solid;
+    border-right-style: solid;
   }
 
   .clicked {

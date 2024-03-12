@@ -799,6 +799,7 @@
   }
 
   .clicked {
+    /* banana */
     @apply text-black;
     @apply bg-[#525252];
     @apply border-0;

@@ -801,7 +801,8 @@
   .clicked {
     @apply text-black;
     @apply bg-[#525252];
-    @apply border-solid border-[1px] border-[#303030];
+    box-shadow: 0 0 0 1px #303030;
+    /* @apply border-solid border-[1px] border-[#303030]; */
     /* @apply outline outline-[#303030]; */
     /* outline-width: 1px;
     outline-style: solid;

@@ -809,28 +809,6 @@
   }
 }
 
-.isDarkTheme {
-  .dark {
-    .unclicked {
-      @apply bg-[#222222];
-      border-width: 3px;
-      border-color: black;
-      border-style: outset;
-      border-shadow: none;
-    }
-  
-    .clicked {
-      @apply text-black;
-      @apply bg-[#525252];
-      @apply border-0;
-      @apply outline outline-[#303030];
-      outline-width: 1px;
-      outline-style: solid;
-      outline-offset: 0;
-    }
-  }
-}
-
 .dreamlike {
   @apply border border-[#add6ff];
 

@@ -1083,6 +1083,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'uncaught reference error',
       'syntax error: illegal character',
       'caught typeerror: illegal invocation',
+      'the operation could not be completed, please retry',
       'invalid connection',
       'cannot read properties of null (reading "emtn.regulate")',
       'undefined is not a function (evaluating internal_process["logic"])',

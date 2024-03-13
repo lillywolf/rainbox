@@ -852,7 +852,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'i miss you',
       'would you like to be friends?',
       'we can try again',
-      'do you want to build a dream together?',
+      'let\'s build a dream together',
       'i want to weigh less, to float up to where you are',
       'don\'t be scared. let\'s hold hands and never let go',
       'i think i made you up inside my head',
@@ -980,7 +980,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     id: 'thinking',
     text: '🧠',
     description: 'the nature of reality',
-    endgameLabel: 'game over',
+    endgameLabel: 'what is death anyway',
     endgame: [
       'do you find coming to terms with the mindless tedium of it all presents an interesting challenge?',
       'reality is frequently inaccurate',

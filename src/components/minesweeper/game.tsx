@@ -651,10 +651,8 @@ const MobileLegend = ({
   isGameOver: boolean,
   isGameWon: boolean
 }) => {
-  // const [showLegend, setShowLegend] = useState(true);
-
   return (
-    <div className={classnames([styles.legend, styles.mobile, {[styles.hide]: isGameOver || isGameWon}])}>
+    <div className={classnames([styles.legend, styles.mobile, styles[configuration.id], {[styles.hide]: isGameOver || isGameWon}])}>
       {Object.entries(configuration.symbols).map(([key, symbol]) => ( 
         key === 'empty' || key === '0' || key === 'mine'
           ? null
@@ -662,9 +660,8 @@ const MobileLegend = ({
             <div key={key} className={styles.legendKey}>
               <span>
                 {key}: 
-                {/* {key === 'mine' ? 'x' : key}: */}
               </span>
-              <span className={styles.legendSymbol}>
+              <span className={classnames([styles.legendSymbol, styles[key]])}>
                 {typeof symbol.text === 'string' ? symbol.text : symbol.text()}
               </span>
             </div>

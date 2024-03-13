@@ -1004,7 +1004,8 @@
 }
 
 .standard,
-.isDarkTheme.standard {
+.isDarkTheme.standard,
+.legend.standard {
   .1 {
     @apply text-[#4759fc];
   }

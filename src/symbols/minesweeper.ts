@@ -936,7 +936,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
   'loss': {
     id: 'loss',
     text: 'don\'t cry',
-    endgameLabel: 'game over 🌧️',
+    endgameLabel: 'it\'s over 🌧️',
     endgame: [
       'i think you ought to know i\'m feeling very depressed',
       // 'now that all hope is gone, a deep relief has taken its place, and i allow myself to enjoy it before the despair sets in',

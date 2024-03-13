@@ -1246,7 +1246,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       // 'i got me one gun and me an alibi',
       // 'if i could act on my revenge no would i',
       'the hunt is on, and sprung the trap',
-      'pray none of my enemies hold me captive',
+      `\'pray none of my enemies hold me captive\'\n-- kendrick lamar`,
       'i smell tnt',
       'I got this killa up inside of me, i can\'t talk to my mother so i talk to my diary',
       // 'started from the bottom',

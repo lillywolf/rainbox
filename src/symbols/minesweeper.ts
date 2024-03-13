@@ -1375,13 +1375,13 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
     ],
     symbols: GIRLS
   },
-  letter: {
-    id: 'letter',
-    text: 'this is a love letter',
-    endgame: '',
-    wingame: '',
-    symbols: LETTERS
-  },
+  // letter: {
+  //   id: 'letter',
+  //   text: 'this is a love letter',
+  //   endgame: '',
+  //   wingame: '',
+  //   symbols: LETTERS
+  // },
 };
 
 export const LOVE_LETTERS = [

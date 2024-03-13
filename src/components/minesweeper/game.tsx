@@ -523,7 +523,7 @@ const GameOverMobile = ({
       <div className={styles.gameOver}>
         <div className={styles.gameOverText}>
           {configuration.endgamePrefix ? <span className={styles.gameOverPrefix}>{configuration.endgamePrefix}</span> : ''}
-          {message}
+          <span dangerouslySetInnerHTML={{__html: message.replace(/\n/g, '<br/>')}} />
         </div>
       </div>
     </div>
@@ -635,7 +635,7 @@ const GameOverDesktop = ({ configuration, playCount, timerRef }: { configuration
       <div className={cx}>
         <div className={styles.gameOverText}>
           {configuration.endgamePrefix ? <span className={styles.gameOverPrefix}>{configuration.endgamePrefix}</span> : ''}
-          {message}
+          <span dangerouslySetInnerHTML={{__html: message.replace(/\n/g, '<br/>')}} />
         </div>
       </div>
     </div>

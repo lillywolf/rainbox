@@ -1129,7 +1129,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'restarting',
       'thermal sensor is out of range. press f1 to burst into flames',
       'error while fetching http://slf.control: you have lost connection to the server hosting this web page',
-      'cross-origin request blocked: the same origin policy disallows reading the remote resource at http://fn.youaresostupid.com',
+      'cross-origin request blocked: the same origin policy disallows reading the remote resource at http://exec.function.com',
     ],
     wingame: [
       'i do not fear computers. i fear the lack of them',

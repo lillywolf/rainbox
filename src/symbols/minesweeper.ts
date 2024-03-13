@@ -1082,7 +1082,7 @@ export const CONFIGURATION_OPTIONS: Record<string, MinesweeperConfig> = {
       'maximmum call stack size exceeded while executing fn["cry"]',
       'uncaught reference error',
       'syntax error: illegal character',
-      'caught typeerror: illegal invocation',
+      'illegal invocation',
       'the operation could not be completed, please retry',
       'invalid connection',
       'cannot read properties of null (reading "emtn.regulate")',

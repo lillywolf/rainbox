@@ -2,8 +2,8 @@
   @apply w-full;
 }
 
-.gameContainer {
-  @apply mx-auto w-full h-full;
+.flowersContainer {
+  @apply ml-0 mt-[30px] w-full h-full;
 }
 
 .header {
@@ -33,3 +33,4 @@
   @apply hidden;
   @apply md:inline;
 }
+    

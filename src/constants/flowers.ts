@@ -10,6 +10,7 @@ export type Petal = {
   b2c1: Point;
   b1c2: Point;
   b2c2: Point;
+  color: Array<number>;
 };
 
 const COLORS = [
@@ -19,6 +20,18 @@ const COLORS = [
   [107, 255, 253],
   [107, 255, 124]
 ];
+
+const COLOR_SETS = {
+  pinks: [
+    [186, 149, 176],
+    [234, 187, 226],
+    [217, 238, 170],
+    [207, 240, 133],
+    [229, 172, 216],
+    [229, 172, 216],
+    [233, 191, 224],
+  ],
+};
 
 export enum PETAL_STYLE {
   'rounded' = 'rounded',
@@ -94,12 +107,13 @@ export const DahliaConfig: FlowerConfig = {
   seedDiameter: 10,
   numberOfSeedSpirals: 34,
   numberOfPetals: 16,
-  numberOfPetalSpirals: 5,
+  numberOfPetalSpirals: 7,
   petalWidthCoefficient: 0.35,
   petalControlStart: 0.1,
   petalTaper: 0.42,
   petalStyle: PETAL_STYLE.rounded,
   innerRadius: 0.3,
+  colors: COLOR_SETS.pinks,
 };
 
 export const FLOWERS: Array<FlowerConfig> = [

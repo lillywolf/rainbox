@@ -20,6 +20,7 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@/fonts/*": ["src/fonts/*"],
       "@/components/*": ["src/components/*"],
       "@/constants/*": ["src/constants/*"],
       "@/symbols/*": ["src/symbols/*"],

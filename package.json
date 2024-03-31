@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/font": "^14.1.4",
     "@types/p5": "^1.7.6",
     "classnames": "^2.5.1",
     "ml5": "^0.12.2",

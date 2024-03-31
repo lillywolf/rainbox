@@ -4,7 +4,7 @@ import p5 from 'p5';
 import { useEffect, useRef } from 'react';
 import { HexagonalGrid } from 'src/classes/HexagonalGrid';
 
-const Hexagons = () => {
+const HexagonsCanvas = () => {
   const grid = new HexagonalGrid({
     minX: 1,
     maxX: 21,
@@ -38,4 +38,4 @@ const Hexagons = () => {
   );
 };
 
-export default Hexagons;
+export default HexagonsCanvas;

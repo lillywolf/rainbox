@@ -1,0 +1,35 @@
+.page {
+  @apply w-full;
+}
+
+.dreamFilesContainer {
+  @apply ml-0 mt-[30px] w-full h-full;
+}
+
+.header {
+  @apply fixed top-0;
+  @apply z-10;
+  @apply flex w-full items-center justify-between;
+  @apply h-[30px];
+  @apply bg-white;
+  @apply border border-b-black border-t-0; 
+}
+
+.title {
+  @apply mr-4;
+  @apply content-end;
+  @apply text-base;
+  @apply md:text-lg;
+}
+
+.site {
+  @apply ml-4;
+  @apply text-left;
+  @apply text-base;
+  @apply md:text-lg;
+}
+
+.sparkles {
+  @apply hidden;
+  @apply md:inline;
+}

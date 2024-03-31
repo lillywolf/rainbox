@@ -1,10 +1,10 @@
 import React from 'react';
 
-import FlowersCanvas from '@/components/flowers';
+import IsometricCanvas from '@/components/isometric';
 
 import styles from './styles.module.css';
 
-export default function Minesweeper() {
+export default function Isometric() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -12,10 +12,10 @@ export default function Minesweeper() {
           <span className={styles.sparkles}>   ˚　　　　✦　　　.　　. 　 ˚ ✰✰　.　　　　 </span>
           <a href='/'>rainbox.world</a>
         </h2>
-        <h1 className={styles.title}>flowers</h1>
+        <h1 className={styles.title}>isometric</h1>
       </div>
-      <div className={styles.flowersContainer}>
-        <FlowersCanvas />
+      <div className={styles.isometricContainer}>
+        <IsometricCanvas />
       </div>
     </div>
   );

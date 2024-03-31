@@ -9,7 +9,7 @@ import { Flower } from 'src/classes/Flower';
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
 
-const Flowers = () => {
+const FlowersCanvas = () => {
   const p5Ref = useRef<HTMLDivElement | null>(null);
   
   const FlowersSketch = (sketch: typeof p5.prototype) => {
@@ -50,4 +50,4 @@ const Flowers = () => {
   );
 };
 
-export default Flowers;
+export default FlowersCanvas;

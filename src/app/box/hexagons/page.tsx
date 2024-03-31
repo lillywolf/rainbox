@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Hexagons from '@/components/hexagons';
+import HexagonsCanvas from '@/components/hexagons';
 
 import styles from './styles.module.css';
 
@@ -15,7 +15,7 @@ export default function Minesweeper() {
         <h1 className={styles.title}>hexagons</h1>
       </div>
       <div className={styles.hexagonsContainer}>
-        <Hexagons />
+        <HexagonsCanvas />
       </div>
     </div>
   );

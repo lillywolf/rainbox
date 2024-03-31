@@ -7,7 +7,7 @@ const PETAL_WIDTH_RANDOMNESS = 1;
 const PETAL_TAPER_RANDOMNESS = 0.2;
 const PETAL_THETA_RANDOMNESS = 0.05;
 
-const SPIRAL_INDEX_RADIUS_COEFFICIENT = 0.1;
+const SPIRAL_INDEX_RADIUS_COEFFICIENT = 0.08;
 const SPIRAL_INDEX_THETA_COEFFICIENT = 0.5;
 const SPIRAL_INDEX_WIDTH_COEFFICIENT = 0.0;
 
@@ -22,8 +22,9 @@ export type FlowerConfig = {
   petalWidthCoefficient: number;
   petalControlStart: number; // between 0 and 1, sets the start of the bezier control lines
   petalTaper: number; // between 0 and 1, sets the length of the bezier control lines
-  petalStyle: PETAL_STYLES,
+  petalStyle: PETAL_STYLES;
   innerRadius: number;
+  colors?: Array<Array<number>>;
 };
 
 const COLORS = [
@@ -69,26 +70,35 @@ export class Flower {
     const spiralIndexes = Array.from(Array(this.config.numberOfPetalSpirals).keys());
     const petalIndexes = Array.from(Array(this.config.numberOfPetals).keys());
 
-    this.petals = spiralIndexes.flatMap((spiralIndex) => {
-      return petalIndexes.map((i) => {
-        const innerRadius = this.radius * this.config.innerRadius;
+    this.petals = spiralIndexes.flatMap((spiralIndex) => { // each spiral
+      return petalIndexes.map((i) => { // each petal
+        const innerRadius = this.radius * this.config.innerRadius; // radius of the middle seed part
 
         const randomizedRadius = this.getRandomRadius(spiralIndex);
         const numberOfPetals = this.config.numberOfPetals;
-        const extraRotation = 2 * p5.PI / numberOfPetals * spiralIndex * SPIRAL_INDEX_THETA_COEFFICIENT;
+        const extraRotation = 2 * p5.PI / numberOfPetals * spiralIndex * SPIRAL_INDEX_THETA_COEFFICIENT; // additional rotation based on spiralIndex
 
-        const xOuter = randomizedRadius * Math.cos(2 * p5.PI * i / numberOfPetals + extraRotation);
-        const yOuter = randomizedRadius * Math.sin(2 * p5.PI * i / numberOfPetals + extraRotation);
         const theta = ((p5.PI * 2) / numberOfPetals) * i + extraRotation + (Math.random() * (Math.random() > 0.5 ? PETAL_THETA_RANDOMNESS : -PETAL_THETA_RANDOMNESS));
-        const xInner = innerRadius * p5.cos(theta);
+        const perpendicularToTheta = theta + p5.PI / 2;
+        
+        const xOuter = randomizedRadius * Math.cos(2 * p5.PI * i / numberOfPetals + extraRotation); // outer point of petal
+        const yOuter = randomizedRadius * Math.sin(2 * p5.PI * i / numberOfPetals + extraRotation);
+
+        const xInner = innerRadius * p5.cos(theta); // inner point of petal
         const yInner = innerRadius * p5.sin(theta);
         
-        const xControl = xOuter - ((randomizedRadius - innerRadius) * this.config.petalControlStart) * p5.cos(theta);
+        const xControl = xOuter - ((randomizedRadius - innerRadius) * this.config.petalControlStart) * p5.cos(theta); // starting point for bezier control
         const yControl = yOuter - ((randomizedRadius - innerRadius) * this.config.petalControlStart) * p5.sin(theta);
-        const perpendicularToTheta = theta + p5.PI / 2;
+        
         const petalWidth = this.getRandomPetalWidth(randomizedRadius, spiralIndex);
         const petalTaper = this.getRandomPetalTaper(randomizedRadius);
 
+        const color = this.config.colors
+        ? this.config.colors[spiralIndex]
+        : COLORS[Math.floor(Math.random() * COLORS.length)];
+  
+
+        // bezier control points
         const b1c1 = {
           x: xControl - (petalWidth * petalTaper * p5.cos(perpendicularToTheta)),
           y: yControl - (petalWidth * petalTaper * p5.sin(perpendicularToTheta)),
@@ -114,15 +124,15 @@ export class Flower {
           b2c1,
           b1c2,
           b2c2,
+          color,
         }
       });
     });
   }
 
   build(sketch: typeof p5) {
-    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    sketch.fill(color[0], color[1], color[2]);
     this.petals.forEach((petal) => {
+      sketch.fill(petal.color[0], petal.color[1], petal.color[2]);
       if (this.config.petalStyle === PETAL_STYLE.rounded) this.petalRounded(sketch, petal);
       if (this.config.petalStyle === PETAL_STYLE.pointed) this.petalPointed(sketch, petal);
     });
@@ -147,11 +157,8 @@ export class Flower {
   }
 
   seed({x, y, i, sketch}: SeedFunctionParams) {
-    console.log(">>>> x", x);
-    console.log(">>>> y", y);
-
-    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    sketch.fill(color[0], color[1], color[2]);
+    // const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    // sketch.fill(color[0], color[1], color[2]);
     sketch.circle(x, y, this.config.seedDiameter * i * 0.01);
   }
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import FlowersCanvas from '@/components/flowers';
+import DreamFilesCanvas from '@/components/dream-files';
 
 import styles from './styles.module.css';
 
-export default function Minesweeper() {
+export default function DreamFiles() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -12,10 +12,10 @@ export default function Minesweeper() {
           <span className={styles.sparkles}>   ˚　　　　✦　　　.　　. 　 ˚ ✰✰　.　　　　 </span>
           <a href='/'>rainbox.world</a>
         </h2>
-        <h1 className={styles.title}>flowers</h1>
+        <h1 className={styles.title}>dream files</h1>
       </div>
-      <div className={styles.flowersContainer}>
-        <FlowersCanvas />
+      <div className={styles.dreamFilesContainer}>
+        <DreamFilesCanvas />
       </div>
     </div>
   );

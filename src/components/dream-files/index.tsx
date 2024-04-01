@@ -8,24 +8,32 @@ import { DreamFileSystem } from 'src/classes/DreamFileSystem';
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800;
 
-const FILE_MARGIN = 28;
 const X_PADDING = 60;
-const Y_PADDING = 40;
-const MAX_ROWS = 25;
+const Y_PADDING = 60;
+const MAX_ROWS = 22;
 
 const BACKGROUND_COLOR = [20, 20, 20];
-const TEXT_COLOR = [255, 255, 255];
 
 const DreamFilesCanvas = () => {
-  const dreamFileSystem = new DreamFileSystem({ scale: 0.8 });
+  const dreamFileSystem = new DreamFileSystem({ scale: 0.8, spacing: 36 });
 
   const p5Ref = useRef<HTMLDivElement | null>(null);
 
+  const initFile = ({ fileIndex, level, isParent, sketch }: { fileIndex: number, level: number, isParent: boolean, sketch: typeof p5.prototype }) => {
+    const file = dreamFileSystem.initializeFile({
+      fileIndex,
+      level,
+      isParent,
+      sketch,
+    });
+    dreamFileSystem.currentFile = file;
+  }
+
   const DreamFilesSketch = (sketch: typeof p5.prototype) => {
-    let totalFileFrames = 1;
+    let lastFileFrame = 1;
     let currentFileIndex = 0;
     let currentFileLevel = 0;
-    let nextFileLevel = 0;
+    let yStart = 0;
     let font: string | object;
 
     sketch.preload = () => {
@@ -33,49 +41,52 @@ const DreamFilesCanvas = () => {
     };
 
     sketch.setup = () => {
-      sketch.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+      sketch.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, sketch.WEBGL);
       sketch.background(BACKGROUND_COLOR);
-      sketch.translate(X_PADDING, Y_PADDING);
+      sketch.translate(X_PADDING - CANVAS_WIDTH/2, Y_PADDING - CANVAS_HEIGHT/2);
       sketch.textFont(font);
+      
+      initFile({
+        fileIndex: 0,
+        level: 0,
+        isParent: false,
+        sketch,
+      });
     };
   
     sketch.draw = () => {
-      sketch.translate(X_PADDING, Y_PADDING + FILE_MARGIN * currentFileIndex);
-      // print the file icon
-      if (sketch.frameCount === totalFileFrames && currentFileIndex < MAX_ROWS) {
-        nextFileLevel = dreamFileSystem.getNextFileLevel({ level: currentFileLevel });
-        const file = dreamFileSystem.initializeFile({
+      sketch.translate(X_PADDING - CANVAS_WIDTH/2, Y_PADDING - CANVAS_HEIGHT/2);
+
+      const isNewFile = lastFileFrame + dreamFileSystem.currentFile!.getLabelOrSymbolLength() + 1 === sketch.frameCount;
+
+      if (isNewFile && currentFileIndex >= MAX_ROWS) {
+        sketch.clear();
+        sketch.background(BACKGROUND_COLOR);
+        yStart = -(currentFileIndex - MAX_ROWS) * dreamFileSystem.spacing;
+        dreamFileSystem.drawFiles({ yStart });
+      }
+
+      if (isNewFile) {
+        // initialize the file
+        currentFileIndex++;
+        // anticipate the level of the next (+1) file
+        const nextFileLevel = dreamFileSystem.getNextFileLevel({ level: currentFileLevel });
+        const isParent = nextFileLevel === currentFileLevel + 1;
+        initFile({
           fileIndex: currentFileIndex,
           level: currentFileLevel,
-          isParent: nextFileLevel === currentFileLevel + 1
-        });
-        dreamFileSystem.currentFile = file;
-        dreamFileSystem.drawFile({
+          isParent,
           sketch,
-          colors: {
-            backgroundColor: BACKGROUND_COLOR,
-            textColor: TEXT_COLOR,
-          },
-        });
-        // initialize the label
-        dreamFileSystem.initializeLabel({
-          sketch,
-          colors: {
-            backgroundColor: BACKGROUND_COLOR,
-            textColor: TEXT_COLOR,
-          },
         });
         currentFileLevel = nextFileLevel;
+        lastFileFrame = sketch.frameCount;
       }
-      const fileLabelLength = dreamFileSystem.getLabelLength();
-      // print the next character in the label
-      if (sketch.frameCount < totalFileFrames + fileLabelLength && currentFileIndex < MAX_ROWS) {
-        dreamFileSystem.drawNextLabelCharacter({ sketch });
-      }
-      if (sketch.frameCount === totalFileFrames + fileLabelLength - 1 && currentFileIndex < MAX_ROWS) {
-        // set up variables for next file
-        totalFileFrames += fileLabelLength;
-        currentFileIndex++;
+
+      sketch.translate(0, yStart + dreamFileSystem.spacing * currentFileIndex);
+      dreamFileSystem.currentFile!.drawFile();
+      
+      if (!isNewFile) {
+        dreamFileSystem.currentFile!.drawNextLabelCharacter();
       }
     };
   };

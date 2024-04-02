@@ -41,10 +41,10 @@ const DreamFilesCanvas = () => {
     };
 
     sketch.setup = () => {
-      sketch.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, sketch.WEBGL);
+      sketch.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
       sketch.background(BACKGROUND_COLOR);
-      sketch.translate(X_PADDING - CANVAS_WIDTH/2, Y_PADDING - CANVAS_HEIGHT/2);
-      sketch.textFont(font);
+      sketch.translate(X_PADDING, Y_PADDING);
+      sketch.textFont('Courier New');
       
       initFile({
         fileIndex: 0,
@@ -55,7 +55,7 @@ const DreamFilesCanvas = () => {
     };
   
     sketch.draw = () => {
-      sketch.translate(X_PADDING - CANVAS_WIDTH/2, Y_PADDING - CANVAS_HEIGHT/2);
+      sketch.translate(X_PADDING, Y_PADDING);
 
       const isNewFile = lastFileFrame + dreamFileSystem.currentFile!.getLabelOrSymbolLength() + 1 === sketch.frameCount;
 

@@ -1,6 +1,6 @@
 import { prototype as p5 } from 'p5';
 
-import { COLORS, COLOR_CODES, FILE_PIXELS, MINUS, OPEN_FILE_PIXELS, PLUS } from "@/constants/dreamfiles";
+import { COLORS, COLOR_CODES, FOLDER_PIXELS, LABELS, MINUS, OPEN_FOLDER_PIXELS, PLUS } from "@/constants/dreamfiles";
 import { Point } from '@/types/geometry';
 
 enum Symbol {
@@ -16,7 +16,7 @@ type SymbolData = {
   height: number;
 }
 
-type FileLabel = {
+export type FileLabel = {
   text: string;
   fillColor?: Array<number>;
   levelMinimum?: number;
@@ -27,18 +27,6 @@ type AnimationData = {
   characterIndex: number,
   characterX: number;
 };
-
-const LABELS: Array<FileLabel> = [
-  { text: `... does anybody hear me ?` },
-  { text: `............................ until the pain wears off` },
-  { text: `..`, levelMinimum: 1 },
-  { text: `............... hi, hello, hi` },
-  { text: `gn gn gn gn` },
-  { text: `??` },
-  { text: `things` },
-  { text: `.`, levelMaximum: 0 },
-  { text: `..............................................................` },
-];
 
 type DrawFunction = ({
   scale,
@@ -236,7 +224,7 @@ export class DreamFile {
   }
 
   drawFile({ y = 0 }: { y?: number } = {}) {
-    const filePixels = this.isParent ? OPEN_FILE_PIXELS : FILE_PIXELS;
+    const filePixels = this.isParent ? OPEN_FOLDER_PIXELS : FOLDER_PIXELS;
     const buttonPixels = this.isParent ? MINUS : PLUS;
     
     Object.entries(filePixels).forEach(([color, points]) => {

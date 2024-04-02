@@ -10,10 +10,15 @@ export const FILE_HEIGHT_DEFAULT = 24;
 export const SPACING_DEFAULT = 12;
 
 const FILE_LEVEL_CHILD_PROBABILITY: Record<number, number> = {
-  0: 0.3,
+  0: 0.35,
   1: 0.3,
   2: 0.25,
-  3: 0.15,
+  3: 0.2,
+  4: 0.15,
+  5: 0.1,
+  6: 0.05,
+  7: 0.03,
+  8: 0.01
 };
 
 export type Files = Array<DreamFile>;

@@ -1,9 +1,8 @@
 .page {
-  @apply w-full h-screen;
-  @apply bg-[#141414];
+  @apply w-full;
 }
 
-.dreamFilesContainer {
+.pixelBoxContainer {
   @apply ml-0 mt-[30px] w-full h-full;
 }
 

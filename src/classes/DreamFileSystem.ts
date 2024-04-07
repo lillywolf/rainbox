@@ -1,5 +1,5 @@
 import { prototype as p5 } from 'p5';
-import { DreamFile } from './DreamFile';
+import { DreamFile, FILE_TYPES } from './DreamFile';
 
 type DreamFileSystemParams = {
   scale?: number;
@@ -37,11 +37,12 @@ export class DreamFileSystem {
     this.files = [];
   }
 
-  initializeFile({ fileIndex, level, isParent, sketch }: { fileIndex: number, level: number, isParent: boolean, sketch: typeof p5 }) {
+  initializeFile({ fileIndex, level, isParent, type, sketch }: { fileIndex: number; level: number; isParent: boolean; type: FILE_TYPES; sketch: typeof p5; }) {
     const file = new DreamFile({
       index: fileIndex,
       level,
       isParent,
+      type,
       sketch,
       scale: this.scale,
       spacing: this.spacing,
@@ -51,12 +52,22 @@ export class DreamFileSystem {
     return file;
   }
 
-  getNextFileLevel({ level }: { level: number }) {
-    const randomValue = Math.random();
+  getNextFileLevel({ level, type }: { level: number, type: FILE_TYPES }) {
+    if (type === FILE_TYPES.file) {
+      if (Math.random() < 0.5) return { type: FILE_TYPES.file, level };
+      return { type: FILE_TYPES.folder, level: level - 1 - (Math.ceil(Math.random() * (level - 1))) };
+    }
 
-    if (randomValue < FILE_LEVEL_CHILD_PROBABILITY[level]) return level + 1;
-    if (level > 0 && randomValue > 0.75) return level - (Math.ceil(Math.random() * (level)));
-    return level;
+    const randomValue = Math.random();
+    if (randomValue < FILE_LEVEL_CHILD_PROBABILITY[level]) {
+      if (Math.random() < 0.25) return { type: FILE_TYPES.file, level: level + 1 };
+      return { type: FILE_TYPES.folder, level: level + 1 };
+    }
+    if (level > 0 && randomValue > 0.75) {
+      return { type: FILE_TYPES.folder, level: level - (Math.ceil(Math.random() * (level))) };
+    }
+
+    return { type, level };
   }
 
   drawFiles({ yStart }: { yStart: number }) {

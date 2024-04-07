@@ -1,10 +1,15 @@
 import { prototype as p5 } from 'p5';
 
-import { COLORS, COLOR_CODES, FOLDER_PIXELS, LABELS, MINUS, OPEN_FOLDER_PIXELS, PLUS } from "@/constants/dreamfiles";
+import { COLORS, COLOR_CODES, FILE_LABELS, FILE_PIXELS, FOLDER_LABELS, FOLDER_PIXELS, MINUS, OPEN_FOLDER_PIXELS, PLUS } from "@/constants/dreamfiles";
 import { Point } from '@/types/geometry';
 
 enum Symbol {
   'cloud' = 'cloud',
+}
+
+export enum FILE_TYPES {
+  'file' = 'file',
+  'folder' = 'folder',
 }
 
 type SymbolData = {
@@ -58,6 +63,8 @@ export const drawCloud: DrawFunction = ({ symbol, start, scale, sketch }) => {
   sketch.arc(start.x + 17 * scale, start.y + 8 * scale, 12 * scale, 12 * scale, sketch.PI + sketch.PI * 1/10, sketch.TWO_PI);
   sketch.arc(start.x + 22 * scale, start.y + 13 * scale, 10 * scale, 10 * scale, sketch.PI + sketch.PI * 9/16, sketch.TWO_PI + sketch.HALF_PI);
   sketch.line(start.x + 22.5 * scale, start.y + 18 * scale, start.x + 5 * scale, start.y + 18 * scale);  
+
+  sketch.noStroke();
 }
 
 export const SYMBOLS: Record<Symbol, { max: number, width: number, height: number, colors: Array<COLORS>, draw: DrawFunction }> = {
@@ -82,6 +89,7 @@ const BUTTON_INDENT_DEFAULT = -20;
 
 export class DreamFile {
   scale;
+  type;
   height;
   width;
   spacing;
@@ -103,6 +111,7 @@ export class DreamFile {
     height = HEIGHT_DEFAULT,
     width = WIDTH_DEFAULT,
     spacing = SPACING_DEFAULT,
+    type,
     index,
     level,
     isParent,
@@ -113,6 +122,7 @@ export class DreamFile {
     height?: number;
     width?: number;
     spacing?: number;
+    type: FILE_TYPES;
     index: number;
     level: number;
     isParent: boolean;
@@ -123,6 +133,7 @@ export class DreamFile {
     this.height = height * scale;
     this.width = width * scale;
     this.spacing = spacing * scale;
+    this.type = type;
     this.index = index;
     this.level = level;
     this.isParent = isParent;
@@ -138,7 +149,9 @@ export class DreamFile {
 
     this.sketch.textSize(this.textSize);
 
-    this.label = LABELS[Math.floor(Math.random() * LABELS.length)];
+    this.label = type === FILE_TYPES.file
+      ? FILE_LABELS[Math.floor(Math.random() * FILE_LABELS.length)]
+      : FOLDER_LABELS[Math.floor(Math.random() * FOLDER_LABELS.length)];
     
     this.setSymbol();
     this.useSymbol = Math.random() < 0.2;
@@ -179,6 +192,7 @@ export class DreamFile {
     }
 
     if (!this.useSymbol && this.label) {
+      this.sketch.fill(this.textColor);
       this.sketch.text(this.label.text, this.width + this.levelIndent + this.labelIndent, this.height + bottomY + y);
     }
   }
@@ -202,6 +216,7 @@ export class DreamFile {
     }
 
     if (!this.useSymbol && this.label) {
+      this.sketch.fill(this.textColor);
       const char = Array.from(this.label.text)[this.animationData.characterIndex];
       this.sketch.text(char, this.width + this.levelIndent + this.labelIndent + this.animationData.characterX, this.height + bottomY);
       this.animationData.characterX += this.sketch.textWidth(char);
@@ -224,8 +239,12 @@ export class DreamFile {
   }
 
   drawFile({ y = 0 }: { y?: number } = {}) {
-    const filePixels = this.isParent ? OPEN_FOLDER_PIXELS : FOLDER_PIXELS;
-    const buttonPixels = this.isParent ? MINUS : PLUS;
+    const filePixels = this.type === FILE_TYPES.file
+      ? FILE_PIXELS
+      : this.isParent ? OPEN_FOLDER_PIXELS : FOLDER_PIXELS;
+    const buttonPixels = this.type === FILE_TYPES.file
+      ? {}
+      : this.isParent ? MINUS : PLUS;
     
     Object.entries(filePixels).forEach(([color, points]) => {
       points.forEach((point) => {

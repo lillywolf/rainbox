@@ -2,15 +2,18 @@
 
 import p5 from 'p5';
 import { useEffect, useRef } from 'react';
+import { FILE_TYPES } from 'src/classes/DreamFile';
 
 import { DreamFileSystem } from 'src/classes/DreamFileSystem';
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800;
 
-const X_PADDING = 60;
+const X_PADDING = 100;
 const Y_PADDING = 60;
 const MAX_ROWS = 22;
+
+const FILES_LENGTH_BUFFER = 50;
 
 const BACKGROUND_COLOR = [20, 20, 20];
 
@@ -19,11 +22,12 @@ const DreamFilesCanvas = () => {
 
   const p5Ref = useRef<HTMLDivElement | null>(null);
 
-  const initFile = ({ fileIndex, level, isParent, sketch }: { fileIndex: number, level: number, isParent: boolean, sketch: typeof p5.prototype }) => {
+  const initFile = ({ fileIndex, level, isParent, type, sketch }: { fileIndex: number; level: number; isParent: boolean; type: FILE_TYPES; sketch: typeof p5.prototype }) => {
     const file = dreamFileSystem.initializeFile({
       fileIndex,
       level,
       isParent,
+      type,
       sketch,
     });
     dreamFileSystem.currentFile = file;
@@ -33,6 +37,7 @@ const DreamFilesCanvas = () => {
     let lastFileFrame = 1;
     let currentFileIndex = 0;
     let currentFileLevel = 0;
+    let currentFileType = FILE_TYPES.folder;
     let yStart = 0;
     let font: string | object;
 
@@ -50,6 +55,7 @@ const DreamFilesCanvas = () => {
         fileIndex: 0,
         level: 0,
         isParent: false,
+        type: FILE_TYPES.folder,
         sketch,
       });
     };
@@ -58,6 +64,13 @@ const DreamFilesCanvas = () => {
       sketch.translate(X_PADDING, Y_PADDING);
 
       const isNewFile = lastFileFrame + dreamFileSystem.currentFile!.getLabelOrSymbolLength() + 1 === sketch.frameCount;
+
+      if (isNewFile) {
+        if (dreamFileSystem.files.length > FILES_LENGTH_BUFFER) {
+          dreamFileSystem.files.shift();
+          currentFileIndex--;
+        }
+      }
 
       if (isNewFile && currentFileIndex >= MAX_ROWS) {
         sketch.clear();
@@ -70,15 +83,17 @@ const DreamFilesCanvas = () => {
         // initialize the file
         currentFileIndex++;
         // anticipate the level of the next (+1) file
-        const nextFileLevel = dreamFileSystem.getNextFileLevel({ level: currentFileLevel });
+        const { type: nextFileType, level: nextFileLevel } = dreamFileSystem.getNextFileLevel({ level: currentFileLevel, type: currentFileType });
         const isParent = nextFileLevel === currentFileLevel + 1;
         initFile({
           fileIndex: currentFileIndex,
           level: currentFileLevel,
           isParent,
+          type: currentFileType,
           sketch,
         });
         currentFileLevel = nextFileLevel;
+        currentFileType = nextFileType;
         lastFileFrame = sketch.frameCount;
       }
 

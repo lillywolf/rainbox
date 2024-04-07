@@ -7,7 +7,7 @@ import { getRandomEntryFromObject, getRandomValueFromArray } from '@/utils/array
 import { ColorID, Color } from '../constants/colors';
 import PixelCube from './PixelCube';
 
-const DEFAULT_TILES = 8;
+const DEFAULT_TILES = 10;
 const DEFAULT_TILE_DIMENSION = 20;
 const DEFAULT_COLOR_SCHEME = PINKY_FIELD;
 const DEFAULT_GRID_ORIENTATION = { alpha: toRadians(-35.264), beta: toRadians(45) }; // arcsin(tan 30°), 45°
@@ -28,6 +28,7 @@ export type PixelBoxGridParams = {
   xTiles?: number;
   yTiles?: number;
   zTiles?: number; 
+  tileDimension?: number;
   gridOrientation?: GridOrientation;
   colorScheme?: ColorScheme;
   ortho?: boolean;
@@ -47,6 +48,7 @@ export class PixelBoxGrid {
   xTiles;
   yTiles;
   zTiles;
+  tileDimension;
   gridOrientation;
   rotationMatrix;
   grid: GridCube[][][];
@@ -64,6 +66,7 @@ export class PixelBoxGrid {
     xTiles = DEFAULT_TILES,
     yTiles = DEFAULT_TILES,
     zTiles = DEFAULT_TILES,
+    tileDimension = DEFAULT_TILE_DIMENSION,
     gridOrientation = DEFAULT_GRID_ORIENTATION,
     colorScheme = DEFAULT_COLOR_SCHEME,
     spacing = 0,
@@ -73,13 +76,14 @@ export class PixelBoxGrid {
     this.xTiles = xTiles;
     this.yTiles = yTiles;
     this.zTiles = zTiles;
+    this.tileDimension = tileDimension || DEFAULT_TILE_DIMENSION;
     this.gridOrientation = gridOrientation;
     this.colorScheme = colorScheme;
     this.spacing = spacing;
 
-    this.xu = this.scale * DEFAULT_TILE_DIMENSION;
-    this.yu = this.scale * DEFAULT_TILE_DIMENSION;
-    this.zu = this.scale * DEFAULT_TILE_DIMENSION;
+    this.xu = this.scale * this.tileDimension;
+    this.yu = this.scale * this.tileDimension;
+    this.zu = this.scale * this.tileDimension;
 
     sketch.colorMode(p5.HSL);
 

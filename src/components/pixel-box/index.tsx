@@ -1,13 +1,15 @@
 'use client';
 
-import { PINKY_FIELD } from '@/constants/colors';
+import { FUN_PRIMARIES, GRASSY_FIELD, HARD_CANDY, MEADOW_FLOWERS, PINKY_FIELD } from '@/constants/colors';
+import { getRandomValueFromArray } from '@/utils/array';
 import p5 from 'p5';
 import { useEffect, useRef } from 'react';
 import { PixelBoxGrid } from 'src/classes/PixelBoxGrid';
 import PixelBoxOrthoGrid from 'src/classes/PixelBoxOrthoGrid';
 
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 800;
+const CANVAS_WIDTH = 1200;
+const CANVAS_HEIGHT = 1200;
+const COLOR_SCHEMES = [PINKY_FIELD, FUN_PRIMARIES, MEADOW_FLOWERS, GRASSY_FIELD, HARD_CANDY];
 
 const PixelBoxCanvas = () => {
   const p5Ref = useRef<HTMLDivElement | null>(null);
@@ -26,8 +28,12 @@ const PixelBoxCanvas = () => {
 
       grid = new PixelBoxGrid({
         sketch,
-        colorScheme: PINKY_FIELD,
-        spacing: 2,
+        tileDimension: 36,
+        colorScheme: getRandomValueFromArray(COLOR_SCHEMES),
+        spacing: 14,
+        xTiles: 8,
+        yTiles: 8,
+        zTiles: 8,
       });
       grid.buildGrid();
       
@@ -35,7 +41,7 @@ const PixelBoxCanvas = () => {
     };
 
     sketch.draw = () => {
-      // sketch.translate(0, -CANVAS_HEIGHT/2);
+      sketch.translate(-CANVAS_WIDTH/2 + 200, -CANVAS_HEIGHT/2 + 200);
       console.log(">>> frameCount", sketch.frameCount)
 
       grid.setRotation();
@@ -48,6 +54,7 @@ const PixelBoxCanvas = () => {
         console.log(`No grid index found for frame ${sketch.frameCount}`);
         return;
       }
+
       // grid.setCubeColor(gridEntry.cube);
       // gridEntry.cube.draw();
 

@@ -10,7 +10,7 @@ class PixelBoxOrthoGrid extends PixelBoxGrid {
 
     this.sketch.ortho();
 
-    this.sketch.translate(0, this.yTiles * this.yu);
+    // this.sketch.translate(0, this.yTiles * this.yu);
   }
 
   setRotation(): void {
@@ -47,15 +47,17 @@ class PixelBoxOrthoGrid extends PixelBoxGrid {
             t: { x: cxu + xu, y: cyu + yu, z: czu + zu },
             r: { x: cxu, y: cyu + yu, z: czu + zu }
           };
+          const center = { x: cxu + xu / 2, y: cyu + yu / 2, z: czu + zu/2 };
           
           this.grid[x][y].push({
             cube: new PixelOrthoCube({
               bottom,
               top,
+              center,
               index: { xIndex: x, yIndex: y, zIndex: z },
               color: WHITE,
-              sketch: this.sketch,
               spacing: this.spacing,
+              grid: this,
             }),
             metadata: {
               occupied: false,
@@ -108,6 +110,7 @@ class PixelBoxOrthoGrid extends PixelBoxGrid {
 
     allEntriesAfter.forEach((entry) => {
       if (entry.metadata.occupied) {
+        entry.cube.rotateInPlace();
         entry.cube.draw();
       }
     });

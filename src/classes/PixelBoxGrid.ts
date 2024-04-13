@@ -1,4 +1,5 @@
 import { prototype as p5 } from 'p5';
+import type p5Type from 'p5';
 import { mat3 } from "gl-matrix";
 
 import { Point3D } from "@/types/geometry";
@@ -24,6 +25,9 @@ type GridOrientation = {
 
 export type PixelBoxGridParams = {
   sketch: typeof p5;
+  shader?: p5Type.Shader;
+  gl?: WebGL2RenderingContext;
+  program?: WebGLProgram;
   scale?: number;
   xTiles?: number;
   yTiles?: number;
@@ -31,7 +35,6 @@ export type PixelBoxGridParams = {
   tileDimension?: number;
   gridOrientation?: GridOrientation;
   colorScheme?: ColorScheme;
-  ortho?: boolean;
   spacing?: number;
 };
 
@@ -44,6 +47,9 @@ export type GridCube = {
 
 export class PixelBoxGrid {
   sketch;
+  shader;
+  gl;
+  program;
   scale;
   xTiles;
   yTiles;
@@ -62,6 +68,9 @@ export class PixelBoxGrid {
 
   constructor({
     sketch,
+    shader,
+    gl,
+    program,
     scale = 1,
     xTiles = DEFAULT_TILES,
     yTiles = DEFAULT_TILES,
@@ -72,6 +81,9 @@ export class PixelBoxGrid {
     spacing = 0,
   }: PixelBoxGridParams) {
     this.sketch = sketch;
+    this.shader = shader;
+    this.gl = gl;
+    this.program = program;
     this.scale = scale;
     this.xTiles = xTiles;
     this.yTiles = yTiles;
@@ -90,6 +102,10 @@ export class PixelBoxGrid {
     this.rotationMatrix = this.createRotationMatrices();
     this.grid = [];
     this.sortedGrid = [];
+  }
+
+  setProgram(program: WebGLProgram) {
+    this.program = program;
   }
 
   buildGrid() {
@@ -120,15 +136,17 @@ export class PixelBoxGrid {
             t: { x: cxu + xu, y: cyu + yu, z: czu + zu },
             r: { x: cxu, y: cyu + yu, z: czu + zu }
           };
+          const center = { x: cxu + xu / 2, y: cyu + yu / 2, z: czu + zu/2 };
           
           this.grid[x][y].push({
             cube: new PixelCube({
               bottom,
               top,
+              center,
               index: { xIndex: x, yIndex: y, zIndex: z },
               color: WHITE,
-              sketch: this.sketch,
               spacing: this.spacing,
+              grid: this,
             }),
             metadata: {
               occupied: false,
@@ -195,19 +213,22 @@ export class PixelBoxGrid {
       return;
     };
 
-    const allEntriesAfter = this.sortedGrid.slice(index);
+    this.drawCubes();
 
-    allEntriesAfter.forEach((entry) => {
-      if (entry.metadata.occupied) {
-        entry.cube.draw();
-      }
-    });
+    // const allEntriesAfter = this.sortedGrid.slice(index);
+
+    // allEntriesAfter.forEach((entry) => {
+    //   if (entry.metadata.occupied) {
+    //     entry.cube.draw();
+    //   }
+    // });
   }
 
   drawCubes() {
     this.getSortedGrid().forEach((entry) => {
       if (entry.metadata.occupied) {
-        entry.cube.draw();
+        entry.cube.rotateInPlace();
+        entry.cube.drawGL();
       }
     });
   }

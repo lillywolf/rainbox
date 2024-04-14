@@ -3,22 +3,22 @@ import type p5Type from 'p5';
 
 import { Color, hslToRgb } from "@/constants/colors";
 import { Point3D } from "@/types/geometry";
-import { toRGB } from '@/utils/shader';
+import { position, toRGB } from '@/utils/gl';
 import { PixelBoxGrid } from './PixelBoxGrid';
 
-type GridSquare = {
+export type GridSquare = {
   t: Point3D;
   r: Point3D;
   b: Point3D;
   l: Point3D;
 }
 
-type LineProperties = {
+export type LineProperties = {
   startBreak: Point3D;
   endBreak: Point3D;
 }
 
-type DrawingProperties = {
+export type DrawingProperties = {
   borders: {
     r?: LineProperties;
     l?: LineProperties;
@@ -26,7 +26,7 @@ type DrawingProperties = {
   }
 }
 
-type Corners = {
+export type Corners = {
   ct: Point3D;
   cb: Point3D;
   lt: Point3D;
@@ -102,9 +102,51 @@ class PixelCube {
     const { sketch } = this.grid;
     const { cb, ct, rt, lt } = this.corners;
 
+    if (!sketch) {
+      console.error('No sketch found!');
+      return;
+    }
+
     this.drawingProperties.borders.d = getLineBreakValues(cb, ct, sketch);
     this.drawingProperties.borders.l = getLineBreakValues(lt, ct, sketch);
     this.drawingProperties.borders.r = getLineBreakValues(ct, rt, sketch);
+  }
+
+  quadGL({ vertices, indices, color }: { vertices: Array<number>, indices: Array<number>, color: [number, number, number] }) {
+    if (!this.grid.gl) {
+      console.error("No gl defined for quadGL");
+      return;
+    }
+
+    if (!this.grid.program) {
+      console.error("No program defined for quadGL");
+      return;
+    }
+
+    const { gl } = this.grid;
+    const { program } = this.grid;
+
+    const vertexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    console.log(">>> vertices", new Float32Array(vertices));
+
+    // const indexBuffer = gl.createBuffer();
+    // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    // gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+
+    const positionLocation = gl.getAttribLocation(program, 'aPosition');
+    gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(positionLocation);
+
+    const colorLocation = gl.getUniformLocation(program, 'color');
+    gl.uniform3fv(colorLocation, new Float32Array(toRGB(color)));
+
+    // gl.enable(gl.DEPTH_TEST);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 4);
+
+    // gl.drawElements(gl.TRIANGLES, 2, gl.UNSIGNED_SHORT, 0);
   }
 
   drawGL() {
@@ -118,10 +160,8 @@ class PixelCube {
       return;
     }
 
-    const { gl } = this.grid;
-    const { program } = this.grid;
     const { color } = this;
-    const { ct, cb, lt, rt, rb, lb, bt, bb } = this.corners;
+    const dimensions = this.grid.getDimensions();
 
     const lighter = color.hsl.lightness + 10;
     const lightest = color.hsl.lightness + 20;
@@ -130,14 +170,32 @@ class PixelCube {
     const lighterColorRgb = hslToRgb({ h: color.hsl.hue, s: color.hsl.saturation, l: lighter });
     const lightestColorRgb = hslToRgb({ h: color.hsl.hue, s: color.hsl.saturation, l: lightest });
 
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array([rb.x, rb.y, rb.z, bb.x, bb.y, bb.z, bt.x, bt.y, bt.z, rt.x, rt.y, rt.z]), gl.STATIC_DRAW);
-    // const position = gl.getAttribLocation(this.program, 'aPosition');
-    // gl.enableVertexAttribArray(position);
-    // gl.vertexAttribPointer(position, 12, gl.FLOAT, false, 0, 0);
-    gl.useProgram(program);
-    gl.drawArrays(gl.TRIANGLES, 0, 12);
+    const { ct, cb, lt, rt, rb, lb, bt, bb } = Object.entries(this.corners).reduce((acc, [ key, value ]) => {
+      return {
+        ...acc,
+        [key]: position(value, dimensions),
+      }
+    }, {} as Corners);
+
+    const indices = [3, 2, 1, 3, 2, 1];
+
+    this.quadGL({
+      vertices: [rb.x, rb.y, rb.z, bb.x, bb.y, bb.z, bt.x, bt.y, bt.z, rt.x, rt.y, rt.z],
+      indices,
+      color: darkestColorRgb,
+    });
+
+    this.quadGL({
+      vertices: [bt.x, bt.y, bt.z, bb.x, bb.y, bb.z, lb.x, lb.y, lb.z, lt.x, lt.y, lt.z],
+      indices,
+      color: lighterColorRgb,
+    });
+
+    this.quadGL({
+      vertices: [lb.x, lb.y, lb.z, cb.x, cb.y, cb.z, rb.x, rb.y, rb.z, bb.x, bb.y, bb.z],
+      indices,
+      color: lightestColorRgb,
+    });
 
     // right side
     // this.shader.setUniform('color', toRGB(darkestColorRgb));
@@ -165,8 +223,6 @@ class PixelCube {
   }
 
   draw() {
-    console.log(">>> draw");
-
     const { color } = this;
     const { sketch } = this.grid;
     const { d, l, r  } = this.drawingProperties.borders;
@@ -175,6 +231,11 @@ class PixelCube {
     const lighter = color.hsl.lightness + 10;
     const lightest = color.hsl.lightness + 20;
     const darkest = Math.max(color.hsl.lightness - 50, 0);
+
+    if (!sketch) {
+      console.error('No sketch found for draw');
+      return;
+    }
 
     // this.sketch.noStroke();
     sketch.stroke(color.hsl.hue, color.hsl.lightness, darkest);
@@ -215,6 +276,11 @@ class PixelCube {
   drawSplitLine({ start, end, startBreak, endBreak }: { start: Point3D, end: Point3D, startBreak: Point3D, endBreak: Point3D }) {
     const { sketch } = this.grid;
     
+    if (!sketch) {
+      console.error('No sketch found for drawSplitLine');
+      return;
+    }
+
     sketch.line(start.x, start.y, start.z, startBreak.x, startBreak.y, startBreak.z);
     sketch.line(endBreak.x, endBreak.y, endBreak.z, end.x, end.y, end.z);
   }

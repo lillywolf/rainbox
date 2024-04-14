@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PixelBoxCanvas from '@/components/pixel-box';
+import PixelBoxGLCanvas from '@/components/pixel-box/gl';
 
 import styles from './styles.module.css';
 
@@ -15,7 +15,7 @@ export default function PixelBox() {
         <h1 className={styles.title}>pixel box</h1>
       </div>
       <div className={styles.pixelBoxContainer}>
-        <PixelBoxCanvas />
+        <PixelBoxGLCanvas />
       </div>
     </div>
   );

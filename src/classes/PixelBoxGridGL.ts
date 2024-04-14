@@ -1,34 +1,33 @@
-import { prototype as p5 } from 'p5';
-import type p5Type from 'p5';
-import { mat3 } from "gl-matrix";
+import { mat3, mat4 } from "gl-matrix";
 
-import { Point3D } from "@/types/geometry";
 import { ColorScheme, PINKY_FIELD, WHITE } from '@/constants/colors';
 import { getRandomEntryFromObject, getRandomValueFromArray } from '@/utils/array';
 import { ColorID, Color } from '../constants/colors';
-import PixelCube from './PixelCube';
+import PixelCubeGL from "./PixelCubeGL";
+import { ProgramInfo } from "@/components/pixel-box/gl";
+import { position } from "@/utils/gl";
+import { GridSquare } from "./PixelCube";
 
 const DEFAULT_TILES = 10;
 const DEFAULT_TILE_DIMENSION = 20;
 const DEFAULT_COLOR_SCHEME = PINKY_FIELD;
-const DEFAULT_GRID_ORIENTATION = { alpha: toRadians(-35.264), beta: toRadians(45) }; // arcsin(tan 30°), 45°
+const DEFAULT_GRID_ORIENTATION = { alpha: toRadians(-35.264), beta: toRadians(45), theta: toRadians(0) }; // arcsin(tan 30°), 45°
 
 enum RotationMatrix {
   'alpha' = 'alpha',
   'beta' = 'beta',
+  'theta' = 'theta'
 }
 
 type GridOrientation = {
   alpha: number;
   beta: number;
+  theta: number;
 }
 
-export type PixelBoxGridParams = {
-  sketch?: typeof p5;
-  gl?: WebGL2RenderingContext;
-  program?: WebGLProgram;
-  vertexShader?: WebGLShader;
-  fragmentShader?: WebGLShader;
+export type PixelBoxGridGLParams = {
+  gl: WebGL2RenderingContext;
+  programInfo: ProgramInfo;
 
   scale?: number;
   xTiles?: number;
@@ -40,19 +39,16 @@ export type PixelBoxGridParams = {
   spacing?: number;
 };
 
-export type GridCube = {
-  cube: PixelCube,
+export type GridCubeGL = {
+  cube: PixelCubeGL,
   metadata: {
     occupied?: boolean
   }
 };
 
-export class PixelBoxGrid {
-  sketch;
-  vertexShader;
-  fragmentShader;
+export class PixelBoxGridGL {
   gl;
-  program;
+  programInfo;
 
   scale;
   xTiles;
@@ -61,9 +57,9 @@ export class PixelBoxGrid {
   tileDimension;
   gridOrientation;
   rotationMatrix;
-  grid: GridCube[][][];
+  grid: GridCubeGL[][][];
   colorScheme;
-  sortedGrid: GridCube[];
+  sortedGrid: GridCubeGL[];
   spacing: number;
 
   xu;
@@ -71,11 +67,8 @@ export class PixelBoxGrid {
   zu;
 
   constructor({
-    sketch,
     gl,
-    program,
-    vertexShader,
-    fragmentShader,
+    programInfo,
     scale = 1,
     xTiles = DEFAULT_TILES,
     yTiles = DEFAULT_TILES,
@@ -84,12 +77,9 @@ export class PixelBoxGrid {
     gridOrientation = DEFAULT_GRID_ORIENTATION,
     colorScheme = DEFAULT_COLOR_SCHEME,
     spacing = 0,
-  }: PixelBoxGridParams) {
-    this.sketch = sketch;
-    this.vertexShader = vertexShader;
-    this.fragmentShader = fragmentShader;
+  }: PixelBoxGridGLParams) {
     this.gl = gl;
-    this.program = program;
+    this.programInfo = programInfo;
 
     this.scale = scale;
     this.xTiles = xTiles;
@@ -104,36 +94,26 @@ export class PixelBoxGrid {
     this.yu = this.scale * this.tileDimension;
     this.zu = this.scale * this.tileDimension;
 
-    sketch?.colorMode(p5.HSL);
-
-    this.rotationMatrix = this.createRotationMatrices();
+    this.rotationMatrix = this.createRotationMatrix();
     this.grid = [];
     this.sortedGrid = [];
   }
 
-  setProgram(program: WebGLProgram) {
-    this.program = program;
+  setProgramInfo(programInfo: ProgramInfo) {
+    this.programInfo = programInfo;
   }
 
-  setVertexShader(vertexShader: WebGLShader) {
-    this.vertexShader = vertexShader;
-  }
+  clearGL() {
+    const { gl } = this;
 
-  setFragmentShader(fragmentShader: WebGLShader) {
-    this.fragmentShader = fragmentShader;
-  }
-
-  getDimensions() {
-    return {
-      x: this.xu * this.xTiles,
-      y: this.yu * this.yTiles,
-      z: this.zu * this.zTiles,
-    }
+    gl.clearColor(1.0, 1.0, 1.0, 1.0); // clear to black
+    gl.clearDepth(1.0); // clear everything
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL); // near things obscure far things
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   }
 
   buildGrid() {
-    this.setRotation();
-
     const { xu, yu, zu } = this;
 
     for (let x = 0; x < this.xTiles; x++) {
@@ -162,7 +142,7 @@ export class PixelBoxGrid {
           const center = { x: cxu + xu / 2, y: cyu + yu / 2, z: czu + zu/2 };
           
           this.grid[x][y].push({
-            cube: new PixelCube({
+            cube: new PixelCubeGL({
               bottom,
               top,
               center,
@@ -180,32 +160,97 @@ export class PixelBoxGrid {
     }
   }
 
-  setRotation() {
-    const { sketch } = this;
+  drawGrid() {
+    const { gl, programInfo } = this;
+    const dimensions = this.getDimensions();
 
-    if (!sketch) {
-      console.error("Cannot set rotation for undefined sketch");
-      return;
-    }
+    this.grid.flat(3).forEach((gridCube: GridCubeGL) => {
+      const { cube } = gridCube;
 
-    sketch.rotateX(this.gridOrientation.alpha);
-    sketch.rotateY(this.gridOrientation.beta);
+      const bottom = Object.entries(cube.bottom).reduce((acc, [key, value]) => {
+        return {
+          ...acc,
+          [key]: position(value, dimensions),
+        }
+      }, {} as GridSquare);
+      
+      const vertexBuffer = this.createVertexPositionBuffer(
+        { vertices: [bottom.l.x, bottom.l.y, bottom.l.z, bottom.b.x, bottom.b.y, bottom.b.z, bottom.r.x, bottom.r.y, bottom.r.z, bottom.t.x, bottom.t.y, bottom.t.z] }
+      );
+
+      if (!vertexBuffer) {
+        console.error('Failed to create vertex buffer');
+        return;
+      }
+
+      this.setVertexPositionAttribute({ buffer: vertexBuffer, programInfo });
+
+      const colorLocation = gl.getUniformLocation(programInfo.program, 'color');
+      gl.uniform3fv(colorLocation, new Float32Array([1.0, 0.0, 0.0]));
+
+      gl.drawArrays(gl.LINE_LOOP, 0, 4);
+
+      // sketch.quad(top.l.x, top.l.y, top.l.z, top.b.x, top.b.y, top.b.z, top.r.x, top.r.y, top.r.z, top.t.x, top.t.y, top.t.z);
+    });
   }
 
-  drawGrid() {
-    const { sketch } = this;
+  getDimensions() {
+    const dimensions = {
+      x: this.xu * this.xTiles,
+      y: this.yu * this.yTiles,
+      z: this.zu * this.zTiles,
+    };
+    return { x: dimensions.x * 1.3, y: dimensions.y * 1.3, z: dimensions.z * 1.3 }; // 1.3 is for padding
+  }
 
-    if (!sketch) {
-      console.error("Cannot draw grid for undefined sketch");
+  drawCubeAtGridEntry(gridEntry: GridCubeGL) {
+    const index = this.getIndexForGridEntry(gridEntry);
+
+    this.sortedGrid[index] = gridEntry;
+    this.setCubeColor(gridEntry.cube);
+
+    const neighbors = this.getNeighborsInFrontOfGridEntry(gridEntry);
+
+    if (neighbors.length === 3) {
+      console.log("is hidden by neighbors, skip draw");
       return;
-    }
+    };
+  }
 
-    this.grid.flat(3).forEach((gridCube: GridCube) => {
-      const { cube: { bottom, top } } = gridCube;
-      sketch.stroke('black');
-      sketch.quad(bottom.l.x, bottom.l.y, bottom.l.z, bottom.b.x, bottom.b.y, bottom.b.z, bottom.r.x, bottom.r.y, bottom.r.z, bottom.t.x, bottom.t.y, bottom.t.z);
-      sketch.quad(top.l.x, top.l.y, top.l.z, top.b.x, top.b.y, top.b.z, top.r.x, top.r.y, top.r.z, top.t.x, top.t.y, top.t.z);
+  initGL() {
+    const { gl, programInfo } = this;
+
+    const projectionMatrix = mat4.create();
+    const perspectiveMatrix = this.createPerspectiveMatrix({
+      fieldOfViewInRadians: Math.PI/3,
+      aspectRatio: 1, // update this later to be CANVAS_WIDTH / CANVAS_HEIGHT
+      near: 1,
+      far: 3 // replace with CANVAS_HEIGHT
     });
+
+    mat4.multiply(projectionMatrix, this.rotationMatrix, perspectiveMatrix);
+    // mat4.perspective(projectionMatrix, fov, aspect, zNear, zFar);
+
+    const modelViewMatrix = mat4.create();
+
+    mat4.translate(
+      modelViewMatrix,
+      modelViewMatrix,
+      [0, 0, -2.0]
+    ); // amount to translate
+
+    gl.useProgram(programInfo.program);
+
+    gl.uniformMatrix4fv(
+      programInfo.uniformLocations.projectionMatrix,
+      false,
+      projectionMatrix,
+    );
+    gl.uniformMatrix4fv(
+      programInfo.uniformLocations.modelViewMatrix,
+      false,
+      modelViewMatrix,
+    );
   }
 
   reset() {
@@ -237,32 +282,18 @@ export class PixelBoxGrid {
     return gridEntry;
   }
 
-  drawCubeAtGridEntry(gridEntry: GridCube) {
-    const index = this.getIndexForGridEntry(gridEntry);
-
-    this.sortedGrid[index] = gridEntry;
-    this.setCubeColor(gridEntry.cube);
-
-    const neighbors = this.getNeighborsInFrontOfGridEntry(gridEntry);
-
-    if (neighbors.length === 3) {
-      console.log("Is hidden by neighbors, skip draw");
-      return;
-    };
-
-    this.drawCubes();
-  }
-
   drawCubes() {
+    this.clearGL();
+
     this.getSortedGrid().forEach((entry) => {
       if (entry.metadata.occupied) {
         entry.cube.rotateInPlace();
-        entry.cube.draw();
+        entry.cube.drawGL();
       }
     });
   }
 
-  setCubeColor(cube: PixelCube) {
+  setCubeColor(cube: PixelCubeGL) {
     const [_, color] = getRandomEntryFromObject<[ColorID, Color]>(this.colorScheme);
     cube.color = color;
   }
@@ -280,7 +311,7 @@ export class PixelBoxGrid {
     return this.grid[x][y][z];
   }
 
-  getIndexForGridEntry(gridEntry: GridCube) {
+  getIndexForGridEntry(gridEntry: GridCubeGL) {
     return gridEntry.cube.index.zIndex + (this.yTiles - gridEntry.cube.index.yIndex - 1) * this.zTiles + (this.xTiles - gridEntry.cube.index.xIndex - 1) * this.zTiles * this.yTiles;
   }
 
@@ -306,8 +337,8 @@ export class PixelBoxGrid {
     return getRandomValueFromArray(unoccupiedFlatMap);
   }
 
-  getNeighborsInFrontOfGridEntry(gridEntry: GridCube) {
-    const neighbors: GridCube[] = [];
+  getNeighborsInFrontOfGridEntry(gridEntry: GridCubeGL) {
+    const neighbors: GridCubeGL[] = [];
     const { cube } = gridEntry;
 
     if (cube.index.xIndex > 0) {
@@ -336,8 +367,37 @@ export class PixelBoxGrid {
     });
   }
 
-  createRotationMatrices() {
-    const { alpha, beta } = this.gridOrientation;
+  createVertexPositionBuffer({ vertices }: { vertices: Array<number> }) {
+    const { gl } = this;
+
+    console.log(">>> vertices", vertices);
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+  
+    return positionBuffer;
+  }
+
+  setVertexPositionAttribute({ buffer, programInfo}: { programInfo: ProgramInfo, buffer: WebGLBuffer }) {
+    const { gl } = this;
+
+    const normalize = false; // don't normalize
+    const stride = 0; // how many bytes to get from one set of values to the next
+    const offset = 0; // how many bytes inside the buffer to start from
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.vertexAttribPointer(
+      programInfo.attribLocations.vertexPosition,
+      3,
+      gl.FLOAT,
+      normalize,
+      stride,
+      offset,
+    );
+    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+  }
+
+  createRotationMatrix() {
+    const { alpha, beta, theta } = this.gridOrientation;
 
     const matrices = {
       [RotationMatrix.alpha]: [
@@ -349,24 +409,58 @@ export class PixelBoxGrid {
         [Math.cos(beta), 0, -Math.sin(beta)],
         [0, 1, 0],
         [Math.sin(beta), 0, Math.cos(beta)],
+      ],
+      [RotationMatrix.theta]: [
+        [Math.cos(theta), -Math.sin(theta), 0],
+        [Math.sin(theta), Math.cos(theta), 0],
+        [0, 0, 1],
       ]
     };
 
-    const result = createEmpty3DMatrix();
+    const result = mat3.create();
+
     const alphaMatrix = matrices[RotationMatrix.alpha];
     const betaMatrix = matrices[RotationMatrix.beta];
+    const thetaMatrix = matrices[RotationMatrix.theta];
 
-    mat3.multiply(result, toFloat32(alphaMatrix), toFloat32(betaMatrix));
+    mat3.multiply(result, mat3.multiply(mat3.create(), toFloat32(alphaMatrix), toFloat32(betaMatrix)), toFloat32(thetaMatrix));
 
-    return result;
+    return mat4.fromValues(result[0], result[1], result[2], 0, result[3], result[4], result[5], 0, result[6], result[7], result[8], 0, 0, 0, 0, 1);
   }
 
-  getPoint2D(pt3D: Point3D) {
-    const pt2D = createEmpty3DMatrix();
-    mat3.multiply(pt2D, this.rotationMatrix, new Float32Array([pt3D.x, pt3D.y, pt3D.z]));
-
-    return { x: pt2D[0], y: pt2D[4] };
-  }
+  createPerspectiveMatrix({
+    fieldOfViewInRadians,
+    aspectRatio,
+    near,
+    far,
+  }: {
+    fieldOfViewInRadians: number;
+    aspectRatio: number;
+    near: number;
+    far: number;
+  }) {
+    const f = 1.0 / Math.tan(fieldOfViewInRadians / 2);
+    const rangeInv = 1 / (near - far);
+  
+    return mat4.fromValues(
+      f / aspectRatio,
+      0,
+      0,
+      0,
+      0,
+      f,
+      0,
+      0,
+      0,
+      0,
+      (near + far) * rangeInv,
+      -1,
+      0,
+      0,
+      near * far * rangeInv * 2,
+      0,
+    );
+  };
 }
 
 export function toRadians(degrees: number) {
@@ -377,6 +471,11 @@ export function toFloat32(array2d: number[][]) {
   return new Float32Array(array2d.flat(2));
 }
 
+export function createEmpty4DMatrix() {
+  return new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+}
+
 export function createEmpty3DMatrix() {
   return new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 }
+

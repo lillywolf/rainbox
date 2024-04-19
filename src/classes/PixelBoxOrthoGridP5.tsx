@@ -1,11 +1,10 @@
-import { prototype as p5 } from 'p5';
-
-import { GridCube, PixelBoxGrid, PixelBoxGridParams } from "./PixelBoxGrid";
+import { GridCube } from "./PixelBoxGrid";
 import { WHITE } from '../constants/colors';
-import PixelOrthoCube from './PixelOrthoCube';
+import PixelOrthoCube from './PixelOrthoCubeP5';
+import { PixelBoxGridP5, PixelBoxGridP5Params } from "./PixelBoxGridP5";
 
-class PixelBoxOrthoGrid extends PixelBoxGrid {
-  constructor(params: PixelBoxGridParams) {
+class PixelBoxOrthoGrid extends PixelBoxGridP5 {
+  constructor(params: PixelBoxGridP5Params) {
     super(params);
 
     this.sketch.ortho();

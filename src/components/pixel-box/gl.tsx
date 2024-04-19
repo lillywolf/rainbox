@@ -3,10 +3,10 @@
 import { FUN_PRIMARIES, GRASSY_FIELD, HARD_CANDY, MEADOW_FLOWERS, PINKY_FIELD } from '@/constants/colors';
 import { getRandomValueFromArray } from '@/utils/array';
 import { RefObject, useEffect, useRef } from 'react';
-import { PixelBoxGridGL } from 'src/classes/PixelBoxGridGL';
+import { GridCubeGL, PixelBoxGridGL } from 'src/classes/PixelBoxGridGL';
 
-const CANVAS_WIDTH = 1200;
-const CANVAS_HEIGHT = 1200;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 800;
 const COLOR_SCHEMES = [PINKY_FIELD, FUN_PRIMARIES, MEADOW_FLOWERS, GRASSY_FIELD, HARD_CANDY];
 
 export type ProgramInfo = {
@@ -24,6 +24,8 @@ const PixelBoxGLCanvas = () => {
   let vertexShader: WebGLShader;
   let gl: WebGL2RenderingContext;
   let frameCount = 0;
+
+  let gridFull = false;
 
   async function initGL() {  
     const vertexSource = await fetch('/box/pixel-box/api/shader/shader.vert');
@@ -65,7 +67,7 @@ const PixelBoxGLCanvas = () => {
       programInfo: programInfo,
       tileDimension: 100,
       colorScheme: getRandomValueFromArray(COLOR_SCHEMES),
-      spacing: 8,
+      spacing: 12,
       xTiles: 5,
       yTiles: 5,
       zTiles: 5,
@@ -88,10 +90,11 @@ const PixelBoxGLCanvas = () => {
 
     if (!grid) return;
 
-    if (frameCount % 10 === 0) {
-      const gridEntry = grid.getRandomUnoccupiedGridEntry();
+    if (frameCount % 10 === 0 && !gridFull) {
+      const gridEntry = grid.getRandomUnoccupiedGridEntry() as GridCubeGL;
       if (!gridEntry) {
         console.log(`No grid index found for frame ${frameCount}`);
+        gridFull = true;
         return;
       }
       grid.drawCubeAtGridEntry(gridEntry);

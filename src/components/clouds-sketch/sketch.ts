@@ -46,7 +46,6 @@ export const sketch = ({ p, parentRef, weatherData}: CloudSketchParams) => {
     Object.keys(weatherData.hourly).forEach((key) => {
       weatherData.hourly[key as WEATHER_KEYS].forEach((value, j) => {
         if (key === "cloud_cover") {
-          // console.log(">>> value", value);
           [...Array(Math.ceil(value/10))].forEach((cloud, k) => {
             p.text(SYMBOLS[key].text, LEFT_COLUMN_WIDTH + TEXT_SIZE_BASIS * k, TEXT_SIZE_BASIS * j);
           });

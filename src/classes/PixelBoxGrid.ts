@@ -1,35 +1,27 @@
-import { prototype as p5 } from 'p5';
-import type p5Type from 'p5';
-import { mat3 } from "gl-matrix";
-
-import { Point3D } from "@/types/geometry";
 import { ColorScheme, PINKY_FIELD, WHITE } from '@/constants/colors';
 import { getRandomEntryFromObject, getRandomValueFromArray } from '@/utils/array';
 import { ColorID, Color } from '../constants/colors';
 import PixelCube from './PixelCube';
+import { mat3, mat4 } from "gl-matrix";
 
 const DEFAULT_TILES = 10;
 const DEFAULT_TILE_DIMENSION = 20;
 const DEFAULT_COLOR_SCHEME = PINKY_FIELD;
-const DEFAULT_GRID_ORIENTATION = { alpha: toRadians(-35.264), beta: toRadians(45) }; // arcsin(tan 30°), 45°
+const DEFAULT_GRID_ORIENTATION = { alpha: toRadians(-35.264), beta: toRadians(45), theta: toRadians(0) }; // arcsin(tan 30°), 45°
 
-enum RotationMatrix {
+export enum RotationMatrix {
   'alpha' = 'alpha',
   'beta' = 'beta',
+  'theta' = 'theta',
 }
 
-type GridOrientation = {
+export type GridOrientation = {
   alpha: number;
   beta: number;
+  theta: number;
 }
 
 export type PixelBoxGridParams = {
-  sketch?: typeof p5;
-  gl?: WebGL2RenderingContext;
-  program?: WebGLProgram;
-  vertexShader?: WebGLShader;
-  fragmentShader?: WebGLShader;
-
   scale?: number;
   xTiles?: number;
   yTiles?: number;
@@ -48,12 +40,6 @@ export type GridCube = {
 };
 
 export class PixelBoxGrid {
-  sketch;
-  vertexShader;
-  fragmentShader;
-  gl;
-  program;
-
   scale;
   xTiles;
   yTiles;
@@ -71,11 +57,6 @@ export class PixelBoxGrid {
   zu;
 
   constructor({
-    sketch,
-    gl,
-    program,
-    vertexShader,
-    fragmentShader,
     scale = 1,
     xTiles = DEFAULT_TILES,
     yTiles = DEFAULT_TILES,
@@ -85,12 +66,6 @@ export class PixelBoxGrid {
     colorScheme = DEFAULT_COLOR_SCHEME,
     spacing = 0,
   }: PixelBoxGridParams) {
-    this.sketch = sketch;
-    this.vertexShader = vertexShader;
-    this.fragmentShader = fragmentShader;
-    this.gl = gl;
-    this.program = program;
-
     this.scale = scale;
     this.xTiles = xTiles;
     this.yTiles = yTiles;
@@ -104,23 +79,9 @@ export class PixelBoxGrid {
     this.yu = this.scale * this.tileDimension;
     this.zu = this.scale * this.tileDimension;
 
-    sketch?.colorMode(p5.HSL);
-
-    this.rotationMatrix = this.createRotationMatrices();
+    this.rotationMatrix = this.createRotationMatrix();
     this.grid = [];
     this.sortedGrid = [];
-  }
-
-  setProgram(program: WebGLProgram) {
-    this.program = program;
-  }
-
-  setVertexShader(vertexShader: WebGLShader) {
-    this.vertexShader = vertexShader;
-  }
-
-  setFragmentShader(fragmentShader: WebGLShader) {
-    this.fragmentShader = fragmentShader;
   }
 
   getDimensions() {
@@ -132,8 +93,6 @@ export class PixelBoxGrid {
   }
 
   buildGrid() {
-    this.setRotation();
-
     const { xu, yu, zu } = this;
 
     for (let x = 0; x < this.xTiles; x++) {
@@ -180,34 +139,6 @@ export class PixelBoxGrid {
     }
   }
 
-  setRotation() {
-    const { sketch } = this;
-
-    if (!sketch) {
-      console.error("Cannot set rotation for undefined sketch");
-      return;
-    }
-
-    sketch.rotateX(this.gridOrientation.alpha);
-    sketch.rotateY(this.gridOrientation.beta);
-  }
-
-  drawGrid() {
-    const { sketch } = this;
-
-    if (!sketch) {
-      console.error("Cannot draw grid for undefined sketch");
-      return;
-    }
-
-    this.grid.flat(3).forEach((gridCube: GridCube) => {
-      const { cube: { bottom, top } } = gridCube;
-      sketch.stroke('black');
-      sketch.quad(bottom.l.x, bottom.l.y, bottom.l.z, bottom.b.x, bottom.b.y, bottom.b.z, bottom.r.x, bottom.r.y, bottom.r.z, bottom.t.x, bottom.t.y, bottom.t.z);
-      sketch.quad(top.l.x, top.l.y, top.l.z, top.b.x, top.b.y, top.b.z, top.r.x, top.r.y, top.r.z, top.t.x, top.t.y, top.t.z);
-    });
-  }
-
   reset() {
     this.sortedGrid = new Array(this.xTiles * this.yTiles * this.zTiles).fill(0);
   }
@@ -242,13 +173,6 @@ export class PixelBoxGrid {
 
     this.sortedGrid[index] = gridEntry;
     this.setCubeColor(gridEntry.cube);
-
-    const neighbors = this.getNeighborsInFrontOfGridEntry(gridEntry);
-
-    if (neighbors.length === 3) {
-      console.log("Is hidden by neighbors, skip draw");
-      return;
-    };
 
     this.drawCubes();
   }
@@ -336,8 +260,8 @@ export class PixelBoxGrid {
     });
   }
 
-  createRotationMatrices() {
-    const { alpha, beta } = this.gridOrientation;
+  createRotationMatrix() {
+    const { alpha, beta, theta } = this.gridOrientation;
 
     const matrices = {
       [RotationMatrix.alpha]: [
@@ -349,24 +273,31 @@ export class PixelBoxGrid {
         [Math.cos(beta), 0, -Math.sin(beta)],
         [0, 1, 0],
         [Math.sin(beta), 0, Math.cos(beta)],
+      ],
+      [RotationMatrix.theta]: [
+        [Math.cos(theta), -Math.sin(theta), 0],
+        [Math.sin(theta), Math.cos(theta), 0],
+        [0, 0, 1],
       ]
     };
 
-    const result = createEmpty3DMatrix();
+    const result = mat3.create();
+
     const alphaMatrix = matrices[RotationMatrix.alpha];
     const betaMatrix = matrices[RotationMatrix.beta];
+    const thetaMatrix = matrices[RotationMatrix.theta];
 
-    mat3.multiply(result, toFloat32(alphaMatrix), toFloat32(betaMatrix));
+    mat3.multiply(result, mat3.multiply(mat3.create(), toFloat32(alphaMatrix), toFloat32(betaMatrix)), toFloat32(thetaMatrix));
 
-    return result;
+    return mat4.fromValues(result[0], result[1], result[2], 0, result[3], result[4], result[5], 0, result[6], result[7], result[8], 0, 0, 0, 0, 1);
   }
 
-  getPoint2D(pt3D: Point3D) {
-    const pt2D = createEmpty3DMatrix();
-    mat3.multiply(pt2D, this.rotationMatrix, new Float32Array([pt3D.x, pt3D.y, pt3D.z]));
+  // getPoint2D(pt3D: Point3D) {
+  //   const pt2D = createEmpty3DMatrix();
+  //   mat3.multiply(pt2D, this.rotationMatrix, new Float32Array([pt3D.x, pt3D.y, pt3D.z]));
 
-    return { x: pt2D[0], y: pt2D[4] };
-  }
+  //   return { x: pt2D[0], y: pt2D[4] };
+  // }
 }
 
 export function toRadians(degrees: number) {
@@ -379,4 +310,8 @@ export function toFloat32(array2d: number[][]) {
 
 export function createEmpty3DMatrix() {
   return new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+}
+
+export function createEmpty4DMatrix() {
+  return new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 }

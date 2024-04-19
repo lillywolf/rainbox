@@ -1,50 +1,23 @@
-import { Color, hslToRgb } from "@/constants/colors";
-import { Point3D } from "@/types/geometry";
+import { hslToRgb } from "@/constants/colors";
 import { position, toRGB } from '@/utils/gl';
-import { PixelBoxGridGL, toRadians } from './PixelBoxGridGL';
+import { PixelBoxGridGL } from './PixelBoxGridGL';
 import { ProgramInfo } from "@/components/pixel-box/gl";
-import { Corners, DrawingProperties, GridSquare } from "./PixelCube";
+import PixelCube, { Corners, PixelCubeParams } from "./PixelCube";
+import p5 from "p5";
 
-export type PixelCubeGLParams = {
-  index: { xIndex: number; yIndex: number; zIndex: number };
-  top: GridSquare;
-  bottom: GridSquare;
-  center: Point3D;
-  color: Color;
-  spacing?: number;
+export type PixelCubeGLParams =  PixelCubeParams & {
   grid: PixelBoxGridGL;
 }
 
-class PixelCubeGL {
-  index;
-  bottom;
-  top;
-  center;
-  color;
+class PixelCubeGL extends PixelCube {
   grid;
-  spacing;
-  drawingProperties: DrawingProperties;
-  corners: Corners;
 
   constructor({
-    index,
-    top,
-    bottom,
-    center,
-    color,
-    grid,
-    spacing = 0,
+    ...params
   }: PixelCubeGLParams) {
-    this.index = index;
-    this.bottom = bottom;
-    this.top = top;
-    this.center = center;
-    this.color = color;
-    this.grid = grid;
-    this.spacing = spacing;
-    this.drawingProperties = { borders: {} };
+    super(params);
 
-    this.corners = this.initializeCorners();
+    this.grid = params.grid;
   }
 
   initializeCorners() {
@@ -70,7 +43,6 @@ class PixelCubeGL {
     // create a buffer with length 48f
     const vertexBuffer = this.createVertexPositionBuffer({ vertices: vertices.flat() });
     const colorBuffer = this.createColorBuffer({ colors });
-    console.log(">>> colors", colors);
 
     if (!vertexBuffer) {
       console.error('Failed to create vertex buffer');
@@ -188,9 +160,9 @@ class PixelCubeGL {
   setVertexColorAttribute({ buffer, programInfo}: { programInfo: ProgramInfo, buffer: WebGLBuffer }) {
     const { gl } = this.grid;
 
-    const normalize = false; // don't normalize
-    const stride = 0; // how many bytes to get from one set of values to the next
-    const offset = 0; // how many bytes inside the buffer to start from
+    const normalize = false; 
+    const stride = 0;
+    const offset = 0;
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.vertexAttribPointer(
       programInfo.attribLocations.vertexColor,
@@ -204,7 +176,7 @@ class PixelCubeGL {
   }
 
   rotateInPlace() {
-    const angle = toRadians(3);
+    const angle = p5.prototype.radians(3);
     const { center } = this;
 
     Object.entries(this.corners).forEach(([key, value]) => {

@@ -1,9 +1,9 @@
 import { prototype as p5 } from 'p5';
 
-import PixelCube, { PixelCubeParams } from './PixelCube';
+import PixelCube, { PixelCubeP5Params } from './PixelCubeP5';
 
 class PixelOrthoCube extends PixelCube {
-  constructor(params: PixelCubeParams) {
+  constructor(params: PixelCubeP5Params) {
     super(params);
   }
 

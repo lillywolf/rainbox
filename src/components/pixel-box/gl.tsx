@@ -68,9 +68,9 @@ const PixelBoxGLCanvas = () => {
       tileDimension: 100,
       colorScheme: getRandomValueFromArray(COLOR_SCHEMES),
       spacing: 12,
-      xTiles: 5,
-      yTiles: 5,
-      zTiles: 5,
+      xTiles: 12,
+      yTiles: 12,
+      zTiles: 12,
     });
 
     gridRef.current.initGL();
@@ -92,11 +92,13 @@ const PixelBoxGLCanvas = () => {
 
     if (frameCount % 10 === 0 && !gridFull) {
       const gridEntry = grid.getRandomUnoccupiedGridEntry() as GridCubeGL;
+
       if (!gridEntry) {
         console.log(`No grid index found for frame ${frameCount}`);
         gridFull = true;
         return;
       }
+
       grid.drawCubeAtGridEntry(gridEntry);
     }
 
@@ -148,7 +150,7 @@ export function createProgram(gl: WebGL2RenderingContext, vertexShader: WebGLSha
 function getGL(ref: RefObject<HTMLDivElement>) {
   const canvas = ref.current?.querySelector('#glcanvas') as HTMLCanvasElement;
 
-  return canvas.getContext('webgl2');
+  return canvas.getContext('webgl2', {powerPreference: 'high-performance', antialias: 'false'}) as WebGL2RenderingContext;
 }
 
 export default PixelBoxGLCanvas;

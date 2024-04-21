@@ -3,7 +3,7 @@ import { mat3, mat4 } from "gl-matrix";
 import { WHITE } from '@/constants/colors';
 import PixelCubeGL from "./PixelCubeGL";
 import { ProgramInfo } from "@/components/pixel-box/gl";
-import { createPerspectiveMatrix, position } from "@/utils/gl";
+import { createColorBuffer, createIndexPositionBuffer, createPerspectiveMatrix, createVertexPositionBuffer, position, setVertexColorAttribute, setVertexPositionAttribute } from "@/utils/gl";
 import { GridSquare } from "./PixelCube";
 import { PixelBoxGrid, PixelBoxGridParams, RotationMatrix, toFloat32, toRadians } from "./PixelBoxGrid";
 
@@ -122,8 +122,8 @@ export class PixelBoxGridGL extends PixelBoxGrid {
         }
       }, {} as GridSquare);
       
-      const vertexBuffer = this.createVertexPositionBuffer(
-        { vertices: [bottom.l.x, bottom.l.y, bottom.l.z, bottom.b.x, bottom.b.y, bottom.b.z, bottom.r.x, bottom.r.y, bottom.r.z, bottom.t.x, bottom.t.y, bottom.t.z] }
+      const vertexBuffer = createVertexPositionBuffer(
+        { vertices: [bottom.l.x, bottom.l.y, bottom.l.z, bottom.b.x, bottom.b.y, bottom.b.z, bottom.r.x, bottom.r.y, bottom.r.z, bottom.t.x, bottom.t.y, bottom.t.z], gl },
       );
 
       if (!vertexBuffer) {
@@ -131,7 +131,7 @@ export class PixelBoxGridGL extends PixelBoxGrid {
         return;
       }
 
-      this.setVertexPositionAttribute({ buffer: vertexBuffer, programInfo });
+      setVertexPositionAttribute({ buffer: vertexBuffer, programInfo, gl });
 
       const colorLocation = gl.getUniformLocation(programInfo.program, 'color');
       gl.uniform3fv(colorLocation, new Float32Array([1.0, 0.0, 0.0]));
@@ -157,7 +157,6 @@ export class PixelBoxGridGL extends PixelBoxGrid {
 
   drawCubeAtGridEntry(gridEntry: GridCubeGL) {
     const index = this.getIndexForGridEntry(gridEntry);
-
     this.sortedGrid[index] = gridEntry;
     this.setCubeColor(gridEntry.cube);
   }
@@ -184,8 +183,6 @@ export class PixelBoxGridGL extends PixelBoxGrid {
       [-0.5, -0.5, -2.5]
     );
 
-    console.log(">>> modelViewMatrix", modelViewMatrix)
-
     gl.useProgram(programInfo.program);
 
     gl.uniformMatrix4fv(
@@ -203,12 +200,53 @@ export class PixelBoxGridGL extends PixelBoxGrid {
   drawCubes() {
     this.clearGL();
 
+    const { gl, programInfo } = this;
+
+    let allVertices: number[] = [];
+    let allColors: number[] = [];
+    let allIndices: number[] = [];
+
+    let index = 0;
+
     this.getSortedGrid().forEach((entry) => {
       if (entry.metadata.occupied) {
-        entry.cube.rotateInPlace();
-        entry.cube.drawGL();
+        const { cube } = entry;
+        
+        // cube.rotateInPlace();
+        const vertices = cube.getVertexData();
+        const colors = cube.faceColors;
+        const indices = cube.getIndexData({ cubeIndex: index });
+
+        allVertices = [...allVertices, ...vertices.flat()];
+        allColors = [...allColors, ...colors.flat()];
+        allIndices = [...allIndices, ...indices];
+
+        index++;
       }
     });
+
+    console.log(">>> allVertices", allVertices);
+    console.log(">>> allColors", allColors);
+    console.log(">>> allIndices", allIndices);
+    
+    const vertexBuffer = createVertexPositionBuffer({ vertices: allVertices, gl });
+    const colorBuffer = createColorBuffer({ colors: allColors, gl });
+    const indexBuffer = createIndexPositionBuffer({ indices: allIndices, gl });
+
+    if (!vertexBuffer) {
+      console.error('Failed to create vertex buffer');
+      return;
+    }
+
+    if (!colorBuffer) {
+      console.error('Failed to create color buffer');
+      return;
+    }
+
+    setVertexPositionAttribute({ buffer: vertexBuffer, programInfo, gl });
+    setVertexColorAttribute({ buffer: colorBuffer, programInfo, gl });
+
+    gl.drawElements(gl.TRIANGLES, allIndices.length, gl.UNSIGNED_SHORT, 0);
   }
 
   getSortedGrid() {
@@ -219,34 +257,6 @@ export class PixelBoxGridGL extends PixelBoxGrid {
           : a.cube.index.yIndex - b.cube.index.yIndex
         : a.cube.index.zIndex - b.cube.index.zIndex
     });
-  }
-
-  createVertexPositionBuffer({ vertices }: { vertices: Array<number> }) {
-    const { gl } = this;
-
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-  
-    return positionBuffer;
-  }
-
-  setVertexPositionAttribute({ buffer, programInfo}: { programInfo: ProgramInfo, buffer: WebGLBuffer }) {
-    const { gl } = this;
-
-    const normalize = false; // don't normalize
-    const stride = 0; // how many bytes to get from one set of values to the next
-    const offset = 0; // how many bytes inside the buffer to start from
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.vertexAttribPointer(
-      programInfo.attribLocations.vertexPosition,
-      3,
-      gl.FLOAT,
-      normalize,
-      stride,
-      offset,
-    );
-    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
   }
 
   createRotationMatrix() {

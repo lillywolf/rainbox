@@ -1,6 +1,7 @@
-import { Color } from "@/constants/colors";
+import { Color, hslToRgb } from "@/constants/colors";
 import { Point3D } from "@/types/geometry";
 import { PixelBoxGrid, toRadians } from "./PixelBoxGrid";
+import { toRGB } from "@/utils/gl";
 
 export type GridSquare = {
   t: Point3D;
@@ -39,6 +40,7 @@ class PixelCube {
   grid;
   spacing;
   corners: Corners;
+  faceColors: number[];
 
   constructor({
     index,
@@ -58,6 +60,7 @@ class PixelCube {
     this.spacing = spacing;
 
     this.corners = this.initializeCorners();
+    this.faceColors = [];
   }
 
   initializeCorners() {
@@ -75,6 +78,20 @@ class PixelCube {
     const bb_ = { x: bt.x - s, y: bt.y - s, z: bt.z + s }; // back bottom
 
     return { ct, cb, lt, rt, lb, rb, bt: bt_, bb: bb_ };
+  }
+
+  setFaceColors() {
+    const { color } = this;
+
+    const lighter = color.hsl.lightness + 10;
+    const lightest = color.hsl.lightness + 20;
+
+    const darkestColorRgb = hslToRgb({ h: color.hsl.hue, s: color.hsl.saturation, l: color.hsl.lightness });
+    const lighterColorRgb = hslToRgb({ h: color.hsl.hue, s: color.hsl.saturation, l: lighter });
+    const lightestColorRgb = hslToRgb({ h: color.hsl.hue, s: color.hsl.saturation, l: lightest });
+
+    const colors = [toRGB(darkestColorRgb), toRGB(lighterColorRgb), toRGB(lightestColorRgb), toRGB(darkestColorRgb), toRGB(lighterColorRgb), toRGB(lightestColorRgb)];
+    this.faceColors = colors.reduce((acc, c) => acc.concat(c, c, c, c), [] as Array<number>);
   }
 
   draw() {}

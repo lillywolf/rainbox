@@ -189,6 +189,7 @@ export class PixelBoxGrid {
   setCubeColor(cube: PixelCube) {
     const [_, color] = getRandomEntryFromObject<[ColorID, Color]>(this.colorScheme);
     cube.color = color;
+    cube.setFaceColors();
   }
 
   getGridEntryForIndex(index: number) {

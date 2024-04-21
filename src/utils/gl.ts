@@ -1,3 +1,4 @@
+import { ProgramInfo } from "@/components/pixel-box/gl";
 import { Point3D } from "@/types/geometry";
 import { mat4 } from "gl-matrix";
 
@@ -30,6 +31,79 @@ export const projection = ({width, height, depth}: {width: number, height: numbe
     -1, 1, 0, 1,
   );
 };
+
+export const createVertexPositionBuffer = ({ vertices, gl }: {
+  vertices: Array<number>,
+  gl: WebGL2RenderingContext
+}) => {
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+  return positionBuffer;
+}
+
+export const createColorBuffer = ({ colors, gl }: {
+  colors: Array<number>,
+  gl: WebGL2RenderingContext
+}) => {
+  const colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+  return colorBuffer;
+}
+
+export const createIndexPositionBuffer = ({ indices, gl }: {
+  indices: Array<number>;
+  gl: WebGL2RenderingContext;
+}) => {
+  const indexBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+
+  return indexBuffer;
+}
+
+export const setVertexPositionAttribute = ({ buffer, programInfo, gl }: {
+  programInfo: ProgramInfo;
+  buffer: WebGLBuffer;
+  gl: WebGL2RenderingContext;
+}) => {
+  const normalize = false; // don't normalize
+  const stride = 0; // how many bytes to get from one set of values to the next
+  const offset = 0; // how many bytes inside the buffer to start from
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.vertexPosition,
+    3,
+    gl.FLOAT,
+    normalize,
+    stride,
+    offset,
+  );
+  gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+}
+
+export const setVertexColorAttribute = ({ buffer, programInfo, gl }: {
+  programInfo: ProgramInfo;
+  buffer: WebGLBuffer;
+  gl: WebGL2RenderingContext;
+}) => {
+  const normalize = false; 
+  const stride = 0;
+  const offset = 0;
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.vertexColor,
+    3,
+    gl.FLOAT,
+    normalize,
+    stride,
+    offset,
+  );
+  gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
+}
 
 export const createPerspectiveMatrix = ({
   fieldOfViewInRadians,
